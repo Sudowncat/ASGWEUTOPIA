@@ -1,0 +1,195 @@
+;---------------------------------------------------------------------------
+;      Super de LV 1 y 2 de Russell
+;---------------------------------------------------------------------------
+[StateDef 1000]
+type = S
+movetype= A
+physics = S
+juggle  = 1
+velset = 0,0
+ctrl = 0
+anim = 1000
+poweradd = -1000
+sprpriority = 2
+
+[State 1000, EX LV 1]
+Type = Helper
+trigger1 = AnimElem = 3
+StateNo = 30002
+ID = 30002
+Name = "EX_Effect"
+Pos = 5,-48
+PosType = P1
+Ownpal = 1
+Keyctrl = 0
+SprPriority = 5
+IgnoreHitPause = 1
+Persistent = 0
+SuperMoveTime = 9999
+PauseMoveTime = 9999
+
+[State 0, VelAdd]
+type = VelAdd
+trigger1 = Time = [39, 54]
+trigger2 = Time = [69, 84]
+trigger3 = Time = [99, 114]
+trigger4 = Time = [129, 144]
+trigger5 = Time = [159, 174]
+trigger6 = Time = [189, 204]
+trigger7 = Time = [219, 234]
+trigger8 = Time = [249, 264]
+trigger9 = Time = [279, 294]
+x = 8
+y = 0
+
+[State 0, VelAdd]
+type = VelAdd
+trigger1 = Time = [54, 69]
+trigger2 = Time = [84, 99]
+trigger3 = Time = [114, 129]
+trigger4 = Time = [144, 159]
+trigger5 = Time = [174, 189]
+trigger6 = Time = [204, 219]
+trigger7 = Time = [234, 249]
+trigger8 = Time = [264, 279]
+trigger9 = Time = [294, 309]
+x = -8
+y = 0
+
+[State 0, ScreenBound]
+type = ScreenBound
+trigger1 = Time = [9, 309]
+value = 1
+movecamera = 0,0
+
+[State 200, 1]
+type = HitDef
+trigger1 = Animelem = 4
+trigger2 = Animelem = 5
+trigger3 = Animelem = 6
+trigger4 = Animelem = 7
+trigger5 = Animelem = 8
+trigger6 = Animelem = 9
+trigger7 = Animelem = 10
+trigger8 = Animelem = 11
+trigger9 = Animelem = 12
+trigger10 = Animelem = 13
+trigger11 = Animelem = 14
+trigger12 = Animelem = 15
+trigger13 = Animelem = 16
+trigger14 = Animelem = 17
+trigger15 = Animelem = 18
+trigger16 = Animelem = 19
+trigger17 = Animelem = 20
+trigger18 = Animelem = 21
+attr = S, NA
+damage = 20, 10
+animtype = Light
+guardflag = MA
+hitflag = MAF
+priority = 1, Hit
+pausetime = 10, 10
+sparkno = 0
+sparkxy = -10, -76
+hitsound = 5, 0
+guardsound = 6, 0
+ground.type = High
+ground.slidetime = 5
+ground.hittime  = 12
+;ground.velocity = -2
+;airguard.velocity = -0.9,-.4
+air.type = High
+;air.velocity = -0.4,-1
+air.hittime = 12
+
+[State 200, end]
+type = ChangeState
+trigger1 = Time = 310
+value = 201
+ctrl = 0
+;---------------------------------------------------------------------------
+[StateDef 1100]
+type = A
+movetype= A
+physics = S
+juggle  = 1
+velset = 0,0
+ctrl = 0
+anim = 1000
+poweradd = -1000
+sprpriority = 2
+
+[State -1]
+Type = Helper
+trigger1 = AnimElem = 3
+StateNo = 30002
+ID = 30002
+Name = "EX_Effect"
+Pos = 5,-48
+PosType = P1
+Ownpal = 1
+Keyctrl = 0
+SprPriority = 5
+IgnoreHitPause = 1
+Persistent = 0
+SuperMoveTime = 9999
+PauseMoveTime = 9999
+
+[State 0, VelAdd]
+type = VelAdd
+trigger1 = Time = [39, 80]
+x = 3
+y = 2
+
+[State 200, 1]
+type = HitDef
+trigger1 = Animelem = 4
+attr = S, NA
+damage = 40, 20
+animtype = Light
+guardflag = MA
+hitflag = MAF
+priority = 1, Hit
+pausetime = 10, 10
+sparkno = 0
+sparkxy = -10, -76
+hitsound = 5, 0
+guardsound = 6, 0
+ground.type = High
+ground.slidetime = 5
+ground.hittime  = 12
+;ground.velocity = -2
+;airguard.velocity = -0.9,-.4
+air.type = High
+;air.velocity = -0.4,-1
+air.hittime = 12
+
+[State 200, end]
+type = ChangeState
+trigger1 = pos Y > -2
+value = 5110
+ctrl = 0
+;---------------------------------------------------------------------------
+;---------------------------------------------------------------------------
+;---------------------------------------------------------------------------
+;---------------------------------------------------------------------------
+;---------------------------------------------------------------------------
+;---------------------------------------------------------------------------
+;---------------------------------------------------------------------------
+;---------------------------------------------------------------------------
+;---------------------------------------------------------------------------
+;---------------------------------------------------------------------------
+;---------------------------------------------------------------------------
+;---------------------------------------------------------------------------
+;---------------------------------------------------------------------------
+;---------------------------------------------------------------------------
+;---------------------------------------------------------------------------
+;---------------------------------------------------------------------------
+;---------------------------------------------------------------------------
+;---------------------------------------------------------------------------
+;---------------------------------------------------------------------------
+;---------------------------------------------------------------------------
+;---------------------------------------------------------------------------
+;---------------------------------------------------------------------------
+;---------------------------------------------------------------------------
+

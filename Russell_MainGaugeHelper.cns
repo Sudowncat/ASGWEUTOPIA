@@ -1,0 +1,7430 @@
+;■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■
+;■常時起動用（ヘルパー） 
+;■v0～45
+;■f0～35
+;■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■
+
+[Statedef 3000]
+type    = A
+movetype= I
+physics = S
+juggle = 0
+velset = 0,0
+anim = 9999
+ctrl = 0
+sprpriority = 3
+
+[State 3000,画面中央値Xの設定]
+type=parentVarset
+trigger1=time=0&&root,RoundsExisted=0
+var(51)=ceil(screenpos x/2)
+
+[State 3000,画面中央値Yの設定]
+type=parentVarset
+trigger1=time=0&&root,RoundsExisted=0
+var(52)=ceil(screenpos y/2)
+
+[State 3000];完全なる検死、ドラノール_キルシュアイゼン、ヘイリッヒ・トーデスルタイル、山羊、塔でとどめさした場合の勝利エフェクト2
+type = Explod
+triggerall = WinKO
+trigger1 = root,stateno =2430
+trigger2 = root,stateno =3200
+trigger3 = root,stateno =3400
+trigger4 = root,stateno =2720
+trigger5 = root,stateno =2840
+anim = 7800
+ID = 7800
+bindtime = -1
+postype = left
+pos = root,var(51),121
+ownpal = 1
+sprpriority = -19999
+facing = -1
+supermovetime = 9999999999
+pausemovetime = 9999999999
+scale = 1,1
+persistent = 0
+
+[State 2200];完全なる検死、ドラノール_キルシュアイゼン、ヘイリッヒ・トーデスルタイル、山羊、塔でとどめさした場合の音
+type = PlaySnd
+triggerall = WinKO
+trigger1 = root,stateno =2430
+trigger2 = root,stateno =3200
+trigger3 = root,stateno =3400
+trigger4 = root,stateno =2720
+trigger5 = root,stateno =2840
+value = s12, 21
+persistent = 0
+
+
+[State 3000];1ゲージSP技での止め1
+Type        = Helper
+triggerall = WinKO
+trigger1 = root,stateno =2030
+trigger2 = root,stateno =2130
+trigger3 = root,stateno =2180
+trigger4 = root,stateno =2360
+Stateno     = 7051
+ID          = 7051
+Pos         = root,var(51),0
+PosType     = back
+OwnPal      = 1
+Keyctrl     = 0
+velset      = 0,0
+SuperMoveTime = 99999
+PauseMoveTime = 99999
+persistent = 0
+
+[State 3000];1ゲージSP技での止め2
+Type        = Helper
+triggerall = WinKO
+trigger1 = root,stateno =2030
+trigger2 = root,stateno =2130
+trigger3 = root,stateno =2180
+trigger4 = root,stateno =2360
+Stateno     = 7052
+ID          = 7052
+Pos         = root,var(51),0
+PosType     = back
+OwnPal      = 1
+Keyctrl     = 0
+velset      = 0,0
+SuperMoveTime = 99999
+PauseMoveTime = 99999
+persistent = 0
+
+[State 2200];1ゲージSP技での止め音
+type = PlaySnd
+triggerall = WinKO
+trigger1 = root,stateno =2030
+trigger2 = root,stateno =2130
+trigger3 = root,stateno =2180
+trigger4 = root,stateno =2360
+value = s12, 13
+persistent = 0
+
+
+[State 1980, ぶつかり判定]
+type = PlayerPush
+trigger1 = 1
+value = 0
+
+[State 1947,影を消す]
+type = AssertSpecial
+trigger1 = 1
+flag = noshadow
+
+[State 1868]
+type = NotHitBy
+Trigger1 = 1
+value = SCA
+
+[State 1868];メタ世界展開時背景演出用解除効果音用
+type = Varadd
+trigger1 = fvar(13) = 0
+trigger1 = root,var(19) = 1
+fvar(13) = 1
+
+[State 1840, メタ世界展開ガラス1（解除時）呼び出し]
+type = Helper
+trigger1 = fvar(14) = 1
+helpertype = normal
+name = "glass"
+ID = 2901
+pos = 30, -20
+postype = left
+facing = 1
+stateno = 2903
+keyctrl = 0
+ownpal = 0
+pausemovetime = 999999999
+supermovetime = 999999999
+
+[State 1868];メタ世界展開時背景演出用解除効果音用
+type = Varadd
+trigger1 = fvar(14) >= 2
+fvar(13) = 0
+
+[State 1868];メタ世界展開時背景演出用解除効果音用
+type = Varadd
+trigger1 = fvar(13) = 1
+trigger1 = root,var(19) = 0
+trigger2 = fvar(14) >= 1
+fvar(14) = 1
+
+[State 1868];メタ世界展開時背景演出用解除
+type = Varset
+trigger1 = root,var(19) = 0
+trigger2 = root,stateno = 2910
+trigger3 = root,stateno = 2930
+fvar(13) = 0
+
+[State 1868];メタ世界展開時背景演出用解除効果音用解除
+type = Varset
+trigger1 = fvar(14) = 2
+trigger2 = root,stateno = 2910
+trigger3 = root,stateno = 2930
+fvar(14) = 0
+
+
+;■とりあえず追加した
+[State 1868]
+type = Varset
+trigger1 = power >= 1000
+var(1) = 1
+
+[State 1868]
+type = Varset
+trigger1 = var(2) = 21
+var(1) = 0
+
+[State 1868]
+type = Varset
+trigger1 = var(2) = 21
+fvar(2) = 0
+
+[State 1868]
+type = Varset
+triggerall = var(2) = 21
+trigger1 = power <= 999
+trigger2 = power >= 2000
+var(2) = 0
+
+[State 1868]
+type = Varadd
+trigger1 = var(1) = 1
+trigger1 = power <= 999
+trigger2 = var(2) = [1,20]
+var(2) = 1
+
+[State 1868]
+type = Varadd
+trigger1 = var(2) >= 1
+fvar(2) = 0.1
+
+[State -3];スペシャルゲージMAX1消える(1P側)
+type = Explod
+triggerall = teamside=1
+triggerall = numexplod(8039) = 0
+triggerall = root,var(55) = 0
+trigger1 = var(2) = 1
+anim = 8039
+ID = 8039
+supermovetime=100
+pausemovetime=100
+postype=left
+pos=107+ceil(ifelse(root,var(51)>=161,root,var(51)/5,0)),49+root,var(53)
+sprpriority=-296
+bindtime=-1
+scale=0.5,0.5
+
+[State -3];スペシャルゲージMAX1消える(2P側)
+type = Explod
+triggerall = teamside=2
+triggerall = numexplod(8039) = 0
+triggerall = root,var(55) = 0
+trigger1 = var(2) = 1
+anim = 8039
+ID = 8039
+supermovetime=100
+pausemovetime=100
+postype=right
+pos=-107-ceil(ifelse(root,var(51)>=161,root,var(51)/5,0)),49+root,var(53)
+sprpriority=-296
+bindtime=-1
+scale=0.5,0.5
+facing=-1
+
+
+
+[State -2];スペシャルゲージMAX1縮小
+type = modifyexplod
+trigger1 = var(2) = [1,20]
+ID = 8039
+scale = 0.5+fvar(2),0.5+fvar(2)
+
+[State 1868]
+type = Varset
+trigger1 = power >= 2000
+var(3) = 1
+
+[State 1868]
+type = Varset
+trigger1 = var(4) = 21
+var(3) = 0
+
+[State 1868]
+type = Varset
+trigger1 = var(4) = 21
+fvar(3) = 0
+
+[State 1868]
+type = Varset
+triggerall = var(4) = 21
+trigger1 = power <= 1999
+trigger2 = power >= 3000
+var(4) = 0
+
+[State 1868]
+type = Varadd
+trigger1 = var(3) = 1
+trigger1 = power <= 1999
+trigger2 = var(4) = [1,20]
+var(4) = 1
+
+[State 1868]
+type = Varadd
+trigger1 = var(4) >= 1
+fvar(3) = 0.1
+
+[State -3];スペシャルゲージMAX2消える(1P側)
+type = Explod
+triggerall = teamside=1
+triggerall = numexplod(8040) = 0
+triggerall = root,var(55) = 0
+trigger1 = var(4) = 1
+anim = 8040
+ID = 8040
+supermovetime=100
+pausemovetime=100
+postype=left
+pos=103+ceil(ifelse(root,var(51)>=161,root,var(51)/5,0)),57+root,var(53)
+sprpriority=-296
+bindtime=-1
+scale=0.5,0.5
+
+[State -3];スペシャルゲージMAX2消える(2P側)
+type = Explod
+triggerall = teamside=2
+triggerall = numexplod(8040) = 0
+triggerall = root,var(55) = 0
+trigger1 = var(4) = 1
+anim = 8040
+ID = 8040
+supermovetime=100
+pausemovetime=100
+postype=right
+pos=-103-ceil(ifelse(root,var(51)>=161,root,var(51)/5,0)),57+root,var(53)
+sprpriority=-296
+bindtime=-1
+scale=0.5,0.5
+facing=-1
+
+[State -2];スペシャルゲージMAX2縮小
+type = modifyexplod
+trigger1 = var(4) = [1,20]
+ID = 8040
+scale = 0.5+fvar(3),0.5+fvar(3)
+
+[State 1868]
+type = Varset
+trigger1 = power >= 3000
+var(7) = 1
+
+[State 1868]
+type = Varset
+trigger1 = var(8) = 21
+var(7) = 0
+
+[State 1868]
+type = Varset
+trigger1 = var(8) = 21
+fvar(4) = 0
+
+[State 1868]
+type = Varset
+triggerall = var(8) = 21
+trigger1 = power <= 2999
+trigger2 = power >= 4000
+var(8) = 0
+
+[State 1868]
+type = Varadd
+trigger1 = var(7) = 1
+trigger1 = power <= 2999
+trigger2 = var(8) = [1,20]
+var(8) = 1
+
+[State 1868]
+type = Varadd
+trigger1 = var(8) >= 1
+fvar(4) = 0.1
+
+[State -3];スペシャルゲージMAX3消える(1P側)
+type = Explod
+triggerall = teamside=1
+triggerall = numexplod(8041) = 0
+triggerall = root,var(55) = 0
+trigger1 = var(8) = 1
+anim = 8041
+ID = 8041
+supermovetime=100
+pausemovetime=100
+postype=left
+pos=97+ceil(ifelse(root,var(51)>=161,root,var(51)/5,0)),56+root,var(53)
+sprpriority=-296
+bindtime=-1
+scale=0.5,0.5
+
+[State -3];スペシャルゲージMAX3消える(2P側)
+type = Explod
+triggerall = teamside=2
+triggerall = numexplod(8041) = 0
+triggerall = root,var(55) = 0
+trigger1 = var(8) = 1
+anim = 8041
+ID = 8041
+supermovetime=100
+pausemovetime=100
+postype=right
+pos=-97-ceil(ifelse(root,var(51)>=161,root,var(51)/5,0)),56+root,var(53)
+sprpriority=-296
+bindtime=-1
+scale=0.5,0.5
+facing=-1
+
+[State -2];スペシャルゲージMAX3縮小
+type = modifyexplod
+trigger1 = var(8) = [1,20]
+ID = 8041
+scale = 0.5+fvar(4),0.5+fvar(4)
+
+[State 1868]
+type = Varset
+trigger1 = power >= 4000
+var(9) = 1
+
+[State 1868]
+type = Varset
+trigger1 = var(10) = 21
+var(9) = 0
+
+[State 1868]
+type = Varset
+trigger1 = var(10) = 21
+fvar(5) = 0
+
+[State 1868]
+type = Varset
+triggerall = var(10) = 21
+trigger1 = power <= 3999
+trigger2 = power >= 5000
+var(10) = 0
+
+[State 1868]
+type = Varadd
+trigger1 = var(9) = 1
+trigger1 = power <= 3999
+trigger2 = var(10) = [1,20]
+var(10) = 1
+
+[State 1868]
+type = Varadd
+trigger1 = var(10) >= 1
+fvar(5) = 0.1
+
+[State -3];スペシャルゲージMAX4消える(1P側)
+type = Explod
+triggerall = teamside=1
+triggerall = numexplod(8042) = 0
+triggerall = root,var(55) = 0
+trigger1 = var(10) = 1
+anim = 8042
+ID = 8042
+supermovetime=100
+pausemovetime=100
+postype=left
+pos=91+ceil(ifelse(root,var(51)>=161,root,var(51)/5,0)),53+root,var(53)
+sprpriority=-296
+bindtime=-1
+scale=0.5,0.5
+
+[State -3];スペシャルゲージMAX4消える(2P側)
+type = Explod
+triggerall = teamside=2
+triggerall = numexplod(8042) = 0
+triggerall = root,var(55) = 0
+trigger1 = var(10) = 1
+anim = 8042
+ID = 8042
+supermovetime=100
+pausemovetime=100
+postype=right
+pos=-91-ceil(ifelse(root,var(51)>=161,root,var(51)/5,0)),53+root,var(53)
+sprpriority=-296
+bindtime=-1
+scale=0.5,0.5
+facing=-1
+
+[State -2];スペシャルゲージMAX4縮小
+type = modifyexplod
+trigger1 = var(10) = [1,20]
+ID = 8042
+scale = 0.5+fvar(5),0.5+fvar(5)
+
+[State 1868]
+type = Varset
+trigger1 = power >= 5000
+var(11) = 1
+
+[State 1868]
+type = Varset
+trigger1 = var(12) = 21
+var(11) = 0
+
+[State 1868]
+type = Varset
+trigger1 = var(12) = 21
+fvar(6) = 0
+
+[State 1868]
+type = Varset
+triggerall = var(12) = 21
+trigger1 = power <= 4999
+var(12) = 0
+
+[State 1868]
+type = Varadd
+trigger1 = var(11) = 1
+trigger1 = power <= 4999
+trigger2 = var(12) = [1,20]
+var(12) = 1
+
+[State 1868]
+type = Varadd
+trigger1 = var(12) >= 1
+fvar(6) = 0.1
+
+[State -3];スペシャルゲージMAX5消える(1P側)
+type = Explod
+triggerall = teamside=1
+triggerall = numexplod(8043) = 0
+triggerall = root,var(55) = 0
+trigger1 = var(12) = 1
+anim = 8043
+ID = 8043
+supermovetime=100
+pausemovetime=100
+postype=left
+pos=86+ceil(ifelse(root,var(51)>=161,root,var(51)/5,0)),46+root,var(53)
+sprpriority=-296
+bindtime=-1
+scale=0.5,0.5
+
+[State -3];スペシャルゲージMAX5消える(2P側)
+type = Explod
+triggerall = teamside=2
+triggerall = numexplod(8043) = 0
+triggerall = root,var(55) = 0
+trigger1 = var(12) = 1
+anim = 8043
+ID = 8043
+supermovetime=100
+pausemovetime=100
+postype=right
+pos=-86-ceil(ifelse(root,var(51)>=161,root,var(51)/5,0)),46+root,var(53)
+sprpriority=-296
+bindtime=-1
+scale=0.5,0.5
+facing=-1
+
+[State -2];スペシャルゲージMAX5縮小
+type = modifyexplod
+trigger1 = var(12) = [1,20]
+ID = 8043
+scale = 0.5+fvar(6),0.5+fvar(6)
+
+
+[State 1868]
+type = Varset
+trigger1 = root,var(58) <= 99
+var(13) = 1
+
+[State 1868]
+type = Varset
+trigger1 = var(14) = 21
+var(13) = 0
+
+[State 1868]
+type = Varset
+trigger1 = var(14) = 21
+fvar(7) = 0
+
+[State 1868]
+type = Varset
+trigger1 = var(14) = 21
+var(14) = 0
+
+[State 1868]
+type = Varadd
+trigger1 = var(13) = 1
+trigger1 = root,var(58) >= 100
+trigger2 = var(14) = [1,20]
+var(14) = 1
+
+[State 1868]
+type = Varadd
+trigger1 = var(14) >= 1
+fvar(7) = 0.075
+
+[State -3];パートナーゲージSP値1(1P側)
+type = Explod
+triggerall = teamside=1
+triggerall = root,var(18) >= 91
+triggerall = numexplod(8112) = 0
+trigger1 = var(14) = 1
+anim = 8112
+ID = 8112
+supermovetime=100
+pausemovetime=100
+postype=left
+pos=104,231+root,var(54)
+ontop=1
+bindtime=-1
+scale=0.5,0.5
+
+[State -3];パートナーゲージSP値1(2P側)
+type = Explod
+triggerall = teamside=2
+triggerall = root,var(18) >= 91
+triggerall = numexplod(8112) = 0
+trigger1 = var(14) = 1
+anim = 8112
+ID = 8112
+supermovetime=100
+pausemovetime=100
+postype=right
+pos=-104,231+root,var(54)
+ontop=1
+bindtime=-1
+scale=0.5,0.5
+facing=-1
+
+[State -2];パートナーゲージSP値1縮小
+type = modifyexplod
+trigger1 = var(14) = [1,20]
+ID = 8112
+scale = 0.5+fvar(7),0.5+fvar(7)
+
+[State 1868]
+type = Varset
+trigger1 = root,var(58) <= 199
+var(15) = 1
+
+[State 1868]
+type = Varset
+trigger1 = var(16) = 21
+var(15) = 0
+
+[State 1868]
+type = Varset
+trigger1 = var(16) = 21
+fvar(8) = 0
+
+[State 1868]
+type = Varset
+trigger1 = var(16) = 21
+var(16) = 0
+
+[State 1868]
+type = Varadd
+trigger1 = var(15) = 1
+trigger1 = root,var(58) >= 200
+trigger2 = var(16) = [1,20]
+var(16) = 1
+
+[State 1868]
+type = Varadd
+trigger1 = var(16) >= 1
+fvar(8) = 0.075
+
+[State -3];パートナーゲージSP値2(1P側)
+type = Explod
+triggerall = teamside=1
+triggerall = root,var(18) >= 91
+triggerall = numexplod(8112) = 0
+trigger1 = var(16) = 1
+anim = 8112
+ID = 8112
+supermovetime=100
+pausemovetime=100
+postype=left
+pos=95,231+root,var(54)
+ontop=1
+bindtime=-1
+scale=0.5,0.5
+
+[State -3];パートナーゲージSP値2(2P側)
+type = Explod
+triggerall = teamside=2
+triggerall = root,var(18) >= 91
+triggerall = numexplod(8112) = 0
+trigger1 = var(16) = 1
+anim = 8112
+ID = 8112
+supermovetime=100
+pausemovetime=100
+postype=right
+pos=-95,231+root,var(54)
+ontop=1
+bindtime=-1
+scale=0.5,0.5
+facing=-1
+
+[State -2];パートナーゲージSP値2縮小
+type = modifyexplod
+trigger1 = var(16) = [1,20]
+ID = 8112
+scale = 0.5+fvar(8),0.5+fvar(8)
+
+[State 1868]
+type = Varset
+trigger1 = root,var(58) <= 299
+var(17) = 1
+
+[State 1868]
+type = Varset
+trigger1 = var(18) = 21
+var(17) = 0
+
+[State 1868]
+type = Varset
+trigger1 = var(18) = 21
+fvar(9) = 0
+
+[State 1868]
+type = Varset
+trigger1 = var(18) = 21
+var(18) = 0
+
+[State 1868]
+type = Varadd
+trigger1 = var(17) = 1
+trigger1 = root,var(58) >= 300
+trigger2 = var(18) = [1,20]
+var(18) = 1
+
+[State 1868]
+type = Varadd
+trigger1 = var(18) >= 1
+fvar(9) = 0.075
+
+[State -3];パートナーゲージSP値3(1P側)
+type = Explod
+triggerall = teamside=1
+triggerall = root,var(18) >= 91
+triggerall = numexplod(8112) = 0
+trigger1 = var(18) = 1
+anim = 8112
+ID = 8112
+supermovetime=100
+pausemovetime=100
+postype=left
+pos=86,231+root,var(54)
+ontop=1
+bindtime=-1
+scale=0.5,0.5
+
+[State -3];パートナーゲージSP値3(2P側)
+type = Explod
+triggerall = teamside=2
+triggerall = root,var(18) >= 91
+triggerall = numexplod(8112) = 0
+trigger1 = var(18) = 1
+anim = 8112
+ID = 8112
+supermovetime=100
+pausemovetime=100
+postype=right
+pos=-86,231+root,var(54)
+ontop=1
+bindtime=-1
+scale=0.5,0.5
+facing=-1
+
+[State -2];パートナーゲージSP値3縮小
+type = modifyexplod
+trigger1 = var(18) = [1,20]
+ID = 8112
+scale = 0.5+fvar(9),0.5+fvar(9)
+
+[State 1868]
+type = Varset
+trigger1 = root,var(58) <= 399
+var(19) = 1
+
+[State 1868]
+type = Varset
+trigger1 = var(20) = 21
+var(19) = 0
+
+[State 1868]
+type = Varset
+trigger1 = var(20) = 21
+fvar(10) = 0
+
+[State 1868]
+type = Varset
+trigger1 = var(20) = 21
+var(20) = 0
+
+[State 1868]
+type = Varadd
+trigger1 = var(19) = 1
+trigger1 = root,var(58) >= 400
+trigger2 = var(20) = [1,20]
+var(20) = 1
+
+[State 1868]
+type = Varadd
+trigger1 = var(20) >= 1
+fvar(10) = 0.075
+
+[State -3];パートナーゲージSP値4(1P側)
+type = Explod
+triggerall = teamside=1
+triggerall = root,var(18) >= 91
+triggerall = numexplod(8112) = 0
+trigger1 = var(20) = 1
+anim = 8112
+ID = 8112
+supermovetime=100
+pausemovetime=100
+postype=left
+pos=77,231+root,var(54)
+ontop=1
+bindtime=-1
+scale=0.5,0.5
+
+[State -3];パートナーゲージSP値4(2P側)
+type = Explod
+triggerall = teamside=2
+triggerall = root,var(18) >= 91
+triggerall = numexplod(8112) = 0
+trigger1 = var(20) = 1
+anim = 8112
+ID = 8112
+supermovetime=100
+pausemovetime=100
+postype=right
+pos=-77,231+root,var(54)
+ontop=1
+bindtime=-1
+scale=0.5,0.5
+facing=-1
+
+[State -2];パートナーゲージSP値4縮小
+type = modifyexplod
+trigger1 = var(20) = [1,20]
+ID = 8112
+scale = 0.5+fvar(10),0.5+fvar(10)
+
+[State 1868]
+type = Varset
+trigger1 = root,var(58) <= 499
+var(21) = 1
+
+[State 1868]
+type = Varset
+trigger1 = var(22) = 21
+var(21) = 0
+
+[State 1868]
+type = Varset
+trigger1 = var(22) = 21
+fvar(11) = 0
+
+[State 1868]
+type = Varset
+trigger1 = var(22) = 21
+var(22) = 0
+
+[State 1868]
+type = Varadd
+trigger1 = var(21) = 1
+trigger1 = root,var(58) >= 500
+trigger2 = var(22) = [1,20]
+var(22) = 1
+
+[State 1868]
+type = Varadd
+trigger1 = var(22) >= 1
+fvar(11) = 0.075
+
+[State -3];パートナーゲージSP値5(1P側)
+type = Explod
+triggerall = teamside=1
+triggerall = root,var(18) >= 91
+triggerall = numexplod(8112) = 0
+trigger1 = var(22) = 1
+anim = 8112
+ID = 8112
+supermovetime=100
+pausemovetime=100
+postype=left
+pos=68,231+root,var(54)
+ontop=1
+bindtime=-1
+scale=0.5,0.5
+
+[State -3];パートナーゲージSP値5(2P側)
+type = Explod
+triggerall = teamside=2
+triggerall = root,var(18) >= 91
+triggerall = numexplod(8112) = 0
+trigger1 = var(22) = 1
+anim = 8112
+ID = 8112
+supermovetime=100
+pausemovetime=100
+postype=right
+pos=-68,231+root,var(54)
+ontop=1
+bindtime=-1
+scale=0.5,0.5
+facing=-1
+
+[State -2];パートナーゲージSP値5縮小
+type = modifyexplod
+trigger1 = var(22) = [1,20]
+ID = 8112
+scale = 0.5+fvar(11),0.5+fvar(11)
+
+
+
+
+;■とりあえず追加1.5
+
+[State 1868];タッチゲージ増加数値設定～1
+type = varset
+trigger1 = root,fvar(3) = 3;ダメージタッチ
+trigger2 = root,fvar(3) = 11;ガードタッチ失敗
+trigger3 = root,fvar(3) = 13;協力必殺技
+fvar(20) = ifelse(root,fvar(20)<=1.0,1.0,ifelse(root,fvar(20)>=3.0,4.0,2.0))
+
+[State 1868];タッチゲージ増加
+type = parentvaradd
+trigger1 = root,var(16) = 0
+trigger1 = root,fvar(3) >= 1
+var(28) = floor(fvar(20))
+
+[State 1868];タッチゲージ増加解除
+type = parentvarset
+trigger1 = root,var(28) >= 720
+fvar(3) = 0
+
+
+
+
+
+
+
+;■とりあえず追加2
+[State -3];パートナーゲージ顔黒～ドラノール(1P側)
+type = Explod
+triggerall = teamside=1
+triggerall = numexplod(6851) = 0
+triggerall = root,var(57) = 1
+trigger1 = root,stateno = 8000 && root,animelem = 16
+trigger2 = root,fvar(3) = 3
+anim = 6851+(ifelse(root,var(56),50,0))
+ID = 6851
+supermovetime=10000
+pausemovetime=10000
+postype = left
+pos = 29,201+root,var(54)
+sprpriority = 10105
+bindtime = -1
+scale = 0.5,0.5
+
+[State -3];パートナーゲージ顔黒～ドラノール(2P側)
+type = Explod
+triggerall = teamside=2
+triggerall = numexplod(6851) = 0
+triggerall = root,var(57) = 1
+trigger1 = root,stateno = 8000 && root,animelem = 16
+trigger2 = root,fvar(3) = 3
+anim = 6851+(ifelse(root,var(56),50,0))
+ID = 6851
+supermovetime=10000
+pausemovetime=10000
+postype = right
+pos = -29,201+root,var(54)
+sprpriority = 10105
+bindtime = -1
+scale = 0.5,0.5
+
+
+
+
+[State -3];パートナーゲージ顔黒～ベルンカステル(1P側)
+type = Explod
+triggerall = teamside=1
+triggerall = numexplod(6851) = 0
+triggerall = root,var(57) = 2
+trigger1 = root,stateno = 8000 && root,animelem = 16
+trigger2 = root,fvar(3) = 3
+anim = 6852+(ifelse(root,var(56),50,0))
+ID = 6851
+supermovetime=10000
+pausemovetime=10000
+postype = left
+pos = 29,203+root,var(54)
+sprpriority = 10105
+bindtime = -1
+scale = 0.5,0.5
+
+[State -3];パートナーゲージ顔黒～ベルンカステル(2P側)
+type = Explod
+triggerall = teamside=2
+triggerall = numexplod(6851) = 0
+triggerall = root,var(57) = 2
+trigger1 = root,stateno = 8000 && root,animelem = 16
+trigger2 = root,fvar(3) = 3
+anim = 6852+(ifelse(root,var(56),50,0))
+ID = 6851
+supermovetime=10000
+pausemovetime=10000
+postype = right
+pos = -29,203+root,var(54)
+sprpriority = 10105
+bindtime = -1
+scale = 0.5,0.5
+
+[State -3]
+type = RemoveExplod
+trigger1 = root,fvar(3) = 0
+trigger1 = fvar(20) >= 1
+ID = 6851
+
+[State -3];パートナーゲージ顔黒戻り～ドラノール(1P側)
+type = Explod
+triggerall = teamside=1
+triggerall = numexplod(6951) = 0
+triggerall = root,fvar(3) = 0
+triggerall = fvar(20) >= 1
+trigger1 = root,var(57) = 1
+anim = 6951+(ifelse(root,var(56),-500,0))
+ID = 6951
+supermovetime=10000
+pausemovetime=10000
+postype = left
+pos = 29,201+root,var(54)
+sprpriority = 10105
+bindtime = -1
+scale = 0.5,0.5
+
+[State -3];パートナーゲージ顔黒戻り～ドラノール(2P側)
+type = Explod
+triggerall = teamside=2
+triggerall = numexplod(6951) = 0
+triggerall = root,fvar(3) = 0
+triggerall = fvar(20) >= 1
+trigger1 = root,var(57) = 1
+anim = 6951+(ifelse(root,var(56),-500,0))
+ID = 6951
+supermovetime=10000
+pausemovetime=10000
+postype = right
+pos = -29,201+root,var(54)
+sprpriority = 10105
+bindtime = -1
+scale = 0.5,0.5
+
+[State -3];パートナーゲージ顔黒戻り～ベルンカステル(1P側)
+type = Explod
+triggerall = teamside=1
+triggerall = numexplod(6951) = 0
+triggerall = root,fvar(3) = 0
+triggerall = fvar(20) >= 1
+trigger1 = root,var(57) = 2
+anim = 6952+(ifelse(root,var(56),-500,0))
+ID = 6951
+supermovetime=10000
+pausemovetime=10000
+postype = left
+pos = 29,203+root,var(54)
+sprpriority = 10105
+bindtime = -1
+scale = 0.5,0.5
+
+[State -3];パートナーゲージ顔黒戻り～ベルンカステル(2P側)
+type = Explod
+triggerall = teamside=2
+triggerall = numexplod(6951) = 0
+triggerall = root,fvar(3) = 0
+triggerall = fvar(20) >= 1
+trigger1 = root,var(57) = 2
+anim = 6952+(ifelse(root,var(56),-500,0))
+ID = 6951
+supermovetime=10000
+pausemovetime=10000
+postype = right
+pos = -29,203+root,var(54)
+sprpriority = 10105
+bindtime = -1
+scale = 0.5,0.5
+
+
+[State -3]
+type = RemoveExplod
+trigger1 = numhelper(10400) = 1
+trigger1 = helper(10400),stateno = 10406
+trigger1 = helper(10400),time = 2
+trigger2 = root,stateno = [1900,1901]
+trigger2 = root,time = 1
+trigger3 = var(40) = 1
+ID = 6195
+
+
+
+
+;■■■■■■■■■■■■■■■■■■■■
+
+
+[State -3];WAITING STATE(1P側)
+type = Explod
+triggerall = teamside=1
+triggerall = numexplod(6195) = 0
+trigger1 = root,stateno = 8000 && root,animelem = 16
+trigger2 = root,fvar(3) = 3
+anim = 6195
+ID = 6195
+supermovetime = 9999999999
+pausemovetime = 9999999999
+postype = left
+pos = 40,215+root,var(54)
+sprpriority = 10120
+bindtime = -1
+removetime = -1
+scale = 2,2
+
+[State -3];WAITING STATE(2P側)
+type = Explod
+triggerall = teamside=2
+triggerall = numexplod(6195) = 0
+trigger1 = root,stateno = 8000 && root,animelem = 16
+trigger2 = root,fvar(3) = 3
+anim = 6195
+ID = 6195
+supermovetime = 9999999999
+pausemovetime = 9999999999
+postype = right
+pos = -40,215+root,var(54)
+sprpriority = 10120
+bindtime = -1
+removetime = -1
+scale = 2,2
+
+
+[State -2];WAITING STATE縮小
+type = modifyexplod
+trigger1 = var(33) = 1
+ID = 6195
+scale = 1.85,1.85
+
+[State -2];WAITING STATE縮小
+type = modifyexplod
+trigger1 = var(33) = 2
+ID = 6195
+scale = 1.7,1.7
+
+[State -2];WAITING STATE縮小
+type = modifyexplod
+trigger1 = var(33) = 3
+ID = 6195
+scale = 1.55,1.55
+
+[State -2];WAITING STATE縮小
+type = modifyexplod
+trigger1 = var(33) = 4
+ID = 6195
+scale = 1.4,1.4
+
+[State -2];WAITING STATE縮小
+type = modifyexplod
+trigger1 = var(33) = 5
+ID = 6195
+scale = 1.25,1.25
+
+[State -2];WAITING STATE縮小
+type = modifyexplod
+trigger1 = var(33) = 6
+ID = 6195
+scale = 1.1,1.1
+
+[State -2];WAITING STATE縮小
+type = modifyexplod
+trigger1 = var(33) = 7
+ID = 6195
+scale = 0.95,0.95
+
+[State -2];WAITING STATE縮小
+type = modifyexplod
+trigger1 = var(33) = 8
+ID = 6195
+scale = 0.8,0.8
+
+[State -2];WAITING STATE縮小
+type = modifyexplod
+trigger1 = var(33) = 9
+ID = 6195
+scale = 0.65,0.65
+
+[State -2];WAITING STATE縮小
+type = modifyexplod
+trigger1 = var(33) >= 10
+ID = 6195
+scale = 0.5,0.5
+
+[State 1868];WAITING STATEセット
+type = varadd
+trigger1 = var(33) >= 1
+var(33) = 1
+
+[State -3]
+type = RemoveExplod
+trigger1 = root,fvar(3) = 0
+trigger1 = fvar(20) >= 1
+ID = 6195
+
+[State -3];WAITING STATE消える0(1P側)
+type = Explod
+triggerall = teamside=1
+triggerall = numexplod(6197) = 0
+triggerall = root,fvar(3) = 0
+triggerall = fvar(20) >= 1
+triggerall = anim = 6196
+trigger1 = animelemtime(28) = [1,10]
+anim = 6197
+ID = 6197
+supermovetime = 9999999999
+pausemovetime = 9999999999
+postype = left
+pos = 40,215+root,var(54)
+sprpriority = 10120
+bindtime = -1
+scale = 0.5,0.5
+
+[State -3];WAITING STATE消える0(2P側)
+type = Explod
+triggerall = teamside=2
+triggerall = numexplod(6197) = 0
+triggerall = root,fvar(3) = 0
+triggerall = fvar(20) >= 1
+triggerall = anim = 6196
+trigger1 = animelemtime(28) = [1,10]
+anim = 6197
+ID = 6197
+supermovetime = 9999999999
+pausemovetime = 9999999999
+postype = right
+pos = -40,215+root,var(54)
+sprpriority = 10120
+bindtime = -1
+scale = 0.5,0.5
+
+
+[State -3];WAITING STATE消える1(1P側)
+type = Explod
+triggerall = teamside=1
+triggerall = numexplod(6197) = 0
+triggerall = root,fvar(3) = 0
+triggerall = fvar(20) >= 1
+triggerall = anim = 6196
+trigger1 = animelemtime(11) = [1,8]
+trigger2 = animelemtime(27) = [1,8]
+anim = 6198
+ID = 6197
+supermovetime = 9999999999
+pausemovetime = 9999999999
+postype = left
+pos = 40,215+root,var(54)
+sprpriority = 10120
+bindtime = -1
+scale = 0.5,0.5
+
+
+[State -3];WAITING STATE消える1(2P側)
+type = Explod
+triggerall = teamside=2
+triggerall = numexplod(6197) = 0
+triggerall = root,fvar(3) = 0
+triggerall = fvar(20) >= 1
+triggerall = anim = 6196
+trigger1 = animelemtime(11) = [1,8]
+trigger2 = animelemtime(27) = [1,8]
+anim = 6198
+ID = 6197
+supermovetime = 9999999999
+pausemovetime = 9999999999
+postype = right
+pos = -40,215+root,var(54)
+sprpriority = 10120
+bindtime = -1
+scale = 0.5,0.5
+
+[State -3];WAITING STATE消える2(1P側)
+type = Explod
+triggerall = teamside=1
+triggerall = numexplod(6197) = 0
+triggerall = root,fvar(3) = 0
+triggerall = fvar(20) >= 1
+triggerall = anim = 6196
+trigger1 = animelemtime(12) = [1,7]
+trigger2 = animelemtime(26) = [1,7]
+anim = 6199
+ID = 6197
+supermovetime = 9999999999
+pausemovetime = 9999999999
+postype = left
+pos = 40,215+root,var(54)
+sprpriority = 10120
+bindtime = -1
+scale = 0.5,0.5
+
+[State -3];WAITING STATE消える2(2P側)
+type = Explod
+triggerall = teamside=2
+triggerall = numexplod(6197) = 0
+triggerall = root,fvar(3) = 0
+triggerall = fvar(20) >= 1
+triggerall = anim = 6196
+trigger1 = animelemtime(12) = [1,7]
+trigger2 = animelemtime(26) = [1,7]
+anim = 6199
+ID = 6197
+supermovetime = 9999999999
+pausemovetime = 9999999999
+postype = right
+pos = -40,215+root,var(54)
+sprpriority = 10120
+bindtime = -1
+scale = 0.5,0.5
+
+[State -3];WAITING STATE消える3(1P側)
+type = Explod
+triggerall = teamside=1
+triggerall = numexplod(6197) = 0
+triggerall = root,fvar(3) = 0
+triggerall = fvar(20) >= 1
+triggerall = anim = 6196
+trigger1 = animelemtime(13) = [1,6]
+trigger2 = animelemtime(25) = [1,6]
+anim = 6200
+ID = 6197
+supermovetime = 9999999999
+pausemovetime = 9999999999
+postype = left
+pos = 40,215+root,var(54)
+sprpriority = 10120
+bindtime = -1
+scale = 0.5,0.5
+
+[State -3];WAITING STATE消える3(2P側)
+type = Explod
+triggerall = teamside=2
+triggerall = numexplod(6197) = 0
+triggerall = root,fvar(3) = 0
+triggerall = fvar(20) >= 1
+triggerall = anim = 6196
+trigger1 = animelemtime(13) = [1,6]
+trigger2 = animelemtime(25) = [1,6]
+anim = 6200
+ID = 6197
+supermovetime = 9999999999
+pausemovetime = 9999999999
+postype = right
+pos = -40,215+root,var(54)
+sprpriority = 10120
+bindtime = -1
+scale = 0.5,0.5
+
+
+[State -3];WAITING STATE消える4(1P側)
+type = Explod
+triggerall = teamside=1
+triggerall = numexplod(6197) = 0
+triggerall = root,fvar(3) = 0
+triggerall = fvar(20) >= 1
+triggerall = anim = 6196
+trigger1 = animelemtime(14) = [1,5]
+trigger2 = animelemtime(24) = [1,5]
+anim = 6201
+ID = 6197
+supermovetime = 9999999999
+pausemovetime = 9999999999
+postype = left
+pos = 40,215+root,var(54)
+sprpriority = 10120
+bindtime = -1
+scale = 0.5,0.5
+
+[State -3];WAITING STATE消える4(2P側)
+type = Explod
+triggerall = teamside=2
+triggerall = numexplod(6197) = 0
+triggerall = root,fvar(3) = 0
+triggerall = fvar(20) >= 1
+triggerall = anim = 6196
+trigger1 = animelemtime(14) = [1,5]
+trigger2 = animelemtime(24) = [1,5]
+anim = 6201
+ID = 6197
+supermovetime = 9999999999
+pausemovetime = 9999999999
+postype = right
+pos = -40,215+root,var(54)
+sprpriority = 10120
+bindtime = -1
+scale = 0.5,0.5
+
+
+[State -3];WAITING STATE消える5(1P側)
+type = Explod
+triggerall = teamside=1
+triggerall = numexplod(6197) = 0
+triggerall = root,fvar(3) = 0
+triggerall = fvar(20) >= 1
+triggerall = anim = 6196
+trigger1 = animelemtime(15) = [1,5]
+trigger2 = animelemtime(23) = [1,5]
+anim = 6202
+ID = 6197
+supermovetime = 9999999999
+pausemovetime = 9999999999
+postype = left
+pos = 40,215+root,var(54)
+sprpriority = 10120
+bindtime = -1
+scale = 0.5,0.5
+
+[State -3];WAITING STATE消える5(2P側)
+type = Explod
+triggerall = teamside=2
+triggerall = numexplod(6197) = 0
+triggerall = root,fvar(3) = 0
+triggerall = fvar(20) >= 1
+triggerall = anim = 6196
+trigger1 = animelemtime(15) = [1,5]
+trigger2 = animelemtime(23) = [1,5]
+anim = 6202
+ID = 6197
+supermovetime = 9999999999
+pausemovetime = 9999999999
+postype = right
+pos = -40,215+root,var(54)
+sprpriority = 10120
+bindtime = -1
+scale = 0.5,0.5
+
+[State -3];WAITING STATE消える6(1P側)
+type = Explod
+triggerall = teamside=1
+triggerall = numexplod(6197) = 0
+triggerall = root,fvar(3) = 0
+triggerall = fvar(20) >= 1
+triggerall = anim = 6196
+trigger1 = animelemtime(16) = [1,6]
+trigger2 = animelemtime(22) = [1,6]
+anim = 6203
+ID = 6197
+supermovetime = 9999999999
+pausemovetime = 9999999999
+postype = left
+pos = 40,215+root,var(54)
+sprpriority = 10120
+bindtime = -1
+scale = 0.5,0.5
+
+[State -3];WAITING STATE消える6(2P側)
+type = Explod
+triggerall = teamside=2
+triggerall = numexplod(6197) = 0
+triggerall = root,fvar(3) = 0
+triggerall = fvar(20) >= 1
+triggerall = anim = 6196
+trigger1 = animelemtime(16) = [1,6]
+trigger2 = animelemtime(22) = [1,6]
+anim = 6203
+ID = 6197
+supermovetime = 9999999999
+pausemovetime = 9999999999
+postype = right
+pos = -40,215+root,var(54)
+sprpriority = 10120
+bindtime = -1
+scale = 0.5,0.5
+
+[State -3];WAITING STATE消える7(1P側)
+type = Explod
+triggerall = teamside=1
+triggerall = numexplod(6197) = 0
+triggerall = root,fvar(3) = 0
+triggerall = fvar(20) >= 1
+triggerall = anim = 6196
+trigger1 = animelemtime(17) = [1,7]
+trigger2 = animelemtime(21) = [1,7]
+anim = 6204
+ID = 6197
+supermovetime = 9999999999
+pausemovetime = 9999999999
+postype = left
+pos = 40,215+root,var(54)
+sprpriority = 10120
+bindtime = -1
+scale = 0.5,0.5
+
+[State -3];WAITING STATE消える7(2P側)
+type = Explod
+triggerall = teamside=2
+triggerall = numexplod(6197) = 0
+triggerall = root,fvar(3) = 0
+triggerall = fvar(20) >= 1
+triggerall = anim = 6196
+trigger1 = animelemtime(17) = [1,7]
+trigger2 = animelemtime(21) = [1,7]
+anim = 6204
+ID = 6197
+supermovetime = 9999999999
+pausemovetime = 9999999999
+postype = right
+pos = -40,215+root,var(54)
+sprpriority = 10120
+bindtime = -1
+scale = 0.5,0.5
+
+[State -3];WAITING STATE消える8(1P側)
+type = Explod
+triggerall = teamside=1
+triggerall = numexplod(6197) = 0
+triggerall = root,fvar(3) = 0
+triggerall = fvar(20) >= 1
+triggerall = anim = 6196
+trigger1 = animelemtime(18) = [1,8]
+trigger2 = animelemtime(20) = [1,8]
+anim = 6205
+ID = 6197
+supermovetime = 9999999999
+pausemovetime = 9999999999
+postype = left
+pos = 40,215+root,var(54)
+sprpriority = 10120
+bindtime = -1
+scale = 0.5,0.5
+
+[State -3];WAITING STATE消える8(2P側)
+type = Explod
+triggerall = teamside=2
+triggerall = numexplod(6197) = 0
+triggerall = root,fvar(3) = 0
+triggerall = fvar(20) >= 1
+triggerall = anim = 6196
+trigger1 = animelemtime(18) = [1,8]
+trigger2 = animelemtime(20) = [1,8]
+anim = 6205
+ID = 6197
+supermovetime = 9999999999
+pausemovetime = 9999999999
+postype = right
+pos = -40,215+root,var(54)
+sprpriority = 10120
+bindtime = -1
+scale = 0.5,0.5
+
+[State -3];WAITING STATE消える9(1P側)
+type = Explod
+triggerall = teamside=1
+triggerall = numexplod(6197) = 0
+triggerall = root,fvar(3) = 0
+triggerall = fvar(20) >= 1
+triggerall = anim = 6196
+trigger1 = animelemtime(19) = [1,10]
+anim = 6206
+ID = 6197
+supermovetime = 9999999999
+pausemovetime = 9999999999
+postype = left
+pos = 40,215+root,var(54)
+sprpriority = 10120
+bindtime = -1
+scale = 0.5,0.5
+
+[State -3];WAITING STATE消える9(2P側)
+type = Explod
+triggerall = teamside=2
+triggerall = numexplod(6197) = 0
+triggerall = root,fvar(3) = 0
+triggerall = fvar(20) >= 1
+triggerall = anim = 6196
+trigger1 = animelemtime(19) = [1,10]
+anim = 6206
+ID = 6197
+supermovetime = 9999999999
+pausemovetime = 9999999999
+postype = right
+pos = -40,215+root,var(54)
+sprpriority = 10120
+bindtime = -1
+scale = 0.5,0.5
+
+[State 1848, 1] 
+type = ChangeAnim
+trigger1 = root,fvar(3) = 0
+trigger1 = fvar(20) >= 1
+value = 1860
+
+[State 1868];WAITING STATEセット
+type = varset
+trigger1 = root,stateno = 8000 && root,animelem = 16
+trigger2 = var(33) = 0 && root,fvar(3) = 3
+trigger3 = var(33) = 0 && root,fvar(6) = 1
+var(33) = 1
+
+[State 1868];WAITING STATEセット解除
+type = varset
+trigger1 = root,fvar(3) = 0
+trigger1 = fvar(20) >= 1
+var(33) = 0
+
+;[State 1868];アタックタッチ判定解除
+;type = parentvarset
+;trigger1 = root,fvar(6) = 1
+;trigger1 = root,fvar(3) = 0
+;trigger1 = fvar(20) >= 1
+;trigger2 = numhelper(10400) = 1
+;trigger2 = helper(10400),stateno = 10406
+;trigger2 = helper(10400),time = 2
+;fvar(6) = 0
+
+[State 1868];タッチゲージ増加解除
+type = varset
+trigger1 = root,fvar(3) = 0
+fvar(20) = 0
+
+
+;■■■■■■■■■■■■■■■■■■■■
+[State -2];CHANGE消す
+type = RemoveExplod
+trigger1 = root,var(28) <= 0
+trigger2 = root,var(13) = 3
+trigger3 = root,var(13) = 18
+trigger4 = root,fvar(10) = 1
+ID = 6216
+
+[State -2];CHANGE消す
+type = RemoveExplod
+trigger1 = root,var(28) <= 0
+trigger2 = root,var(13) = [3,4]
+trigger3 = root,var(13) = 18
+trigger4 = root,fvar(10) = 1
+trigger5 = fvar(33) =0
+ID = 6217
+
+[State -2];CHANGE消す
+type = RemoveExplod
+trigger1 = root,var(28) <= 0
+trigger2 = root,var(13) = [3,4]
+trigger3 = root,var(13) = 18
+trigger4 = root,fvar(10) = 1
+ID = 6218
+
+[State -2];CHANGE消す
+type = RemoveExplod
+trigger1 = root,var(28) <= 0
+trigger2 = root,var(13) = [3,4]
+trigger3 = root,var(13) = 18
+trigger4 = root,fvar(10) = 1
+trigger5 = fvar(33) =0
+trigger5 = root,fvar(38) >= 90
+ID = 6219
+
+[State -3];CHANGE（ラウンド開始時）(1P側)
+type = Explod
+triggerall = teamside=1
+triggerall = root,fvar(38) = 0
+triggerall = root,var(28) >= 720
+triggerall = numexplod(6216) = 0
+trigger1 = RoundsExisted = 0
+trigger1 = root,var(5) = 1
+trigger2 = RoundsExisted >= 1
+anim = 6218+(ifelse(root,var(56),1,0))
+ID = 6218
+supermovetime = 9999999999
+pausemovetime = 9999999999
+postype = left
+pos = 19,232+root,var(54)
+sprpriority = 10104
+bindtime = -1
+scale = 0.5,0.5
+persistent = 0
+
+[State -3];CHANGE（ラウンド開始時）(2P側)
+type = Explod
+triggerall = teamside=2
+triggerall = root,fvar(38) = 0
+triggerall = root,var(28) >= 720
+triggerall = numexplod(6216) = 0
+trigger1 = RoundsExisted = 0
+trigger1 = root,var(5) = 1
+trigger2 = RoundsExisted >= 1
+anim = 6218+(ifelse(root,var(56),1,0))
+ID = 6218
+supermovetime = 9999999999
+pausemovetime = 9999999999
+postype = right
+pos = -19,232+root,var(54)
+sprpriority = 10104
+bindtime = -1
+scale = 0.5,0.5
+persistent = 0
+
+[State -3];CHANGE白（ラウンド開始時）(1P側)
+type = Explod
+triggerall = teamside=1
+triggerall = root,fvar(38) = 0
+triggerall = root,var(28) >= 720
+triggerall = numexplod(6217) = 0
+trigger1 = RoundsExisted = 0
+trigger1 = root,var(5) = 1
+trigger2 = RoundsExisted >= 1
+anim = 6220
+ID = 6219
+supermovetime = 9999999999
+pausemovetime = 9999999999
+postype = left
+pos = 19,232+root,var(54)
+sprpriority = 10105
+removetime = -1
+bindtime = -1
+scale = 0.5,0.5
+persistent = 0
+
+[State -3];CHANGE白（ラウンド開始時）(2P側)
+type = Explod
+triggerall = teamside=2
+triggerall = root,fvar(38) = 0
+triggerall = root,var(28) >= 720
+triggerall = numexplod(6217) = 0
+trigger1 = RoundsExisted = 0
+trigger1 = root,var(5) = 1
+trigger2 = RoundsExisted >= 1
+anim = 6220
+ID = 6219
+supermovetime = 9999999999
+pausemovetime = 9999999999
+postype = right
+pos = -19,232+root,var(54)
+sprpriority = 10105
+removetime = -1
+bindtime = -1
+scale = 0.5,0.5
+persistent = 0
+
+[State 1868];CHANGE1個目判定
+type = parentvaradd
+trigger1 = numexplod(6218) = 1
+fvar(38) = 1
+
+[State -3];CHANGE(1P側)
+type = Explod
+triggerall = teamside=1
+triggerall = root,fvar(38) >= 1
+triggerall = root,var(28) >= 720
+triggerall = numexplod(6216) = 0
+triggerall = numexplod(6218) = 0
+trigger1 = RoundsExisted = 0
+;trigger1 = root,var(5) = 1
+trigger2 = RoundsExisted >= 1
+anim = 6216
+ID = 6216
+supermovetime = 9999999999
+pausemovetime = 9999999999
+postype = left
+pos = 19,232+root,var(54)
+sprpriority = 10104
+bindtime = -1
+scale = 0.5,0.5
+
+[State -3];CHANGE(2P側)
+type = Explod
+triggerall = teamside=2
+triggerall = root,fvar(38) >= 1
+triggerall = root,var(28) >= 720
+triggerall = numexplod(6216) = 0
+triggerall = numexplod(6218) = 0
+trigger1 = RoundsExisted = 0
+;trigger1 = root,var(5) = 1
+trigger2 = RoundsExisted >= 1
+anim = 6216
+ID = 6216
+supermovetime = 9999999999
+pausemovetime = 9999999999
+postype = right
+pos = -19,232+root,var(54)
+sprpriority = 10104
+bindtime = -1
+scale = 0.5,0.5
+
+[State -3];CHANGE白(1P側)
+type = Explod
+triggerall = teamside=1
+triggerall = root,fvar(38) >= 1
+triggerall = root,var(28) >= 720
+triggerall = numexplod(6217) = 0
+triggerall = numexplod(6219) = 0
+trigger1 = RoundsExisted = 0
+trigger1 = root,var(5) = 1
+trigger2 = RoundsExisted >= 1
+anim = 6217
+ID = 6217
+supermovetime = 9999999999
+pausemovetime = 9999999999
+postype = left
+pos = 19,232+root,var(54)
+sprpriority = 10105
+removetime = -1
+bindtime = -1
+scale = 0.5,0.5
+
+[State -3];CHANGE白(2P側)
+type = Explod
+triggerall = teamside=2
+triggerall = root,fvar(38) >= 1
+triggerall = root,var(28) >= 720
+triggerall = numexplod(6217) = 0
+triggerall = numexplod(6219) = 0
+trigger1 = RoundsExisted = 0
+trigger1 = root,var(5) = 1
+trigger2 = RoundsExisted >= 1
+anim = 6217
+ID = 6217
+supermovetime = 9999999999
+pausemovetime = 9999999999
+postype = right
+pos = -19,232+root,var(54)
+sprpriority = 10105
+removetime = -1
+bindtime = -1
+scale = 0.5,0.5
+
+[State -2];CHANGE縮小
+type = modifyexplod
+trigger1 = 1
+ID = 6217
+scale = 0.5+fvar(32),0.5+fvar(32)
+supermovetime = 9999999999
+pausemovetime = 9999999999
+
+[State -2];CHANGE縮小
+type = modifyexplod
+trigger1 = 1
+ID = 6219
+scale = 0.5+fvar(32),0.5+fvar(32)
+supermovetime = 9999999999
+pausemovetime = 9999999999
+
+[State 1868];CHANGE表示用
+type = Varadd
+triggerall = root,var(28) >= 720
+triggerall = fvar(33) = [1,22]
+trigger1 = RoundsExisted = 0
+trigger1 = root,var(5) = 1
+trigger2 = RoundsExisted >= 1
+fvar(32) = 0.0025
+supermovetime = 9999999999
+pausemovetime = 9999999999
+
+[State 1868];CHANGE表示用
+type = Varadd
+triggerall = root,var(28) >= 720
+triggerall = fvar(33) = [23,44]
+trigger1 = RoundsExisted = 0
+trigger1 = root,var(5) = 1
+trigger2 = RoundsExisted >= 1
+fvar(32) = -0.0025
+supermovetime = 9999999999
+pausemovetime = 9999999999
+
+[State 1868];CHANGE表示用
+type = Varadd
+triggerall = root,var(28) >= 720
+trigger1 = RoundsExisted = 0
+trigger1 = root,var(5) = 1
+trigger2 = RoundsExisted >= 1
+fvar(33) = 1
+supermovetime = 9999999999
+pausemovetime = 9999999999
+
+[State 1868];CHANGE表示用
+type = Varset
+trigger1 = root,var(28) >= 720
+trigger1 = fvar(33) = 45
+trigger1 = RoundsExisted = 0
+trigger1 = root,var(5) = 1
+trigger2 = root,var(28) >= 720
+trigger2 = fvar(33) = 45
+trigger2 = RoundsExisted >= 1
+trigger3 = root,var(28) <= 719
+trigger3 = RoundsExisted = 0
+trigger3 = root,var(5) = 1
+trigger4 = root,var(28) <= 719
+trigger4 = RoundsExisted >= 1
+fvar(33) = 0
+supermovetime = 9999999999
+pausemovetime = 9999999999
+
+[State 1868];CHANGE表示用
+type = Varset
+triggerall = root,var(28) <= 719 || fvar(33) = 0
+trigger1 = RoundsExisted = 0
+trigger1 = root,var(5) = 1
+trigger2 = RoundsExisted >= 1
+fvar(32) = 0
+supermovetime = 9999999999
+pausemovetime = 9999999999
+
+
+;■タッチゲージ関連だけここ■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■
+[State -2];タッチゲージ制御
+type = Parentvarset
+trigger1 = root,var(28) <= 0
+v = 28
+value = 0
+ignorehitpause=1
+
+[State -2];タッチゲージ制御
+type = Parentvarset
+trigger1 = root,var(28) >= 720
+v = 28
+value = 720
+ignorehitpause=1
+
+
+;■該当しないタッチゲージを削除■■■■■■■■■■■■■■
+
+[State -2]
+type = RemoveExplod
+trigger1 = root,var(27) != 1
+ID = 8701
+ignorehitpause=1
+
+[State -2]
+type = RemoveExplod
+trigger1 = root,var(27) != 2
+ID = 8702
+ignorehitpause=1
+
+[State -2]
+type = RemoveExplod
+trigger1 = root,var(27) != 3
+ID = 8703
+ignorehitpause=1
+
+[State -2]
+type = RemoveExplod
+trigger1 = root,var(27) != 4
+ID = 8704
+ignorehitpause=1
+
+[State -2]
+type = RemoveExplod
+trigger1 = root,var(27) != 5
+ID = 8705
+ignorehitpause=1
+
+[State -2]
+type = RemoveExplod
+trigger1 = root,var(27) != 6
+ID = 8706
+ignorehitpause=1
+
+[State -2]
+type = RemoveExplod
+trigger1 = root,var(27) != 7
+ID = 8707
+ignorehitpause=1
+
+[State -2]
+type = RemoveExplod
+trigger1 = root,var(27) != 8
+ID = 8708
+ignorehitpause=1
+
+[State -2]
+type = RemoveExplod
+trigger1 = root,var(27) != 9
+ID = 8709
+ignorehitpause=1
+
+[State -2]
+type = RemoveExplod
+trigger1 = root,var(27) != 10
+ID = 8710
+ignorehitpause=1
+
+[State -2]
+type = RemoveExplod
+trigger1 = root,var(27) != 11
+ID = 8711
+ignorehitpause=1
+
+[State -2]
+type = RemoveExplod
+trigger1 = root,var(27) != 12
+ID = 8712
+ignorehitpause=1
+
+[State -2]
+type = RemoveExplod
+trigger1 = root,var(27) != 13
+ID = 8713
+ignorehitpause=1
+
+[State -2]
+type = RemoveExplod
+trigger1 = root,var(27) != 14
+ID = 8714
+ignorehitpause=1
+
+[State -2]
+type = RemoveExplod
+trigger1 = root,var(27) != 15
+ID = 8715
+ignorehitpause=1
+
+[State -2]
+type = RemoveExplod
+trigger1 = root,var(27) != 16
+ID = 8716
+ignorehitpause=1
+
+[State -2]
+type = RemoveExplod
+trigger1 = root,var(27) != 17
+ID = 8717
+ignorehitpause=1
+
+[State -2]
+type = RemoveExplod
+trigger1 = root,var(27) != 18
+ID = 8718
+ignorehitpause=1
+
+[State -2]
+type = RemoveExplod
+trigger1 = root,var(27) != 19
+ID = 8719
+ignorehitpause=1
+
+[State -2]
+type = RemoveExplod
+trigger1 = root,var(27) != 20
+ID = 8720
+ignorehitpause=1
+
+[State -2]
+type = RemoveExplod
+trigger1 = root,var(27) != 21
+ID = 8721
+ignorehitpause=1
+
+[State -2]
+type = RemoveExplod
+trigger1 = root,var(27) != 22
+ID = 8722
+ignorehitpause=1
+
+[State -2]
+type = RemoveExplod
+trigger1 = root,var(27) != 23
+ID = 8723
+ignorehitpause=1
+
+[State -2]
+type = RemoveExplod
+trigger1 = root,var(27) != 24
+ID = 8724
+ignorehitpause=1
+
+[State -2]
+type = RemoveExplod
+trigger1 = root,var(27) != 25
+ID = 8725
+ignorehitpause=1
+
+[State -2]
+type = RemoveExplod
+trigger1 = root,var(27) != 26
+ID = 8726
+ignorehitpause=1
+
+[State -2]
+type = RemoveExplod
+trigger1 = root,var(27) != 27
+ID = 8727
+ignorehitpause=1
+
+[State -2]
+type = RemoveExplod
+trigger1 = root,var(27) != 28
+ID = 8728
+ignorehitpause=1
+
+[State -2]
+type = RemoveExplod
+trigger1 = root,var(27) != 29
+ID = 8729
+ignorehitpause=1
+
+[State -2]
+type = RemoveExplod
+trigger1 = root,var(27) !=30
+ID = 8730
+ignorehitpause=1
+
+[State -2]
+type = RemoveExplod
+trigger1 = root,var(27) != 31
+ID = 8731
+ignorehitpause=1
+
+[State -2]
+type = RemoveExplod
+trigger1 = root,var(27) != 32
+ID = 8732
+ignorehitpause=1
+
+[State -2]
+type = RemoveExplod
+trigger1 = root,var(27) != 33
+ID = 8733
+ignorehitpause=1
+
+[State -2]
+type = RemoveExplod
+trigger1 = root,var(27) != 34
+ID = 8734
+ignorehitpause=1
+
+[State -2]
+type = RemoveExplod
+trigger1 = root,var(27) != 35
+ID = 8735
+ignorehitpause=1
+
+[State -2]
+type = RemoveExplod
+trigger1 = root,var(27) != 36
+ID = 8736
+ignorehitpause=1
+
+[State -2]
+type = RemoveExplod
+trigger1 = root,var(27) != 37
+ID = 8737
+ignorehitpause=1
+
+[State -2]
+type = RemoveExplod
+trigger1 = root,var(27) != 38
+ID = 8738
+ignorehitpause=1
+
+[State -2]
+type = RemoveExplod
+trigger1 = root,var(27) != 39
+ID = 8739
+ignorehitpause=1
+
+[State -2]
+type = RemoveExplod
+trigger1 = root,var(27) != 40
+ID = 8740
+ignorehitpause=1
+
+[State -2]
+type = RemoveExplod
+trigger1 = root,var(27) != 41
+ID = 8741
+ignorehitpause=1
+
+[State -2]
+type = RemoveExplod
+trigger1 = root,var(27) != 42
+ID = 8742
+ignorehitpause=1
+
+[State -2]
+type = RemoveExplod
+trigger1 = root,var(27) != 43
+ID = 8743
+ignorehitpause=1
+
+[State -2]
+type = RemoveExplod
+trigger1 = root,var(27) != 44
+ID = 8744
+ignorehitpause=1
+
+[State -2]
+type = RemoveExplod
+trigger1 = root,var(27) != 45
+ID = 8745
+ignorehitpause=1
+
+[State -2]
+type = RemoveExplod
+trigger1 = root,var(27) != 46
+ID = 8746
+ignorehitpause=1
+
+[State -2]
+type = RemoveExplod
+trigger1 = root,var(27) != 47
+ID = 8747
+ignorehitpause=1
+
+[State -2]
+type = RemoveExplod
+trigger1 = root,var(27) != 48
+ID = 8748
+ignorehitpause=1
+
+[State -2]
+type = RemoveExplod
+trigger1 = root,var(27) != 49
+ID = 8749
+ignorehitpause=1
+
+[State -2]
+type = RemoveExplod
+trigger1 = root,var(27) != 50
+ID = 8750
+ignorehitpause=1
+
+[State -2]
+type = RemoveExplod
+trigger1 = root,var(27) != 51
+ID = 8751
+ignorehitpause=1
+
+[State -2]
+type = RemoveExplod
+trigger1 = root,var(27) != 51
+ID = 18700
+ignorehitpause=1
+
+
+;■■■■■
+;---------------------------------
+[State -2];タッチゲージ表示制御
+type = Parentvarset
+trigger1 = root,var(28) <= 0
+v = 27
+value = 0
+ignorehitpause=1
+
+[State -2]
+type = Parentvarset
+trigger1 = root,var(28) = [1,15]
+v = 27
+value = 1
+ignorehitpause=1
+
+[State -2]
+type = Parentvarset
+trigger1 = root,var(28) = [16,30]
+v = 27
+value = 2
+ignorehitpause=1
+
+[State -2]
+type = Parentvarset
+trigger1 = root,var(28) = [31,45]
+v = 27
+value = 3
+ignorehitpause=1
+
+[State -2]
+type = Parentvarset
+trigger1 = root,var(28) = [46,60]
+v = 27
+value = 4
+ignorehitpause=1
+
+[State -2]
+type = Parentvarset
+trigger1 = root,var(28) = [61,75]
+v = 27
+value = 5
+ignorehitpause=1
+
+[State -2]
+type = Parentvarset
+trigger1 = root,var(28) = [76,90]
+v = 27
+value = 6
+ignorehitpause=1
+
+[State -2]
+type = Parentvarset
+trigger1 = root,var(28) = [91,105]
+v = 27
+value = 7
+ignorehitpause=1
+
+[State -2]
+type = Parentvarset
+trigger1 = root,var(28) = [106,120]
+v = 27
+value = 8
+ignorehitpause=1
+
+[State -2]
+type = Parentvarset
+trigger1 = root,var(28) = [121,135]
+v = 27
+value = 9
+ignorehitpause=1
+
+[State -2]
+type = Parentvarset
+trigger1 = root,var(28) = [136,150]
+v = 27
+value = 10
+ignorehitpause=1
+
+[State -2]
+type = Parentvarset
+trigger1 = root,var(28) = [151,165]
+v = 27
+value = 11
+ignorehitpause=1
+
+[State -2]
+type = Parentvarset
+trigger1 = root,var(28) = [166,180]
+v = 27
+value = 12
+ignorehitpause=1
+
+[State -2]
+type = Parentvarset
+trigger1 = root,var(28) = [181,195]
+v = 27
+value = 13
+ignorehitpause=1
+
+[State -2]
+type = Parentvarset
+trigger1 = root,var(28) = [196,210]
+v = 27
+value = 14
+ignorehitpause=1
+
+[State -2]
+type = Parentvarset
+trigger1 = root,var(28) = [211,225]
+v = 27
+value = 15
+ignorehitpause=1
+
+[State -2]
+type = Parentvarset
+trigger1 = root,var(28) = [226,240]
+v = 27
+value = 16
+ignorehitpause=1
+
+[State -2]
+type = Parentvarset
+trigger1 = root,var(28) = [241,255]
+v = 27
+value = 17
+ignorehitpause=1
+
+[State -2]
+type = Parentvarset
+trigger1 = root,var(28) = [256,270]
+v = 27
+value = 18
+ignorehitpause=1
+
+[State -2]
+type = Parentvarset
+trigger1 = root,var(28) = [271,285]
+v = 27
+value = 19
+ignorehitpause=1
+
+[State -2]
+type = Parentvarset
+trigger1 = root,var(28) = [286,299]
+v = 27
+value = 20
+ignorehitpause=1
+
+[State -2]
+type = Parentvarset
+trigger1 = root,var(28) = [300,313]
+v = 27
+value = 21
+ignorehitpause=1
+
+[State -2]
+type = Parentvarset
+trigger1 = root,var(28) = [314,327]
+v = 27
+value = 22
+ignorehitpause=1
+
+[State -2]
+type = Parentvarset
+trigger1 = root,var(28) = [328,341]
+v = 27
+value = 23
+ignorehitpause=1
+
+[State -2]
+type = Parentvarset
+trigger1 = root,var(28) = [342,355]
+v = 27
+value = 24
+ignorehitpause=1
+
+[State -2]
+type = Parentvarset
+trigger1 = root,var(28) = [356,369]
+v = 27
+value = 25
+ignorehitpause=1
+
+[State -2]
+type = Parentvarset
+trigger1 = root,var(28) = [370,383]
+v = 27
+value = 26
+ignorehitpause=1
+
+[State -2]
+type = Parentvarset
+trigger1 = root,var(28) = [384,397]
+v = 27
+value = 27
+ignorehitpause=1
+
+[State -2]
+type = Parentvarset
+trigger1 = root,var(28) = [398,411]
+v = 27
+value = 28
+ignorehitpause=1
+
+[State -2]
+type = Parentvarset
+trigger1 = root,var(28) = [412,425]
+v = 27
+value = 29
+ignorehitpause=1
+
+[State -2]
+type = Parentvarset
+trigger1 = root,var(28) = [426,439]
+v = 27
+value = 30
+ignorehitpause=1
+
+[State -2]
+type = Parentvarset
+trigger1 = root,var(28) = [440,453]
+v = 27
+value = 31
+ignorehitpause=1
+
+[State -2]
+type = Parentvarset
+trigger1 = root,var(28) = [454,467]
+v = 27
+value = 32
+ignorehitpause=1
+
+[State -2]
+type = Parentvarset
+trigger1 = root,var(28) = [468,481]
+v = 27
+value = 33
+ignorehitpause=1
+
+[State -2]
+type = Parentvarset
+trigger1 = root,var(28) = [482,495]
+v = 27
+value = 34
+ignorehitpause=1
+
+[State -2]
+type = Parentvarset
+trigger1 = root,var(28) = [496,509]
+v = 27
+value = 35
+ignorehitpause=1
+
+[State -2]
+type = Parentvarset
+trigger1 = root,var(28) = [510,523]
+v = 27
+value = 36
+ignorehitpause=1
+
+[State -2]
+type = Parentvarset
+trigger1 = root,var(28) = [524,537]
+v = 27
+value = 37
+ignorehitpause=1
+
+[State -2]
+type = Parentvarset
+trigger1 = root,var(28) = [538,551]
+v = 27
+value = 38
+ignorehitpause=1
+
+[State -2]
+type = Parentvarset
+trigger1 = root,var(28) = [552,565]
+v = 27
+value = 39
+ignorehitpause=1
+
+[State -2]
+type = Parentvarset
+trigger1 = root,var(28) = [566,579]
+v = 27
+value = 40
+ignorehitpause=1
+
+[State -2]
+type = Parentvarset
+trigger1 = root,var(28) = [580,593]
+v = 27
+value = 41
+ignorehitpause=1
+
+[State -2]
+type = Parentvarset
+trigger1 = root,var(28) = [594,607]
+v = 27
+value = 42
+ignorehitpause=1
+
+[State -2]
+type = Parentvarset
+trigger1 = root,var(28) = [608,621]
+v = 27
+value = 43
+ignorehitpause=1
+
+[State -2]
+type = Parentvarset
+trigger1 = root,var(28) = [622,635]
+v = 27
+value = 44
+ignorehitpause=1
+
+[State -2]
+type = Parentvarset
+trigger1 = root,var(28) = [636,649]
+v = 27
+value = 45
+ignorehitpause=1
+
+[State -2]
+type = Parentvarset
+trigger1 = root,var(28) = [650,663]
+v = 27
+value = 46
+ignorehitpause=1
+
+[State -2]
+type = Parentvarset
+trigger1 = root,var(28) = [664,677]
+v = 27
+value = 47
+ignorehitpause=1
+
+[State -2]
+type = Parentvarset
+trigger1 = root,var(28) = [678,691]
+v = 27
+value = 48
+ignorehitpause=1
+
+[State -2]
+type = Parentvarset
+trigger1 = root,var(28) = [692,705]
+v = 27
+value = 49
+ignorehitpause=1
+
+[State -2]
+type = Parentvarset
+trigger1 = root,var(28) = [706,719]
+v = 27
+value = 50
+ignorehitpause=1
+
+[State -2]
+type = Parentvarset
+trigger1 = root,var(28) >= 720
+v = 27
+value = 51
+ignorehitpause=1
+
+
+;■■■■■■■
+[State -3];タッチゲージ(1P側)
+type = Explod
+triggerall = teamside=1
+triggerall = numexplod(18700) = 0
+triggerall = numexplod(8700+root,var(27)) = 0
+triggerall = root,var(27) >= 1
+trigger1 = root,RoundsExisted = 0
+trigger1 = root,var(5) = 1
+trigger2 = root,RoundsExisted >= 1
+anim = 8700+root,var(27)
+ID = 8700+root,var(27)
+supermovetime = 9999999999
+pausemovetime = 9999999999
+postype = left
+pos=9,209+root,var(54)
+ownpal = 1
+sprpriority = 10101
+bindtime = -1
+scale = 0.5,0.5
+
+[State -3];タッチゲージ(2P側)
+type = Explod
+triggerall = teamside=2
+triggerall = numexplod(18700) = 0
+triggerall = numexplod(8700+root,var(27)) = 0
+triggerall = root,var(27) >= 1
+trigger1 = root,RoundsExisted = 0
+trigger1 = root,var(5) = 1
+trigger2 = root,RoundsExisted >= 1
+anim = 8700+root,var(27)
+ID = 8700+root,var(27)
+supermovetime = 9999999999
+pausemovetime = 9999999999
+postype = right
+pos=-9,209+root,var(54)
+ownpal = 1
+sprpriority = 10101
+bindtime = -1
+scale = 0.5,0.5
+facing=-1
+
+;■■■■■■■
+[State -3];タッチゲージ（ラウンド開始時）(1P側)
+type = Explod
+triggerall = teamside=1
+triggerall = numexplod(18700) = 0
+triggerall = numexplod(8700+root,var(27)) = 0
+triggerall = root,fvar(5) = 0
+triggerall = root,var(28) = 720
+trigger1 = root,roundstate >= 2
+;trigger1 = root,RoundsExisted = 0
+;trigger1 = root,var(5) = 1
+anim = 8760
+ID = 18700
+supermovetime = 9999999999
+pausemovetime = 9999999999
+postype = left
+pos=9,209+root,var(54)
+ownpal = 1
+sprpriority = 10101
+bindtime = -1
+scale = 0.5,0.5
+
+[State -3];タッチゲージ（ラウンド開始時）(2P側)
+type = Explod
+triggerall = teamside=2
+triggerall = numexplod(18700) = 0
+triggerall = numexplod(8700+root,var(27)) = 0
+triggerall = root,fvar(5) = 0
+triggerall = root,var(28) = 720
+trigger1 = root,roundstate >= 2
+;trigger1 = root,RoundsExisted = 0
+;trigger1 = root,var(5) = 1
+anim = 8760
+ID = 18700
+supermovetime = 9999999999
+pausemovetime = 9999999999
+postype = right
+pos=-9,209+root,var(54)
+ownpal = 1
+sprpriority = 10101
+bindtime = -1
+scale = 0.5,0.5
+facing=-1
+
+
+
+;■特殊ゲージ用（ヘルパー）
+[Statedef 3013]
+type =A
+movetype=I
+physics=S
+anim=9999
+ctrl=0
+sprpriority=-100
+
+
+
+;■メタゲージ増加中に該当しないメタゲージを削除■■■■■■■■
+[State -2]
+type = RemoveExplod
+trigger1 = root,var(14) != 1
+ID = 8201
+ignorehitpause=1
+
+[State -2]
+type = RemoveExplod
+trigger1 = root,var(14) != 2
+ID = 8202
+ignorehitpause=1
+
+[State -2]
+type = RemoveExplod
+trigger1 = root,var(14) != 3
+ID = 8203
+ignorehitpause=1
+
+[State -2]
+type = RemoveExplod
+trigger1 = root,var(14) != 4
+ID = 8204
+ignorehitpause=1
+
+[State -2]
+type = RemoveExplod
+trigger1 = root,var(14) != 5
+ID = 8205
+ignorehitpause=1
+
+[State -2]
+type = RemoveExplod
+trigger1 = root,var(14) != 6
+ID = 8206
+ignorehitpause=1
+
+[State -2]
+type = RemoveExplod
+trigger1 = root,var(14) != 7
+ID = 8207
+ignorehitpause=1
+
+[State -2]
+type = RemoveExplod
+trigger1 = root,var(14) != 8
+ID = 8208
+ignorehitpause=1
+
+[State -2]
+type = RemoveExplod
+trigger1 = root,var(14) != 9
+ID = 8209
+ignorehitpause=1
+
+[State -2]
+type = RemoveExplod
+trigger1 = root,var(14) != 10
+ID = 8210
+ignorehitpause=1
+
+[State -2]
+type = RemoveExplod
+trigger1 = root,var(14) != 11
+ID = 8211
+ignorehitpause=1
+
+[State -2]
+type = RemoveExplod
+trigger1 = root,var(14) != 12
+ID = 8212
+ignorehitpause=1
+
+[State -2]
+type = RemoveExplod
+trigger1 = root,var(14) != 13
+ID = 8213
+ignorehitpause=1
+
+[State -2]
+type = RemoveExplod
+trigger1 = root,var(14) != 14
+ID = 8214
+ignorehitpause=1
+
+[State -2]
+type = RemoveExplod
+trigger1 = root,var(14) != 15
+ID = 8215
+ignorehitpause=1
+
+[State -2]
+type = RemoveExplod
+trigger1 = root,var(14) != 16
+ID = 8216
+ignorehitpause=1
+
+[State -2]
+type = RemoveExplod
+trigger1 = root,var(14) != 17
+ID = 8217
+ignorehitpause=1
+
+[State -2]
+type = RemoveExplod
+trigger1 = root,var(14) != 18
+ID = 8218
+ignorehitpause=1
+
+[State -2]
+type = RemoveExplod
+trigger1 = root,var(14) != 19
+ID = 8219
+ignorehitpause=1
+
+[State -2]
+type = RemoveExplod
+trigger1 = root,var(14) != 20
+ID = 8220
+ignorehitpause=1
+
+[State -2]
+type = RemoveExplod
+trigger1 = root,var(14) != 21
+ID = 8221
+ignorehitpause=1
+
+[State -2]
+type = RemoveExplod
+trigger1 = root,var(14) != 22
+ID = 8222
+ignorehitpause=1
+
+[State -2]
+type = RemoveExplod
+trigger1 = root,var(14) != 23
+ID = 8223
+ignorehitpause=1
+
+[State -2]
+type = RemoveExplod
+trigger1 = root,var(14) != 24
+ID = 8224
+ignorehitpause=1
+
+[State -2]
+type = RemoveExplod
+trigger1 = root,var(14) != 25
+ID = 8225
+ignorehitpause=1
+
+[State -2]
+type = RemoveExplod
+trigger1 = root,var(14) != 26
+ID = 8226
+ignorehitpause=1
+
+[State -2]
+type = RemoveExplod
+trigger1 = root,var(14) != 27
+ID = 8227
+ignorehitpause=1
+
+[State -2]
+type = RemoveExplod
+trigger1 = root,var(14) != 28
+ID = 8228
+ignorehitpause=1
+
+[State -2]
+type = RemoveExplod
+trigger1 = root,var(14) != 29
+ID = 8229
+ignorehitpause=1
+
+[State -2]
+type = RemoveExplod
+trigger1 = root,var(14) != 30
+ID = 8230
+ignorehitpause=1
+
+[State -2]
+type = RemoveExplod
+trigger1 = root,var(14) != 31
+ID = 8231
+ignorehitpause=1
+
+[State -2]
+type = RemoveExplod
+trigger1 = root,var(14) != 32
+ID = 8232
+ignorehitpause=1
+
+[State -2]
+type = RemoveExplod
+trigger1 = root,var(14) != 33
+ID = 8233
+ignorehitpause=1
+
+[State -2]
+type = RemoveExplod
+trigger1 = root,var(14) != 34
+ID = 8234
+ignorehitpause=1
+
+[State -2]
+type = RemoveExplod
+trigger1 = root,var(14) != 35
+ID = 8235
+ignorehitpause=1
+
+[State -2]
+type = RemoveExplod
+trigger1 = root,var(14) != 36
+ID = 8236
+ignorehitpause=1
+
+[State -2]
+type = RemoveExplod
+trigger1 = root,var(14) != 37
+ID = 8237
+ignorehitpause=1
+
+[State -2]
+type = RemoveExplod
+trigger1 = root,var(14) != 38
+ID = 8238
+ignorehitpause=1
+
+[State -2]
+type = RemoveExplod
+trigger1 = root,var(14) != 39
+ID = 8239
+ignorehitpause=1
+
+[State -2]
+type = RemoveExplod
+trigger1 = root,var(14) != 40
+ID = 8240
+ignorehitpause=1
+
+[State -2]
+type = RemoveExplod
+trigger1 = root,var(14) != 41
+ID = 8241
+ignorehitpause=1
+
+[State -2]
+type = RemoveExplod
+trigger1 = root,var(14) != 42
+ID = 8242
+ignorehitpause=1
+
+[State -2]
+type = RemoveExplod
+trigger1 = root,var(14) != 43
+ID = 8243
+ignorehitpause=1
+
+[State -2]
+type = RemoveExplod
+trigger1 = root,var(14) != 44
+ID = 8244
+ignorehitpause=1
+
+[State -2]
+type = RemoveExplod
+trigger1 = root,var(14) != 45
+ID = 8245
+ignorehitpause=1
+
+[State -2]
+type = RemoveExplod
+trigger1 = root,var(14) != 46
+ID = 8246
+ignorehitpause=1
+
+[State -2]
+type = RemoveExplod
+trigger1 = root,var(14) != 47
+ID = 8247
+ignorehitpause=1
+
+[State -2]
+type = RemoveExplod
+trigger1 = root,var(14) != 48
+ID = 8248
+ignorehitpause=1
+
+[State -2]
+type = RemoveExplod
+trigger1 = root,var(14) != 49
+ID = 8249
+ignorehitpause=1
+
+[State -2]
+type = RemoveExplod
+trigger1 = root,var(14) != 50
+ID = 8250
+ignorehitpause=1
+
+[State -2]
+type = RemoveExplod
+trigger1 = root,var(14) != 51
+ID = 8251
+ignorehitpause=1
+
+[State -2]
+type = RemoveExplod
+trigger1 = root,var(14) != 52
+ID = 8252
+ignorehitpause=1
+
+[State -2]
+type = RemoveExplod
+trigger1 = root,var(14) != 53
+ID = 8253
+ignorehitpause=1
+
+[State -2]
+type = RemoveExplod
+trigger1 = root,var(14) != 54
+ID = 8254
+ignorehitpause=1
+
+[State -2];メタゲージMAX消える
+type = RemoveExplod
+trigger1 = root,var(14) != 55
+trigger2 = root,var(14) = 55
+;trigger2 = time% 12 = 0
+ID = 8255
+ignorehitpause=1
+
+;■■■■■■■■■■■■■■■
+;■メタゲージ表示用Var(14)の設定
+;■■■■■■■■■■■■■■■
+[State -2];メタゲージ表示制御
+type = Parentvarset
+trigger1 = root,var(46) <= 0
+v = 14
+value = 0
+ignorehitpause=1
+
+[State -2]
+type = Parentvarset
+trigger1 = root,var(46) = [1,12]
+v = 14
+value = 1
+ignorehitpause=1
+
+[State -2]
+type = Parentvarset
+trigger1 = root,var(46) = [13,24]
+v = 14
+value = 2
+ignorehitpause=1
+
+[State -2]
+type = Parentvarset
+trigger1 = root,var(46) = [25,36]
+v = 14
+value = 3
+ignorehitpause=1
+
+[State -2]
+type = Parentvarset
+trigger1 = root,var(46) = [37,48]
+v = 14
+value = 4
+ignorehitpause=1
+
+[State -2]
+type = Parentvarset
+trigger1 = root,var(46) = [49,60]
+v = 14
+value = 5
+ignorehitpause=1
+
+[State -2]
+type = Parentvarset
+trigger1 = root,var(46) = [61,72]
+v = 14
+value = 6
+ignorehitpause=1
+
+[State -2]
+type = Parentvarset
+trigger1 = root,var(46) = [73,84]
+v = 14
+value = 7
+ignorehitpause=1
+
+[State -2]
+type = Parentvarset
+trigger1 = root,var(46) = [85,96]
+v = 14
+value = 8
+ignorehitpause=1
+
+[State -2]
+type = Parentvarset
+trigger1 = root,var(46) = [97,108]
+v = 14
+value = 9
+ignorehitpause=1
+
+[State -2]
+type = Parentvarset
+trigger1 = root,var(46) = [109,120]
+v = 14
+value = 10
+ignorehitpause=1
+
+[State -2]
+type = Parentvarset
+trigger1 = root,var(46) = [121,132]
+v = 14
+value = 11
+ignorehitpause=1
+
+[State -2]
+type = Parentvarset
+trigger1 = root,var(46) = [133,144]
+v = 14
+value = 12
+ignorehitpause=1
+
+[State -2]
+type = Parentvarset
+trigger1 = root,var(46) = [145,156]
+v = 14
+value = 13
+ignorehitpause=1
+
+[State -2]
+type = Parentvarset
+trigger1 = root,var(46) = [157,168]
+v = 14
+value = 14
+ignorehitpause=1
+
+[State -2]
+type = Parentvarset
+trigger1 = root,var(46) = [169,180]
+v = 14
+value = 15
+ignorehitpause=1
+
+[State -2]
+type = Parentvarset
+trigger1 = root,var(46) = [181,192]
+v = 14
+value = 16
+ignorehitpause=1
+
+[State -2]
+type = Parentvarset
+trigger1 = root,var(46) = [193,204]
+v = 14
+value = 17
+ignorehitpause=1
+
+[State -2]
+type = Parentvarset
+trigger1 = root,var(46) = [205,216]
+v = 14
+value = 18
+ignorehitpause=1
+
+[State -2]
+type = Parentvarset
+trigger1 = root,var(46) = [217,228]
+v = 14
+value = 19
+ignorehitpause=1
+
+[State -2]
+type = Parentvarset
+trigger1 = root,var(46) = [229,240]
+v = 14
+value = 20
+ignorehitpause=1
+
+[State -2]
+type = Parentvarset
+trigger1 = root,var(46) = [241,252]
+v = 14
+value = 21
+ignorehitpause=1
+
+[State -2]
+type = Parentvarset
+trigger1 = root,var(46) = [253,264]
+v = 14
+value = 22
+ignorehitpause=1
+
+[State -2]
+type = Parentvarset
+trigger1 = root,var(46) = [265,276]
+v = 14
+value = 23
+ignorehitpause=1
+
+[State -2]
+type = Parentvarset
+trigger1 = root,var(46) = [277,288]
+v = 14
+value = 24
+ignorehitpause=1
+
+[State -2]
+type = Parentvarset
+trigger1 = root,var(46) = [289,300]
+v = 14
+value = 25
+ignorehitpause=1
+
+[State -2]
+type = Parentvarset
+trigger1 = root,var(46) = [301,312]
+v = 14
+value = 26
+ignorehitpause=1
+
+[State -2]
+type = Parentvarset
+trigger1 = root,var(46) = [313,324]
+v = 14
+value = 27
+ignorehitpause=1
+
+[State -2]
+type = Parentvarset
+trigger1 = root,var(46) = [325,336]
+v = 14
+value = 28
+ignorehitpause=1
+
+[State -2]
+type = Parentvarset
+trigger1 = root,var(46) = [337,348]
+v = 14
+value = 29
+ignorehitpause=1
+
+[State -2]
+type = Parentvarset
+trigger1 = root,var(46) = [349,360]
+v = 14
+value = 30
+ignorehitpause=1
+
+[State -2]
+type = Parentvarset
+trigger1 = root,var(46) = [361,372]
+v = 14
+value = 31
+ignorehitpause=1
+
+[State -2]
+type = Parentvarset
+trigger1 = root,var(46) = [373,384]
+v = 14
+value = 32
+ignorehitpause=1
+
+[State -2]
+type = Parentvarset
+trigger1 = root,var(46) = [385,396]
+v = 14
+value = 33
+ignorehitpause=1
+
+[State -2]
+type = Parentvarset
+trigger1 = root,var(46) = [397,408]
+v = 14
+value = 34
+ignorehitpause=1
+
+[State -2]
+type = Parentvarset
+trigger1 = root,var(46) = [409,420]
+v = 14
+value = 35
+ignorehitpause=1
+
+[State -2]
+type = Parentvarset
+trigger1 = root,var(46) = [421,432]
+v = 14
+value = 36
+ignorehitpause=1
+
+[State -2]
+type = Parentvarset
+trigger1 = root,var(46) = [433,444]
+v = 14
+value = 37
+ignorehitpause=1
+
+[State -2]
+type = Parentvarset
+trigger1 = root,var(46) = [445,456]
+v = 14
+value = 38
+ignorehitpause=1
+
+[State -2]
+type = Parentvarset
+trigger1 = root,var(46) = [457,468]
+v = 14
+value = 39
+ignorehitpause=1
+
+[State -2]
+type = Parentvarset
+trigger1 = root,var(46) = [469,480]
+v = 14
+value = 40
+ignorehitpause=1
+
+[State -2]
+type = Parentvarset
+trigger1 = root,var(46) = [481,492]
+v = 14
+value = 41
+ignorehitpause=1
+
+[State -2]
+type = Parentvarset
+trigger1 = root,var(46) = [493,504]
+v = 14
+value = 42
+ignorehitpause=1
+
+[State -2]
+type = Parentvarset
+trigger1 = root,var(46) = [505,516]
+v = 14
+value = 43
+ignorehitpause=1
+
+[State -2]
+type = Parentvarset
+trigger1 = root,var(46) = [517,528]
+v = 14
+value = 44
+ignorehitpause=1
+
+[State -2]
+type = Parentvarset
+trigger1 = root,var(46) = [529,540]
+v = 14
+value = 45
+ignorehitpause=1
+
+[State -2]
+type = Parentvarset
+trigger1 = root,var(46) = [541,552]
+v = 14
+value = 46
+ignorehitpause=1
+
+[State -2]
+type = Parentvarset
+trigger1 = root,var(46) = [553,564]
+v = 14
+value = 47
+ignorehitpause=1
+
+[State -2]
+type = Parentvarset
+trigger1 = root,var(46) = [565,576]
+v = 14
+value = 48
+ignorehitpause=1
+
+[State -2]
+type = Parentvarset
+trigger1 = root,var(46) = [577,588]
+v = 14
+value = 49
+ignorehitpause=1
+
+[State -2]
+type = Parentvarset
+trigger1 = root,var(46) = [589,600]
+v = 14
+value = 50
+ignorehitpause=1
+
+[State -2]
+type = Parentvarset
+trigger1 = root,var(46) = [601,612]
+v = 14
+value = 51
+ignorehitpause=1
+
+[State -2]
+type = Parentvarset
+trigger1 = root,var(46) = [613,624]
+v = 14
+value = 52
+ignorehitpause=1
+
+[State -2]
+type = Parentvarset
+trigger1 = root,var(46) = [625,636]
+v = 14
+value = 53
+ignorehitpause=1
+
+[State -2]
+type = Parentvarset
+trigger1 = root,var(46) = [637,648]
+v = 14
+value = 54
+ignorehitpause=1
+
+[State -2]
+type = Parentvarset
+trigger1 = root,var(46) >= 649;[649,660]
+v = 14
+value = 55
+ignorehitpause=1
+
+
+;■■■スペシャルゲージ、該当しないものを削除
+
+[State -2];スペシャルゲージMAX1消える
+type = RemoveExplod
+triggerall = root,var(5) = 1
+triggerall = root,var(55) = 0
+trigger1 = power <= 999
+ID = 8019
+ignorehitpause=1
+
+[State -2];スペシャルゲージMAX2消える
+type = RemoveExplod
+triggerall = root,var(5) = 1
+triggerall = root,var(55) = 0
+trigger1 = power <= 1999
+ID = 8020
+ignorehitpause=1
+
+[State -2];スペシャルゲージMAX3消える
+type = RemoveExplod
+triggerall = root,var(5) = 1
+triggerall = root,var(55) = 0
+trigger1 = power <= 2999
+ID = 8021
+ignorehitpause=1
+
+[State -2];スペシャルゲージMAX4消える
+type = RemoveExplod
+triggerall = root,var(5) = 1
+triggerall = root,var(55) = 0
+trigger1 = power <= 3999
+ID = 8022
+ignorehitpause=1
+
+[State -2];スペシャルゲージMAX5消える
+type = RemoveExplod
+triggerall = root,var(5) = 1
+triggerall = root,var(55) = 0
+trigger1 = power <= 4999
+ID = 8023
+ignorehitpause=1
+
+[State -2];スペシャルゲージ数値0消える
+type = RemoveExplod
+triggerall = root,var(5) = 1
+triggerall = root,var(55) = 0
+trigger1 = power >= 1000
+ID = 8007
+ignorehitpause=1
+
+[State -2];スペシャルゲージ数値1消える
+type = RemoveExplod
+triggerall = root,var(5) = 1
+triggerall = root,var(55) = 0
+trigger1 = power <= 999
+trigger2 = power >= 2000
+ID = 8008
+ignorehitpause=1
+
+[State -2];スペシャルゲージ数値2消える
+type = RemoveExplod
+triggerall = root,var(5) = 1
+triggerall = root,var(55) = 0
+trigger1 = power <= 1999
+trigger2 = power >= 3000
+ID = 8009
+ignorehitpause=1
+
+[State -2];スペシャルゲージ数値3消える
+type = RemoveExplod
+triggerall = root,var(5) = 1
+triggerall = root,var(55) = 0
+trigger1 = power <= 2999
+trigger2 = power >= 4000
+ID = 8010
+ignorehitpause=1
+
+[State -2];スペシャルゲージ数値4消える
+type = RemoveExplod
+triggerall = root,var(5) = 1
+triggerall = root,var(55) = 0
+trigger1 = power <= 3999
+trigger2 = power >= 5000
+ID = 8011
+ignorehitpause=1
+
+[State -2];スペシャルゲージ数値5消える
+type = RemoveExplod
+triggerall = root,var(5) = 1
+triggerall = root,var(55) = 0
+trigger1 = power <= 4999
+ID = 8012
+ignorehitpause=1
+
+
+;■■■■■■■■■■■■■■■■■■■■■■■■
+
+
+[State -3];メタゲージ枠(1P側)
+type = Explod
+triggerall = teamside=1
+triggerall = numexplod(8003) = 0
+trigger1 = root,RoundsExisted = 0
+trigger1 = root,var(5) = 1
+trigger2 = root,RoundsExisted >= 1
+anim = 8124
+ID = 8003
+supermovetime = 9999999999
+pausemovetime = 9999999999
+postype = left
+pos=137+ceil(ifelse(root,var(51)>=161,root,var(51)/5,0)),40+root,var(50)
+ownpal = 1
+sprpriority = -298
+bindtime = -1
+scale = 0.5,0.5
+
+[State -3];メタゲージ枠(2P側)
+type = Explod
+triggerall = teamside=2
+triggerall = numexplod(8003) = 0
+trigger1 = root,RoundsExisted = 0
+trigger1 = root,var(5) = 1
+trigger2 = root,RoundsExisted >= 1
+anim = 8124
+ID = 8003
+supermovetime = 9999999999
+pausemovetime = 9999999999
+postype = right
+pos=-136-ceil(ifelse(root,var(51)>=161,root,var(51)/5,0)),40+root,var(50)
+ownpal = 1
+sprpriority = -298
+bindtime = -1
+scale = 0.5,0.5
+facing=-1
+
+[State -3];メタゲージ(1P側)
+type = Explod
+triggerall = teamside=1
+triggerall = numexplod(8200+root,var(14)) = 0
+trigger1 = root,RoundsExisted = 0
+trigger1 = root,var(5) = 1
+trigger1 = root,fvar(1) >= 90
+trigger2 = root,RoundsExisted >= 1
+anim = 8200+root,var(14)+(ifelse(root,var(17),100,0))
+ID = 8200+root,var(14)
+supermovetime = 9999999999
+pausemovetime = 9999999999
+postype = left
+pos=137+ceil(ifelse(root,var(51)>=161,root,var(51)/5,0)),40+root,var(50)
+ownpal = 1
+sprpriority = -299
+bindtime = -1
+scale = 0.5,0.5
+
+[State -3];メタゲージ(2P側)
+type = Explod
+triggerall = teamside=2
+triggerall = numexplod(8200+root,var(14)) = 0
+trigger1 = root,RoundsExisted = 0
+trigger1 = root,var(5) = 1
+trigger1 = root,fvar(1) >= 90
+trigger2 = root,RoundsExisted >= 1
+anim = 8200+root,var(14)+(ifelse(root,var(17),100,0))
+ID = 8200+root,var(14)
+supermovetime = 9999999999
+pausemovetime = 9999999999
+postype = right
+pos=-136-ceil(ifelse(root,var(51)>=161,root,var(51)/5,0)),40+root,var(50)
+ownpal = 1
+sprpriority = -299
+bindtime = -1
+scale = 0.5,0.5
+facing=-1
+
+[State -3];メタゲージ下地(1P側)
+type = Explod
+triggerall = teamside=1
+triggerall = numexplod(8002) = 0
+trigger1 = root,RoundsExisted = 0
+trigger1 = root,var(5) = 1
+trigger2 = root,RoundsExisted >= 1
+anim = 8123
+ID = 8002
+supermovetime = 9999999999
+pausemovetime = 9999999999
+postype = left
+pos=137+ceil(ifelse(root,var(51)>=161,root,var(51)/5,0)),40+root,var(50)
+ownpal = 1
+sprpriority = -300
+bindtime = -1
+scale = 0.5,0.5
+
+[State -3];メタゲージ下地(2P側)
+type = Explod
+triggerall = teamside=2
+triggerall = numexplod(8002) = 0
+trigger1 = root,RoundsExisted = 0
+trigger1 = root,var(5) = 1
+trigger2 = root,RoundsExisted >= 1
+anim = 8123
+ID = 8002
+supermovetime = 9999999999
+pausemovetime = 9999999999
+postype = right
+pos=-136-ceil(ifelse(root,var(51)>=161,root,var(51)/5,0)),40+root,var(50)
+ownpal = 1
+sprpriority = -300
+bindtime = -1
+scale = 0.5,0.5
+facing=-1
+
+
+[State -3];スペシャルゲージ(1P側)
+type = Explod
+triggerall = teamside=1
+triggerall = numexplod(8000) = 0
+triggerall = root,var(55) = 0
+trigger1 = root,RoundsExisted = 0
+trigger1 = root,var(5) = 1
+trigger2 = root,RoundsExisted >= 1
+anim = 8122
+ID = 8000
+supermovetime = 9999999999
+pausemovetime = 9999999999
+postype = left
+pos=71+ceil(ifelse(root,var(51)>=161,root,var(51)/5,0)),40+root,var(53)
+ownpal = 1
+sprpriority = -299
+bindtime = -1
+scale = 0.5,0.5
+
+[State -3];スペシャルゲージ(2P側)
+type = Explod
+triggerall = teamside=2
+triggerall = numexplod(8000) = 0
+triggerall = root,var(55) = 0
+trigger1 = root,RoundsExisted = 0
+trigger1 = root,var(5) = 1
+trigger2 = root,RoundsExisted >= 1
+anim = 8122
+ID = 8000
+supermovetime = 9999999999
+pausemovetime = 9999999999
+postype = right
+pos=-71-ceil(ifelse(root,var(51)>=161,root,var(51)/5,0)),40+root,var(53)
+ownpal = 1
+sprpriority = -299
+bindtime = -1
+scale = 0.5,0.5
+facing=-1
+
+[State -3];スペシャルゲージ下地(1P側)
+type = Explod
+triggerall = teamside=1
+triggerall = numexplod(8001) = 0
+triggerall = root,var(55) = 0
+trigger1 = root,RoundsExisted = 0
+trigger1 = root,var(5) = 1
+trigger2 = root,RoundsExisted >= 1
+anim = 8121
+ID = 8001
+supermovetime = 9999999999
+pausemovetime = 9999999999
+postype = left
+pos=71+ceil(ifelse(root,var(51)>=161,root,var(51)/5,0)),40+root,var(53)
+ownpal = 1
+sprpriority = -300
+bindtime = -1
+scale = 0.5,0.5
+
+[State -3];スペシャルゲージ下地(2P側)
+type = Explod
+triggerall = teamside=2
+triggerall = numexplod(8001) = 0
+triggerall = root,var(55) = 0
+trigger1 = root,RoundsExisted = 0
+trigger1 = root,var(5) = 1
+trigger2 = root,RoundsExisted >= 1
+anim = 8121
+ID = 8001
+supermovetime = 9999999999
+pausemovetime = 9999999999
+postype = right
+pos=-71-ceil(ifelse(root,var(51)>=161,root,var(51)/5,0)),40+root,var(53)
+ownpal = 1
+sprpriority = -300
+bindtime = -1
+scale = 0.5,0.5
+facing=-1
+
+[State -3];スペシャルゲージMAX1(1P側)
+type = Explod
+triggerall = teamside=1
+triggerall = numexplod(8019) = 0
+triggerall = power >= 1000
+triggerall = root,var(55) = 0
+trigger1 = root,var(18) >= 91
+trigger1 = root,RoundsExisted = 0
+trigger1 = root,var(5) = 1
+trigger2 = root,RoundsExisted >= 1
+anim = 8090
+ID = 8019
+supermovetime = 9999999999
+pausemovetime = 9999999999
+postype = left
+pos=107+ceil(ifelse(root,var(51)>=161,root,var(51)/5,0)),49+root,var(53)
+ownpal = 1
+sprpriority = -298
+bindtime = -1
+scale = 0.5,0.5
+
+[State -3];スペシャルゲージMAX1(2P側)
+type = Explod
+triggerall = teamside=2
+triggerall = numexplod(8019) = 0
+triggerall = power >= 1000
+triggerall = root,var(55) = 0
+trigger1 = root,var(18) >= 91
+trigger1 = root,RoundsExisted = 0
+trigger1 = root,var(5) = 1
+trigger2 = root,RoundsExisted >= 1
+anim = 8090
+ID = 8019
+supermovetime = 9999999999
+pausemovetime = 9999999999
+postype = right
+pos=-107-ceil(ifelse(root,var(51)>=161,root,var(51)/5,0)),49+root,var(53)
+ownpal = 1
+sprpriority = -298
+bindtime = -1
+scale = 0.5,0.5
+facing=-1
+
+
+[State -3];スペシャルゲージMAX2(1P側)
+type = Explod
+triggerall = teamside=1
+triggerall = numexplod(8020) = 0
+triggerall = power >= 2000
+triggerall = root,var(55) = 0
+trigger1 = root,var(18) >= 91
+trigger1 = root,RoundsExisted = 0
+trigger1 = root,var(5) = 1
+trigger2 = root,RoundsExisted >= 1
+anim = 8091
+ID = 8020
+supermovetime = 9999999999
+pausemovetime = 9999999999
+postype = left
+pos=103+ceil(ifelse(root,var(51)>=161,root,var(51)/5,0)),57+root,var(53)
+ownpal = 1
+sprpriority = -298
+bindtime = -1
+scale = 0.5,0.5
+
+[State -3];スペシャルゲージMAX2(2P側)
+type = Explod
+triggerall = teamside=2
+triggerall = numexplod(8020) = 0
+triggerall = power >= 2000
+triggerall = root,var(55) = 0
+trigger1 = root,var(18) >= 91
+trigger1 = root,RoundsExisted = 0
+trigger1 = root,var(5) = 1
+trigger2 = root,RoundsExisted >= 1
+anim = 8091
+ID = 8020
+supermovetime = 9999999999
+pausemovetime = 9999999999
+postype = right
+pos=-103-ceil(ifelse(root,var(51)>=161,root,var(51)/5,0)),57+root,var(53)
+ownpal = 1
+sprpriority = -298
+bindtime = -1
+scale = 0.5,0.5
+facing=-1
+
+
+[State -3];スペシャルゲージMAX3(1P側)
+type = Explod
+triggerall = teamside=1
+triggerall = numexplod(8021) = 0
+triggerall = power >= 3000
+triggerall = root,var(55) = 0
+trigger1 = root,var(18) >= 91
+trigger1 = root,RoundsExisted = 0
+trigger1 = root,var(5) = 1
+trigger2 = root,RoundsExisted >= 1
+anim = 8092
+ID = 8021
+supermovetime = 9999999999
+pausemovetime = 9999999999
+postype = left
+pos=97+ceil(ifelse(root,var(51)>=161,root,var(51)/5,0)),56+root,var(53)
+ownpal = 1
+sprpriority = -298
+bindtime = -1
+scale = 0.5,0.5
+
+[State -3];スペシャルゲージMAX3(2P側)
+type = Explod
+triggerall = teamside=2
+triggerall = numexplod(8021) = 0
+triggerall = power >= 3000
+triggerall = root,var(55) = 0
+trigger1 = root,var(18) >= 91
+trigger1 = root,RoundsExisted = 0
+trigger1 = root,var(5) = 1
+trigger2 = root,RoundsExisted >= 1
+anim = 8092
+ID = 8021
+supermovetime = 9999999999
+pausemovetime = 9999999999
+postype = right
+pos=-97-ceil(ifelse(root,var(51)>=161,root,var(51)/5,0)),56+root,var(53)
+ownpal = 1
+sprpriority = -298
+bindtime = -1
+scale = 0.5,0.5
+facing=-1
+
+[State -3];スペシャルゲージMAX4(1P側)
+type = Explod
+triggerall = teamside=1
+triggerall = numexplod(8022) = 0
+triggerall = power >= 4000
+triggerall = root,var(55) = 0
+trigger1 = root,var(18) >= 91
+trigger1 = root,RoundsExisted = 0
+trigger1 = root,var(5) = 1
+trigger2 = root,RoundsExisted >= 1
+anim = 8093
+ID = 8022
+supermovetime = 9999999999
+pausemovetime = 9999999999
+postype = left
+pos=91+ceil(ifelse(root,var(51)>=161,root,var(51)/5,0)),53+root,var(53)
+ownpal = 1
+sprpriority = -298
+bindtime = -1
+scale = 0.5,0.5
+
+[State -3];スペシャルゲージMAX4(2P側)
+type = Explod
+triggerall = teamside=2
+triggerall = numexplod(8022) = 0
+triggerall = power >= 4000
+triggerall = root,var(55) = 0
+trigger1 = root,var(18) >= 91
+trigger1 = root,RoundsExisted = 0
+trigger1 = root,var(5) = 1
+trigger2 = root,RoundsExisted >= 1
+anim = 8093
+ID = 8022
+supermovetime = 9999999999
+pausemovetime = 9999999999
+postype = right
+pos=-91-ceil(ifelse(root,var(51)>=161,root,var(51)/5,0)),53+root,var(53)
+ownpal = 1
+sprpriority = -298
+bindtime = -1
+scale = 0.5,0.5
+facing=-1
+
+[State -3];スペシャルゲージMAX5(1P側)
+type = Explod
+triggerall = teamside=1
+triggerall = numexplod(8023) = 0
+triggerall = power >= 5000
+triggerall = root,var(55) = 0
+trigger1 = root,var(18) >= 91
+trigger1 = root,RoundsExisted = 0
+trigger1 = root,var(5) = 1
+trigger2 = root,RoundsExisted >= 1
+anim = 8094
+ID = 8023
+supermovetime = 9999999999
+pausemovetime = 9999999999
+postype = left
+pos=86+ceil(ifelse(root,var(51)>=161,root,var(51)/5,0)),46+root,var(53)
+ownpal = 1
+sprpriority = -298
+bindtime = -1
+scale = 0.5,0.5
+
+[State -3];スペシャルゲージMAX5(2P側)
+type = Explod
+triggerall = teamside=2
+triggerall = numexplod(8023) = 0
+triggerall = power >= 5000
+triggerall = root,var(55) = 0
+trigger1 = root,var(18) >= 91
+trigger1 = root,RoundsExisted = 0
+trigger1 = root,var(5) = 1
+trigger2 = root,RoundsExisted >= 1
+anim = 8094
+ID = 8023
+supermovetime = 9999999999
+pausemovetime = 9999999999
+postype = right
+pos=-86-ceil(ifelse(root,var(51)>=161,root,var(51)/5,0)),46+root,var(53)
+ownpal = 1
+sprpriority = -298
+bindtime = -1
+scale = 0.5,0.5
+facing=-1
+
+
+[State -3];スペシャルゲージ数値0(1P側)
+type = Explod
+triggerall = teamside=1
+triggerall = numexplod(8007) = 0
+triggerall = power <= 999
+triggerall = root,var(55) = 0
+trigger1 = root,var(18) >= 91
+trigger1 = root,RoundsExisted = 0
+trigger1 = root,var(5) = 1
+trigger2 = root,RoundsExisted >= 1
+anim = 8044
+ID = 8007
+supermovetime = 9999999999
+pausemovetime = 9999999999
+postype = left
+pos=110+ceil(ifelse(root,var(51)>=161,root,var(51)/5,0)),49+root,var(53)
+ownpal = 1
+sprpriority = -297
+bindtime = -1
+scale = 0.5,0.5
+
+[State -3];スペシャルゲージ数値0(2P側)
+type = Explod
+triggerall = teamside=2
+triggerall = numexplod(8007) = 0
+triggerall = power <= 999
+triggerall = root,var(55) = 0
+trigger1 = root,var(18) >= 91
+trigger1 = root,RoundsExisted = 0
+trigger1 = root,var(5) = 1
+trigger2 = root,RoundsExisted >= 1
+anim = 8044
+ID = 8007
+supermovetime = 9999999999
+pausemovetime = 9999999999
+postype = right
+pos=-126-ceil(ifelse(root,var(51)>=161,root,var(51)/5,0)),49+root,var(53)
+ownpal = 1
+sprpriority = -297
+bindtime = -1
+scale = 0.5,0.5
+
+[State -3];スペシャルゲージ数値1(1P側)
+type = Explod
+triggerall = teamside=1
+triggerall = numexplod(8008) = 0
+triggerall = power = [1000,1999]
+triggerall = root,var(55) = 0
+trigger1 = root,var(18) >= 91
+trigger1 = root,RoundsExisted = 0
+trigger1 = root,var(5) = 1
+trigger2 = root,RoundsExisted >= 1
+anim = 8045
+ID = 8008
+supermovetime = 9999999999
+pausemovetime = 9999999999
+postype = left
+pos=113+ceil(ifelse(root,var(51)>=161,root,var(51)/5,0)),46+root,var(53)
+ownpal = 1
+sprpriority = -297
+bindtime = -1
+scale = 0.5,0.5
+
+[State -3];スペシャルゲージ数値1(2P側)
+type = Explod
+triggerall = teamside=2
+triggerall = numexplod(8008) = 0
+triggerall = power = [1000,1999]
+triggerall = root,var(55) = 0
+trigger1 = root,var(18) >= 91
+trigger1 = root,RoundsExisted = 0
+trigger1 = root,var(5) = 1
+trigger2 = root,RoundsExisted >= 1
+anim = 8045
+ID = 8008
+supermovetime = 9999999999
+pausemovetime = 9999999999
+postype = right
+pos=-126-ceil(ifelse(root,var(51)>=161,root,var(51)/5,0)),46+root,var(53)
+ownpal = 1
+sprpriority = -297
+bindtime = -1
+scale = 0.5,0.5
+
+[State -3];スペシャルゲージ数値2(1P側)
+type = Explod
+triggerall = teamside=1
+triggerall = numexplod(8009) = 0
+triggerall = power = [2000,2999]
+triggerall = root,var(55) = 0
+trigger1 = root,var(18) >= 91
+trigger1 = root,RoundsExisted = 0
+trigger1 = root,var(5) = 1
+trigger2 = root,RoundsExisted >= 1
+anim = 8046
+ID = 8009
+supermovetime = 9999999999
+pausemovetime = 9999999999
+postype = left
+pos=112+ceil(ifelse(root,var(51)>=161,root,var(51)/5,0)),46+root,var(53)
+ownpal = 1
+sprpriority = -297
+bindtime = -1
+scale = 0.5,0.5
+
+[State -3];スペシャルゲージ数値2(2P側)
+type = Explod
+triggerall = teamside=2
+triggerall = numexplod(8009) = 0
+triggerall = power = [2000,2999]
+triggerall = root,var(55) = 0
+trigger1 = root,var(18) >= 91
+trigger1 = root,RoundsExisted = 0
+trigger1 = root,var(5) = 1
+trigger2 = root,RoundsExisted >= 1
+anim = 8046
+ID = 8009
+supermovetime = 9999999999
+pausemovetime = 9999999999
+postype = right
+pos=-127-ceil(ifelse(root,var(51)>=161,root,var(51)/5,0)),46+root,var(53)
+ownpal = 1
+sprpriority = -297
+bindtime = -1
+scale = 0.5,0.5
+
+
+[State -3];スペシャルゲージ数値3(1P側)
+type = Explod
+triggerall = teamside=1
+triggerall = numexplod(8010) = 0
+triggerall = power = [3000,3999]
+triggerall = root,var(55) = 0
+trigger1 = root,var(18) >= 91
+trigger1 = root,RoundsExisted = 0
+trigger1 = root,var(5) = 1
+trigger2 = root,RoundsExisted >= 1
+anim = 8047
+ID = 8010
+supermovetime = 9999999999
+pausemovetime = 9999999999
+postype = left
+pos=111+ceil(ifelse(root,var(51)>=161,root,var(51)/5,0)),42+root,var(53)
+ownpal = 1
+sprpriority = -297
+bindtime = -1
+scale = 0.5,0.5
+
+[State -3];スペシャルゲージ数値3(2P側)
+type = Explod
+triggerall = teamside=2
+triggerall = numexplod(8010) = 0
+triggerall = power = [3000,3999]
+triggerall = root,var(55) = 0
+trigger1 = root,var(18) >= 91
+trigger1 = root,RoundsExisted = 0
+trigger1 = root,var(5) = 1
+trigger2 = root,RoundsExisted >= 1
+anim = 8047
+ID = 8010
+supermovetime = 9999999999
+pausemovetime = 9999999999
+postype = right
+pos=-128-ceil(ifelse(root,var(51)>=161,root,var(51)/5,0)),42+root,var(53)
+ownpal = 1
+sprpriority = -297
+bindtime = -1
+scale = 0.5,0.5
+
+
+[State -3];スペシャルゲージ数値4(1P側)
+type = Explod
+triggerall = teamside=1
+triggerall = numexplod(8011) = 0
+triggerall = power = [4000,4999]
+triggerall = root,var(55) = 0
+trigger1 = root,var(18) >= 91
+trigger1 = root,RoundsExisted = 0
+trigger1 = root,var(5) = 1
+trigger2 = root,RoundsExisted >= 1
+anim = 8048
+ID = 8011
+supermovetime = 9999999999
+pausemovetime = 9999999999
+postype = left
+pos=111+ceil(ifelse(root,var(51)>=161,root,var(51)/5,0)),43+root,var(53)
+ownpal = 1
+sprpriority = -297
+bindtime = -1
+scale = 0.5,0.5
+
+[State -3];スペシャルゲージ数値4(2P側)
+type = Explod
+triggerall = teamside=2
+triggerall = numexplod(8011) = 0
+triggerall = power = [4000,4999]
+triggerall = root,var(55) = 0
+trigger1 = root,var(18) >= 91
+trigger1 = root,RoundsExisted = 0
+trigger1 = root,var(5) = 1
+trigger2 = root,RoundsExisted >= 1
+anim = 8048
+ID = 8011
+supermovetime = 9999999999
+pausemovetime = 9999999999
+postype = right
+pos=-128-ceil(ifelse(root,var(51)>=161,root,var(51)/5,0)),43+root,var(53)
+ownpal = 1
+sprpriority = -297
+bindtime = -1
+scale = 0.5,0.5
+
+
+[State -3];スペシャルゲージ数値5(1P側)
+type = Explod
+triggerall = teamside=1
+triggerall = numexplod(8012) = 0
+triggerall = power >= 5000
+triggerall = root,var(55) = 0
+trigger1 = root,var(18) >= 91
+trigger1 = root,RoundsExisted = 0
+trigger1 = root,var(5) = 1
+trigger2 = root,RoundsExisted >= 1
+anim = 8049
+ID = 8012
+supermovetime = 9999999999
+pausemovetime = 9999999999
+postype = left
+pos=111+ceil(ifelse(root,var(51)>=161,root,var(51)/5,0)),42+root,var(53)
+ownpal = 1
+sprpriority = -297
+bindtime = -1
+scale = 0.5,0.5
+
+[State -3];スペシャルゲージ数値5(2P側)
+type = Explod
+triggerall = teamside=2
+triggerall = numexplod(8012) = 0
+triggerall = power >= 5000
+triggerall = root,var(55) = 0
+trigger1 = root,var(18) >= 91
+trigger1 = root,RoundsExisted = 0
+trigger1 = root,var(5) = 1
+trigger2 = root,RoundsExisted >= 1
+anim = 8049
+ID = 8012
+supermovetime = 9999999999
+pausemovetime = 9999999999
+postype = right
+pos=-128-ceil(ifelse(root,var(51)>=161,root,var(51)/5,0)),42+root,var(53)
+ownpal = 1
+sprpriority = -297
+bindtime = -1
+scale = 0.5,0.5
+
+
+;■■■数値増加■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■
+
+
+
+;■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■
+;■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■
+;■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■
+
+
+[State -2];パートナーゲージSP値制御
+type = Parentvarset
+trigger1 = root,var(58) <= 0
+v = 58
+value = 0
+ignorehitpause=1
+
+[State -2];パートナーゲージSP値制御
+type = Parentvarset
+trigger1 = root,var(58) >= 500
+v = 58
+value = 500
+ignorehitpause=1
+
+
+
+
+
+
+;■
+[State -2];顔点滅消える
+type = RemoveExplod
+trigger1 = power <= 2999
+trigger2 = root,var(58) <= 299
+ID = 6350+root,var(57)
+ignorehitpause=1
+
+[State -2]
+type = RemoveExplod
+trigger1 = root,var(6) != 1
+ID = 18095
+ignorehitpause=1
+
+[State -2]
+type = RemoveExplod
+trigger1 = root,var(6) != 2
+ID = 18096
+ignorehitpause=1
+
+[State -2]
+type = RemoveExplod
+trigger1 = root,var(6) != 3
+ID = 18097
+ignorehitpause=1
+
+[State -2]
+type = RemoveExplod
+trigger1 = root,var(6) != 4
+ID = 18098
+ignorehitpause=1
+
+[State -2]
+type = RemoveExplod
+trigger1 = root,var(6) != 5
+ID = 18099
+ignorehitpause=1
+
+[State -2]
+type = RemoveExplod
+trigger1 = root,var(6) != 6
+ID = 18100
+ignorehitpause=1
+
+[State -2]
+type = RemoveExplod
+trigger1 = root,var(6) != 7
+ID = 18101
+ignorehitpause=1
+
+[State -2]
+type = RemoveExplod
+trigger1 = root,var(6) != 8
+ID = 18102
+ignorehitpause=1
+
+[State -2]
+type = RemoveExplod
+trigger1 = root,var(6) != 9
+ID = 18103
+ignorehitpause=1
+
+[State -2]
+type = RemoveExplod
+trigger1 = root,var(6) != 10
+ID = 18104
+ignorehitpause=1
+
+[State -2]
+type = RemoveExplod
+trigger1 = root,var(6) != 11
+ID = 18105
+ignorehitpause=1
+
+[State -2]
+type = RemoveExplod
+trigger1 = root,var(6) != 12
+ID = 18106
+ignorehitpause=1
+
+[State -2]
+type = RemoveExplod
+trigger1 = root,var(6) != 13
+ID = 18107
+ignorehitpause=1
+
+[State -2]
+type = RemoveExplod
+trigger1 = root,var(6) != 14
+ID = 18108
+ignorehitpause=1
+
+[State -2]
+type = RemoveExplod
+trigger1 = root,var(6) != 15
+ID = 18109
+ignorehitpause=1
+
+[State -2]
+type = RemoveExplod
+trigger1 = root,var(6) != 16
+ID = 18110
+ignorehitpause=1
+
+[State -2]
+type = RemoveExplod
+trigger1 = root,var(6) != 17
+ID = 18111
+ignorehitpause=1
+
+[State -2]
+type = RemoveExplod
+trigger1 = root,var(7) != 1
+ID = 28095
+ignorehitpause=1
+
+[State -2]
+type = RemoveExplod
+trigger1 = root,var(7) != 2
+ID = 28096
+ignorehitpause=1
+
+[State -2]
+type = RemoveExplod
+trigger1 = root,var(7) != 3
+ID = 28097
+ignorehitpause=1
+
+[State -2]
+type = RemoveExplod
+trigger1 = root,var(7) != 4
+ID = 28098
+ignorehitpause=1
+
+[State -2]
+type = RemoveExplod
+trigger1 = root,var(7) != 5
+ID = 28099
+ignorehitpause=1
+
+[State -2]
+type = RemoveExplod
+trigger1 = root,var(7) != 6
+ID = 28100
+ignorehitpause=1
+
+[State -2]
+type = RemoveExplod
+trigger1 = root,var(7) != 7
+ID = 28101
+ignorehitpause=1
+
+[State -2]
+type = RemoveExplod
+trigger1 = root,var(7) != 8
+ID = 28102
+ignorehitpause=1
+
+[State -2]
+type = RemoveExplod
+trigger1 = root,var(7) != 9
+ID = 28103
+ignorehitpause=1
+
+[State -2]
+type = RemoveExplod
+trigger1 = root,var(7) != 10
+ID = 28104
+ignorehitpause=1
+
+[State -2]
+type = RemoveExplod
+trigger1 = root,var(7) != 11
+ID = 28105
+ignorehitpause=1
+
+[State -2]
+type = RemoveExplod
+trigger1 = root,var(7) != 12
+ID = 28106
+ignorehitpause=1
+
+[State -2]
+type = RemoveExplod
+trigger1 = root,var(7) != 13
+ID = 28107
+ignorehitpause=1
+
+[State -2]
+type = RemoveExplod
+trigger1 = root,var(7) != 14
+ID = 28108
+ignorehitpause=1
+
+[State -2]
+type = RemoveExplod
+trigger1 = root,var(7) != 15
+ID = 28109
+ignorehitpause=1
+
+[State -2]
+type = RemoveExplod
+trigger1 = root,var(7) != 16
+ID = 28110
+ignorehitpause=1
+
+[State -2]
+type = RemoveExplod
+trigger1 = root,var(7) != 17
+ID = 28111
+ignorehitpause=1
+
+[State -2]
+type = RemoveExplod
+trigger1 = root,var(8) != 1
+ID = 38095
+ignorehitpause=1
+
+[State -2]
+type = RemoveExplod
+trigger1 = root,var(8) != 2
+ID = 38096
+ignorehitpause=1
+
+[State -2]
+type = RemoveExplod
+trigger1 = root,var(8) != 3
+ID = 38097
+ignorehitpause=1
+
+[State -2]
+type = RemoveExplod
+trigger1 = root,var(8) != 4
+ID = 38098
+ignorehitpause=1
+
+[State -2]
+type = RemoveExplod
+trigger1 = root,var(8) != 5
+ID = 38099
+ignorehitpause=1
+
+[State -2]
+type = RemoveExplod
+trigger1 = root,var(8) != 6
+ID = 38100
+ignorehitpause=1
+
+[State -2]
+type = RemoveExplod
+trigger1 = root,var(8) != 7
+ID = 38101
+ignorehitpause=1
+
+[State -2]
+type = RemoveExplod
+trigger1 = root,var(8) != 8
+ID = 38102
+ignorehitpause=1
+
+[State -2]
+type = RemoveExplod
+trigger1 = root,var(8) != 9
+ID = 38103
+ignorehitpause=1
+
+[State -2]
+type = RemoveExplod
+trigger1 = root,var(8) != 10
+ID = 38104
+ignorehitpause=1
+
+[State -2]
+type = RemoveExplod
+trigger1 = root,var(8) != 11
+ID = 38105
+ignorehitpause=1
+
+[State -2]
+type = RemoveExplod
+trigger1 = root,var(8) != 12
+ID = 38106
+ignorehitpause=1
+
+[State -2]
+type = RemoveExplod
+trigger1 = root,var(8) != 13
+ID = 38107
+ignorehitpause=1
+
+[State -2]
+type = RemoveExplod
+trigger1 = root,var(8) != 14
+ID = 38108
+ignorehitpause=1
+
+[State -2]
+type = RemoveExplod
+trigger1 = root,var(8) != 15
+ID = 38109
+ignorehitpause=1
+
+[State -2]
+type = RemoveExplod
+trigger1 = root,var(8) != 16
+ID = 38110
+ignorehitpause=1
+
+[State -2]
+type = RemoveExplod
+trigger1 = root,var(8) != 17
+ID = 38111
+ignorehitpause=1
+
+[State -2]
+type = RemoveExplod
+trigger1 = root,var(9) != 1
+ID = 48095
+ignorehitpause=1
+
+[State -2]
+type = RemoveExplod
+trigger1 = root,var(9) != 2
+ID = 48096
+ignorehitpause=1
+
+[State -2]
+type = RemoveExplod
+trigger1 = root,var(9) != 3
+ID = 48097
+ignorehitpause=1
+
+[State -2]
+type = RemoveExplod
+trigger1 = root,var(9) != 4
+ID = 48098
+ignorehitpause=1
+
+[State -2]
+type = RemoveExplod
+trigger1 = root,var(9) != 5
+ID = 48099
+ignorehitpause=1
+
+[State -2]
+type = RemoveExplod
+trigger1 = root,var(9) != 6
+ID = 48100
+ignorehitpause=1
+
+[State -2]
+type = RemoveExplod
+trigger1 = root,var(9) != 7
+ID = 48101
+ignorehitpause=1
+
+[State -2]
+type = RemoveExplod
+trigger1 = root,var(9) != 8
+ID = 48102
+ignorehitpause=1
+
+[State -2]
+type = RemoveExplod
+trigger1 = root,var(9) != 9
+ID = 48103
+ignorehitpause=1
+
+[State -2]
+type = RemoveExplod
+trigger1 = root,var(9) != 10
+ID = 48104
+ignorehitpause=1
+
+[State -2]
+type = RemoveExplod
+trigger1 = root,var(9) != 11
+ID = 48105
+ignorehitpause=1
+
+[State -2]
+type = RemoveExplod
+trigger1 = root,var(9) != 12
+ID = 48106
+ignorehitpause=1
+
+[State -2]
+type = RemoveExplod
+trigger1 = root,var(9) != 13
+ID = 48107
+ignorehitpause=1
+
+[State -2]
+type = RemoveExplod
+trigger1 = root,var(9) != 14
+ID = 48108
+ignorehitpause=1
+
+[State -2]
+type = RemoveExplod
+trigger1 = root,var(9) != 15
+ID = 48109
+ignorehitpause=1
+
+[State -2]
+type = RemoveExplod
+trigger1 = root,var(9) != 16
+ID = 48110
+ignorehitpause=1
+
+[State -2]
+type = RemoveExplod
+trigger1 = root,var(9) != 17
+ID = 48111
+ignorehitpause=1
+
+[State -2]
+type = RemoveExplod
+trigger1 = root,var(10) != 1
+ID = 58095
+ignorehitpause=1
+
+[State -2]
+type = RemoveExplod
+trigger1 = root,var(10) != 2
+ID = 58096
+ignorehitpause=1
+
+[State -2]
+type = RemoveExplod
+trigger1 = root,var(10) != 3
+ID = 58097
+ignorehitpause=1
+
+[State -2]
+type = RemoveExplod
+trigger1 = root,var(10) != 4
+ID = 58098
+ignorehitpause=1
+
+[State -2]
+type = RemoveExplod
+trigger1 = root,var(10) != 5
+ID = 58099
+ignorehitpause=1
+
+[State -2]
+type = RemoveExplod
+trigger1 = root,var(10) != 6
+ID = 58100
+ignorehitpause=1
+
+[State -2]
+type = RemoveExplod
+trigger1 = root,var(10) != 7
+ID = 58101
+ignorehitpause=1
+
+[State -2]
+type = RemoveExplod
+trigger1 = root,var(10) != 8
+ID = 58102
+ignorehitpause=1
+
+[State -2]
+type = RemoveExplod
+trigger1 = root,var(10) != 9
+ID = 58103
+ignorehitpause=1
+
+[State -2]
+type = RemoveExplod
+trigger1 = root,var(10) != 10
+ID = 58104
+ignorehitpause=1
+
+[State -2]
+type = RemoveExplod
+trigger1 = root,var(10) != 11
+ID = 58105
+ignorehitpause=1
+
+[State -2]
+type = RemoveExplod
+trigger1 = root,var(10) != 12
+ID = 58106
+ignorehitpause=1
+
+[State -2]
+type = RemoveExplod
+trigger1 = root,var(10) != 13
+ID = 58107
+ignorehitpause=1
+
+[State -2]
+type = RemoveExplod
+trigger1 = root,var(10) != 14
+ID = 58108
+ignorehitpause=1
+
+[State -2]
+type = RemoveExplod
+trigger1 = root,var(10) != 15
+ID = 58109
+ignorehitpause=1
+
+[State -2]
+type = RemoveExplod
+trigger1 = root,var(10) != 16
+ID = 58110
+ignorehitpause=1
+
+[State -2]
+type = RemoveExplod
+trigger1 = root,var(10) != 17
+ID = 58111
+ignorehitpause=1
+
+[State -2];パートナーゲージ数値0消える
+type = RemoveExplod
+trigger1 = root,var(58) >= 100
+ID = 8033
+ignorehitpause=1
+
+[State -2];パートナーゲージ数値1消える
+type = RemoveExplod
+trigger1 = root,var(58) != [100,199]
+ID = 8034
+ignorehitpause=1
+
+[State -2];パートナーゲージ数値2消える
+type = RemoveExplod
+trigger1 = root,var(58) != [200,299]
+ID = 8035
+ignorehitpause=1
+
+[State -2];パートナーゲージ数値3消える
+type = RemoveExplod
+trigger1 = root,var(58) != [300,399]
+ID = 8036
+ignorehitpause=1
+
+[State -2];パートナーゲージ数値4消える
+type = RemoveExplod
+trigger1 = root,var(58) != [400,499]
+ID = 8037
+ignorehitpause=1
+
+[State -2];パートナーゲージ数値4消える
+type = RemoveExplod
+trigger1 = root,var(58) <= 499
+ID = 8038
+ignorehitpause=1
+
+
+;■■■■■■■■■■■■■■■
+[State -2];パートナーゲージSP値表示制御～1
+type = Parentvarset
+trigger1 = root,var(58) <= 0
+v = 6
+value = 0
+ignorehitpause=1
+
+[State -2]
+type = Parentvarset
+trigger1 = root,var(58) = [1,12]
+v = 6
+value = 1
+ignorehitpause=1
+
+[State -2]
+type = Parentvarset
+trigger1 = root,var(58) = [13,17]
+v = 6
+value = 2
+ignorehitpause=1
+
+[State -2]
+type = Parentvarset
+trigger1 = root,var(58) = [18,22]
+v = 6
+value = 3
+ignorehitpause=1
+
+[State -2]
+type = Parentvarset
+trigger1 = root,var(58) = [23,27]
+v = 6
+value = 4
+ignorehitpause=1
+
+[State -2]
+type = Parentvarset
+trigger1 = root,var(58) = [28,32]
+v = 6
+value = 5
+ignorehitpause=1
+
+[State -2]
+type = Parentvarset
+trigger1 = root,var(58) = [33,37]
+v = 6
+value = 6
+ignorehitpause=1
+
+[State -2]
+type = Parentvarset
+trigger1 = root,var(58) = [38,42]
+v = 6
+value = 7
+ignorehitpause=1
+
+[State -2]
+type = Parentvarset
+trigger1 = root,var(58) = [43,47]
+v = 6
+value = 8
+ignorehitpause=1
+
+[State -2]
+type = Parentvarset
+trigger1 = root,var(58) = [48,52]
+v = 6
+value = 9
+ignorehitpause=1
+
+[State -2]
+type = Parentvarset
+trigger1 = root,var(58) = [53,57]
+v = 6
+value = 10
+ignorehitpause=1
+
+[State -2]
+type = Parentvarset
+trigger1 = root,var(58) = [58,62]
+v = 6
+value = 11
+ignorehitpause=1
+
+[State -2]
+type = Parentvarset
+trigger1 = root,var(58) = [63,67]
+v = 6
+value = 12
+ignorehitpause=1
+
+[State -2]
+type = Parentvarset
+trigger1 = root,var(58) = [68,72]
+v = 6
+value = 13
+ignorehitpause=1
+
+[State -2]
+type = Parentvarset
+trigger1 = root,var(58) = [73,77]
+v = 6
+value = 14
+ignorehitpause=1
+
+[State -2]
+type = Parentvarset
+trigger1 = root,var(58) = [78,82]
+v = 6
+value = 15
+ignorehitpause=1
+
+[State -2]
+type = Parentvarset
+trigger1 = root,var(58) = [83,87]
+v = 6
+value = 16
+ignorehitpause=1
+
+[State -2]
+type = Parentvarset
+trigger1 = root,var(58) >= 88
+v = 6
+value = 17
+ignorehitpause=1
+
+[State -2];パートナーゲージSP値表示制御～2
+type = Parentvarset
+trigger1 = root,var(58) <= 100
+v = 7
+value = 0
+ignorehitpause=1
+
+[State -2]
+type = Parentvarset
+trigger1 = root,var(58) = [101,112]
+v = 7
+value = 1
+ignorehitpause=1
+
+[State -2]
+type = Parentvarset
+trigger1 = root,var(58) = [113,117]
+v = 7
+value = 2
+ignorehitpause=1
+
+[State -2]
+type = Parentvarset
+trigger1 = root,var(58) = [118,122]
+v = 7
+value = 3
+ignorehitpause=1
+
+[State -2]
+type = Parentvarset
+trigger1 = root,var(58) = [123,127]
+v = 7
+value = 4
+ignorehitpause=1
+
+[State -2]
+type = Parentvarset
+trigger1 = root,var(58) = [128,132]
+v = 7
+value = 5
+ignorehitpause=1
+
+[State -2]
+type = Parentvarset
+trigger1 = root,var(58) = [133,137]
+v = 7
+value = 6
+ignorehitpause=1
+
+[State -2]
+type = Parentvarset
+trigger1 = root,var(58) = [138,142]
+v = 7
+value = 7
+ignorehitpause=1
+
+[State -2]
+type = Parentvarset
+trigger1 = root,var(58) = [143,147]
+v = 7
+value = 8
+ignorehitpause=1
+
+[State -2]
+type = Parentvarset
+trigger1 = root,var(58) = [148,152]
+v = 7
+value = 9
+ignorehitpause=1
+
+[State -2]
+type = Parentvarset
+trigger1 = root,var(58) = [153,157]
+v = 7
+value = 10
+ignorehitpause=1
+
+[State -2]
+type = Parentvarset
+trigger1 = root,var(58) = [158,162]
+v = 7
+value = 11
+ignorehitpause=1
+
+[State -2]
+type = Parentvarset
+trigger1 = root,var(58) = [163,167]
+v = 7
+value = 12
+ignorehitpause=1
+
+[State -2]
+type = Parentvarset
+trigger1 = root,var(58) = [168,172]
+v = 7
+value = 13
+ignorehitpause=1
+
+[State -2]
+type = Parentvarset
+trigger1 = root,var(58) = [173,177]
+v = 7
+value = 14
+ignorehitpause=1
+
+[State -2]
+type = Parentvarset
+trigger1 = root,var(58) = [178,182]
+v = 7
+value = 15
+ignorehitpause=1
+
+[State -2]
+type = Parentvarset
+trigger1 = root,var(58) = [183,187]
+v = 7
+value = 16
+ignorehitpause=1
+
+[State -2]
+type = Parentvarset
+trigger1 = root,var(58) >= 188
+v = 7
+value = 17
+ignorehitpause=1
+
+[State -2];パートナーゲージSP値表示制御～3
+type = Parentvarset
+trigger1 = root,var(58) <= 200
+v = 8
+value = 0
+ignorehitpause=1
+
+[State -2]
+type = Parentvarset
+trigger1 = root,var(58) = [201,212]
+v = 8
+value = 1
+ignorehitpause=1
+
+[State -2]
+type = Parentvarset
+trigger1 = root,var(58) = [213,217]
+v = 8
+value = 2
+ignorehitpause=1
+
+[State -2]
+type = Parentvarset
+trigger1 = root,var(58) = [218,222]
+v = 8
+value = 3
+ignorehitpause=1
+
+[State -2]
+type = Parentvarset
+trigger1 = root,var(58) = [223,227]
+v = 8
+value = 4
+ignorehitpause=1
+
+[State -2]
+type = Parentvarset
+trigger1 = root,var(58) = [228,232]
+v = 8
+value = 5
+ignorehitpause=1
+
+[State -2]
+type = Parentvarset
+trigger1 = root,var(58) = [233,237]
+v = 8
+value = 6
+ignorehitpause=1
+
+[State -2]
+type = Parentvarset
+trigger1 = root,var(58) = [238,242]
+v = 8
+value = 7
+ignorehitpause=1
+
+[State -2]
+type = Parentvarset
+trigger1 = root,var(58) = [243,247]
+v = 8
+value = 8
+ignorehitpause=1
+
+[State -2]
+type = Parentvarset
+trigger1 = root,var(58) = [248,252]
+v = 8
+value = 9
+ignorehitpause=1
+
+[State -2]
+type = Parentvarset
+trigger1 = root,var(58) = [253,257]
+v = 8
+value = 10
+ignorehitpause=1
+
+[State -2]
+type = Parentvarset
+trigger1 = root,var(58) = [258,262]
+v = 8
+value = 11
+ignorehitpause=1
+
+[State -2]
+type = Parentvarset
+trigger1 = root,var(58) = [263,267]
+v = 8
+value = 12
+ignorehitpause=1
+
+[State -2]
+type = Parentvarset
+trigger1 = root,var(58) = [268,272]
+v = 8
+value = 13
+ignorehitpause=1
+
+[State -2]
+type = Parentvarset
+trigger1 = root,var(58) = [273,277]
+v = 8
+value = 14
+ignorehitpause=1
+
+[State -2]
+type = Parentvarset
+trigger1 = root,var(58) = [278,282]
+v = 8
+value = 15
+ignorehitpause=1
+
+[State -2]
+type = Parentvarset
+trigger1 = root,var(58) = [283,287]
+v = 8
+value = 16
+ignorehitpause=1
+
+[State -2]
+type = Parentvarset
+trigger1 = root,var(58) >= 288
+v = 8
+value = 17
+ignorehitpause=1
+
+[State -2];パートナーゲージSP値表示制御～4
+type = Parentvarset
+trigger1 = root,var(58) <= 300
+v = 9
+value = 0
+ignorehitpause=1
+
+[State -2]
+type = Parentvarset
+trigger1 = root,var(58) = [301,312]
+v = 9
+value = 1
+ignorehitpause=1
+
+[State -2]
+type = Parentvarset
+trigger1 = root,var(58) = [313,317]
+v = 9
+value = 2
+ignorehitpause=1
+
+[State -2]
+type = Parentvarset
+trigger1 = root,var(58) = [318,322]
+v = 9
+value = 3
+ignorehitpause=1
+
+[State -2]
+type = Parentvarset
+trigger1 = root,var(58) = [323,327]
+v = 9
+value = 4
+ignorehitpause=1
+
+[State -2]
+type = Parentvarset
+trigger1 = root,var(58) = [328,332]
+v = 9
+value = 5
+ignorehitpause=1
+
+[State -2]
+type = Parentvarset
+trigger1 = root,var(58) = [333,337]
+v = 9
+value = 6
+ignorehitpause=1
+
+[State -2]
+type = Parentvarset
+trigger1 = root,var(58) = [338,342]
+v = 9
+value = 7
+ignorehitpause=1
+
+[State -2]
+type = Parentvarset
+trigger1 = root,var(58) = [343,347]
+v = 9
+value = 8
+ignorehitpause=1
+
+[State -2]
+type = Parentvarset
+trigger1 = root,var(58) = [348,352]
+v = 9
+value = 9
+ignorehitpause=1
+
+[State -2]
+type = Parentvarset
+trigger1 = root,var(58) = [353,357]
+v = 9
+value = 10
+ignorehitpause=1
+
+[State -2]
+type = Parentvarset
+trigger1 = root,var(58) = [358,362]
+v = 9
+value = 11
+ignorehitpause=1
+
+[State -2]
+type = Parentvarset
+trigger1 = root,var(58) = [363,367]
+v = 9
+value = 12
+ignorehitpause=1
+
+[State -2]
+type = Parentvarset
+trigger1 = root,var(58) = [368,372]
+v = 9
+value = 13
+ignorehitpause=1
+
+[State -2]
+type = Parentvarset
+trigger1 = root,var(58) = [373,377]
+v = 9
+value = 14
+ignorehitpause=1
+
+[State -2]
+type = Parentvarset
+trigger1 = root,var(58) = [378,382]
+v = 9
+value = 15
+ignorehitpause=1
+
+[State -2]
+type = Parentvarset
+trigger1 = root,var(58) = [383,387]
+v = 9
+value = 16
+ignorehitpause=1
+
+[State -2]
+type = Parentvarset
+trigger1 = root,var(58) >= 388
+v = 9
+value = 17
+ignorehitpause=1
+
+[State -2];パートナーゲージSP値表示制御～5
+type = Parentvarset
+trigger1 = root,var(58) <= 400
+v = 10
+value = 0
+ignorehitpause=1
+
+[State -2]
+type = Parentvarset
+trigger1 = root,var(58) = [401,412]
+v = 10
+value = 1
+ignorehitpause=1
+
+[State -2]
+type = Parentvarset
+trigger1 = root,var(58) = [413,417]
+v = 10
+value = 2
+ignorehitpause=1
+
+[State -2]
+type = Parentvarset
+trigger1 = root,var(58) = [418,422]
+v = 10
+value = 3
+ignorehitpause=1
+
+[State -2]
+type = Parentvarset
+trigger1 = root,var(58) = [423,427]
+v = 10
+value = 4
+ignorehitpause=1
+
+[State -2]
+type = Parentvarset
+trigger1 = root,var(58) = [428,432]
+v = 10
+value = 5
+ignorehitpause=1
+
+[State -2]
+type = Parentvarset
+trigger1 = root,var(58) = [433,437]
+v = 10
+value = 6
+ignorehitpause=1
+
+[State -2]
+type = Parentvarset
+trigger1 = root,var(58) = [438,442]
+v = 10
+value = 7
+ignorehitpause=1
+
+[State -2]
+type = Parentvarset
+trigger1 = root,var(58) = [443,447]
+v = 10
+value = 8
+ignorehitpause=1
+
+[State -2]
+type = Parentvarset
+trigger1 = root,var(58) = [448,452]
+v = 10
+value = 9
+ignorehitpause=1
+
+[State -2]
+type = Parentvarset
+trigger1 = root,var(58) = [453,457]
+v = 10
+value = 10
+ignorehitpause=1
+
+[State -2]
+type = Parentvarset
+trigger1 = root,var(58) = [458,462]
+v = 10
+value = 11
+ignorehitpause=1
+
+[State -2]
+type = Parentvarset
+trigger1 = root,var(58) = [463,467]
+v = 10
+value = 12
+ignorehitpause=1
+
+[State -2]
+type = Parentvarset
+trigger1 = root,var(58) = [468,472]
+v = 10
+value = 13
+ignorehitpause=1
+
+[State -2]
+type = Parentvarset
+trigger1 = root,var(58) = [473,477]
+v = 10
+value = 14
+ignorehitpause=1
+
+[State -2]
+type = Parentvarset
+trigger1 = root,var(58) = [478,482]
+v = 10
+value = 15
+ignorehitpause=1
+
+[State -2]
+type = Parentvarset
+trigger1 = root,var(58) = [483,487]
+v = 10
+value = 16
+ignorehitpause=1
+
+[State -2]
+type = Parentvarset
+trigger1 = root,var(58) >= 488
+v = 10
+value = 17
+ignorehitpause=1
+
+
+
+
+
+
+
+
+
+
+
+
+;■■
+
+[State -3];パートナーゲージ下地(1P側)
+type = Explod
+triggerall = teamside=1
+triggerall = numexplod(8026) = 0
+trigger1 = root,var(18) >= 91
+trigger1 = root,RoundsExisted = 0
+trigger1 = root,var(5) = 1
+trigger2 = root,RoundsExisted >= 1
+anim = 8113+(ifelse(root,var(56),4,0))
+ID = 8026
+supermovetime = 9999999999
+pausemovetime = 9999999999
+postype = left
+pos=6,202+root,var(54)
+ownpal = 1
+sprpriority = 10100
+bindtime = -1
+scale = 0.5,0.5
+
+[State -3];パートナーゲージ下地(2P側)
+type = Explod
+triggerall = teamside=2
+triggerall = numexplod(8026) = 0
+trigger1 = root,var(18) >= 91
+trigger1 = root,RoundsExisted = 0
+trigger1 = root,var(5) = 1
+trigger2 = root,RoundsExisted >= 1
+anim = 8113+(ifelse(root,var(56),4,0))
+ID = 8026
+supermovetime = 9999999999
+pausemovetime = 9999999999
+postype = right
+pos=-114,202+root,var(54)
+ownpal = 1
+sprpriority = 10100
+bindtime = -1
+scale = 0.5,0.5
+
+[State -3];パートナーゲージ(1P側)
+type = Explod
+triggerall = teamside=1
+triggerall = numexplod(8025) = 0
+trigger1 = root,RoundsExisted = 0
+trigger1 = root,var(5) = 1
+trigger2 = root,RoundsExisted >= 1
+anim = 8114+(ifelse(root,var(56),4,0))
+ID = 8025
+supermovetime = 9999999999
+pausemovetime = 9999999999
+postype = left
+pos=6,202+root,var(54)
+ownpal = 1
+sprpriority = 10102
+bindtime = -1
+scale = 0.5,0.5
+
+[State -3];パートナーゲージ(2P側)
+type = Explod
+triggerall = teamside=2
+triggerall = numexplod(8025) = 0
+trigger1 = root,RoundsExisted = 0
+trigger1 = root,var(5) = 1
+trigger2 = root,RoundsExisted >= 1
+anim = 8114+(ifelse(root,var(56),4,0))
+ID = 8025
+supermovetime = 9999999999
+pausemovetime = 9999999999
+postype = right
+pos=-114,202+root,var(54)
+ownpal = 1
+sprpriority = 10102
+bindtime = -1
+scale = 0.5,0.5
+
+
+
+
+
+
+;■ここにいれるのが問題あるかも
+
+[State -3];パートナーゲージSP(1P側)
+type = Explod
+triggerall = teamside=1
+triggerall = numexplod(8027) = 0
+trigger1 = root,RoundsExisted = 0
+trigger1 = root,var(5) = 1
+trigger2 = root,RoundsExisted >= 1
+anim = 8115+(ifelse(root,var(56),4,0))
+ID = 8027
+supermovetime = 9999999999
+pausemovetime = 9999999999
+postype = left
+pos=6,202+root,var(54)
+ownpal = 1
+sprpriority = 10100
+bindtime = -1
+scale = 0.5,0.5
+
+[State -3];パートナーゲージSP(2P側)
+type = Explod
+triggerall = teamside=2
+triggerall = numexplod(8027) = 0
+trigger1 = root,RoundsExisted = 0
+trigger1 = root,var(5) = 1
+trigger2 = root,RoundsExisted >= 1
+anim = 8115+(ifelse(root,var(56),4,0))
+ID = 8027
+supermovetime = 9999999999
+pausemovetime = 9999999999
+postype = right
+pos=-114,202+root,var(54)
+ownpal = 1
+sprpriority = 10100
+bindtime = -1
+scale = 0.5,0.5
+
+[State -3];パートナーゲージSP値1(1P側)
+type = Explod
+triggerall = teamside=1
+triggerall = numexplod(18094+root,var(6)) = 0
+triggerall = root,var(6) >= 1
+trigger1 = root,var(18) >= 91
+trigger1 = root,RoundsExisted = 0
+trigger1 = root,var(5) = 1
+trigger2 = root,RoundsExisted >= 1
+anim = 8094+root,var(6)
+ID = 18094+root,var(6)
+supermovetime = 9999999999
+pausemovetime = 9999999999
+postype = left
+pos=104,231+root,var(54)
+ownpal = 1
+sprpriority = 10106
+bindtime = -1
+scale = 0.5,0.5
+
+[State -3];パートナーゲージSP値1(2P側)
+type = Explod
+triggerall = teamside=2
+triggerall = numexplod(18094+root,var(6)) = 0
+triggerall = root,var(6) >= 1
+trigger1 = root,var(18) >= 91
+trigger1 = root,RoundsExisted = 0
+trigger1 = root,var(5) = 1
+trigger2 = root,RoundsExisted >= 1
+anim = 8094+root,var(6)
+ID = 18094+root,var(6)
+supermovetime = 9999999999
+pausemovetime = 9999999999
+postype = right
+pos=-104,231+root,var(54)
+ownpal = 1
+sprpriority = 10106
+bindtime = -1
+scale = 0.5,0.5
+facing=-1
+
+[State -3];パートナーゲージSP値2(1P側)
+type = Explod
+triggerall = teamside=1
+triggerall = numexplod(28094+root,var(7)) = 0
+triggerall = root,var(7) >= 1
+trigger1 = root,var(18) >= 91
+trigger1 = root,RoundsExisted = 0
+trigger1 = root,var(5) = 1
+trigger2 = root,RoundsExisted >= 1
+anim = 8094+root,var(7)
+ID = 28094+root,var(7)
+supermovetime = 9999999999
+pausemovetime = 9999999999
+postype = left
+pos=95,231+root,var(54)
+ownpal = 1
+sprpriority = 10106
+bindtime = -1
+scale = 0.5,0.5
+
+[State -3];パートナーゲージSP値2(2P側)
+type = Explod
+triggerall = teamside=2
+triggerall = numexplod(28094+root,var(7)) = 0
+triggerall = root,var(7) >= 1
+trigger1 = root,var(18) >= 91
+trigger1 = root,RoundsExisted = 0
+trigger1 = root,var(5) = 1
+trigger2 = root,RoundsExisted >= 1
+anim = 8094+root,var(7)
+ID = 28094+root,var(7)
+supermovetime = 9999999999
+pausemovetime = 9999999999
+postype = right
+pos=-95,231+root,var(54)
+ownpal = 1
+sprpriority = 10106
+bindtime = -1
+scale = 0.5,0.5
+facing=-1
+
+[State -3];パートナーゲージSP値3(1P側)
+type = Explod
+triggerall = teamside=1
+triggerall = numexplod(38094+root,var(8)) = 0
+triggerall = root,var(8) >= 1
+trigger1 = root,var(18) >= 91
+trigger1 = root,RoundsExisted = 0
+trigger1 = root,var(5) = 1
+trigger2 = root,RoundsExisted >= 1
+anim = 8094+root,var(8)
+ID = 38094+root,var(8)
+supermovetime = 9999999999
+pausemovetime = 9999999999
+postype = left
+pos=86,231+root,var(54)
+ownpal = 1
+sprpriority = 10106
+bindtime = -1
+scale = 0.5,0.5
+
+[State -3];パートナーゲージSP値3(2P側)
+type = Explod
+triggerall = teamside=2
+triggerall = numexplod(38094+root,var(8)) = 0
+triggerall = root,var(8) >= 1
+trigger1 = root,var(18) >= 91
+trigger1 = root,RoundsExisted = 0
+trigger1 = root,var(5) = 1
+trigger2 = root,RoundsExisted >= 1
+anim = 8094+root,var(8)
+ID = 38094+root,var(8)
+supermovetime = 9999999999
+pausemovetime = 9999999999
+postype = right
+pos=-86,231+root,var(54)
+ownpal = 1
+sprpriority = 10106
+bindtime = -1
+scale = 0.5,0.5
+facing=-1
+
+
+[State -3];パートナーゲージSP値4(1P側)
+type = Explod
+triggerall = teamside=1
+triggerall = numexplod(48094+root,var(9)) = 0
+triggerall = root,var(9) >= 1
+trigger1 = root,var(18) >= 91
+trigger1 = root,RoundsExisted = 0
+trigger1 = root,var(5) = 1
+trigger2 = root,RoundsExisted >= 1
+anim = 8094+root,var(9)
+ID = 48094+root,var(9)
+supermovetime = 9999999999
+pausemovetime = 9999999999
+postype = left
+pos=77,231+root,var(54)
+ownpal = 1
+sprpriority = 10106
+bindtime = -1
+scale = 0.5,0.5
+
+[State -3];パートナーゲージSP値4(2P側)
+type = Explod
+triggerall = teamside=2
+triggerall = numexplod(48094+root,var(9)) = 0
+triggerall = root,var(9) >= 1
+trigger1 = root,var(18) >= 91
+trigger1 = root,RoundsExisted = 0
+trigger1 = root,var(5) = 1
+trigger2 = root,RoundsExisted >= 1
+anim = 8094+root,var(9)
+ID = 48094+root,var(9)
+supermovetime = 9999999999
+pausemovetime = 9999999999
+postype = right
+pos=-77,231+root,var(54)
+ownpal = 1
+sprpriority = 10106
+bindtime = -1
+scale = 0.5,0.5
+facing=-1
+
+[State -3];パートナーゲージSP値5(1P側)
+type = Explod
+triggerall = teamside=1
+triggerall = numexplod(58094+root,var(10)) = 0
+triggerall = root,var(10) >= 1
+trigger1 = root,var(18) >= 91
+trigger1 = root,RoundsExisted = 0
+trigger1 = root,var(5) = 1
+trigger2 = root,RoundsExisted >= 1
+anim = 8094+root,var(10)
+ID = 58094+root,var(10)
+supermovetime = 9999999999
+pausemovetime = 9999999999
+postype = left
+pos=68,231+root,var(54)
+ownpal = 1
+sprpriority = 10106
+bindtime = -1
+scale = 0.5,0.5
+
+[State -3];パートナーゲージSP値5(2P側)
+type = Explod
+triggerall = teamside=2
+triggerall = numexplod(58094+root,var(10)) = 0
+triggerall = root,var(10) >= 1
+trigger1 = root,var(18) >= 91
+trigger1 = root,RoundsExisted = 0
+trigger1 = root,var(5) = 1
+trigger2 = root,RoundsExisted >= 1
+anim = 8094+root,var(10)
+ID = 58094+root,var(10)
+supermovetime = 9999999999
+pausemovetime = 9999999999
+postype = right
+pos=-68,231+root,var(54)
+ownpal = 1
+sprpriority = 10106
+bindtime = -1
+scale = 0.5,0.5
+facing=-1
+
+[State -3];パートナーゲージ数値0(1P側)
+type = Explod
+triggerall = teamside=1
+triggerall = numexplod(8033) = 0
+triggerall = root,var(58) <= 99
+trigger1 = root,RoundsExisted = 0
+trigger1 = root,var(5) = 1
+trigger2 = root,RoundsExisted >= 1
+anim = 8044
+ID = 8033
+supermovetime = 9999999999
+pausemovetime = 9999999999
+postype = left
+pos=53,224+root,var(54)
+ownpal = 1
+sprpriority = 10107
+bindtime = -1
+scale = 0.35,0.35
+
+[State -3];パートナーゲージ数値0(2P側)
+type = Explod
+triggerall = teamside=2
+triggerall = numexplod(8033) = 0
+triggerall = root,var(58) <= 99
+trigger1 = root,RoundsExisted = 0
+trigger1 = root,var(5) = 1
+trigger2 = root,RoundsExisted >= 1
+anim = 8044
+ID = 8033
+supermovetime = 9999999999
+pausemovetime = 9999999999
+postype = right
+pos=-65,224+root,var(54)
+ownpal = 1
+sprpriority = 10107
+bindtime = -1
+scale = 0.35,0.35
+
+
+[State -3];パートナーゲージ数値1(1P側)
+type = Explod
+triggerall = teamside=1
+triggerall = numexplod(8034) = 0
+triggerall = root,var(58) = [100,199]
+trigger1 = root,RoundsExisted = 0
+trigger1 = root,var(5) = 1
+trigger2 = root,RoundsExisted >= 1
+anim = 8045
+ID = 8034
+supermovetime = 9999999999
+pausemovetime = 9999999999
+postype = left
+pos=54,223+root,var(54)
+ownpal = 1
+sprpriority = 10107
+bindtime = -1
+scale = 0.35,0.35
+
+[State -3];パートナーゲージ数値1(2P側)
+type = Explod
+triggerall = teamside=2
+triggerall = numexplod(8034) = 0
+triggerall = root,var(58) = [100,199]
+trigger1 = root,RoundsExisted = 0
+trigger1 = root,var(5) = 1
+trigger2 = root,RoundsExisted >= 1
+anim = 8045
+ID = 8034
+supermovetime = 9999999999
+pausemovetime = 9999999999
+postype = right
+pos=-63,223+root,var(54)
+ownpal = 1
+sprpriority = 10107
+bindtime = -1
+scale = 0.35,0.35
+
+
+[State -3];パートナーゲージ数値2(1P側)
+type = Explod
+triggerall = teamside=1
+triggerall = numexplod(8035) = 0
+triggerall = root,var(58) = [200,299]
+trigger1 = root,RoundsExisted = 0
+trigger1 = root,var(5) = 1
+trigger2 = root,RoundsExisted >= 1
+anim = 8046
+ID = 8035
+supermovetime = 9999999999
+pausemovetime = 9999999999
+postype = left
+pos=54,223+root,var(54)
+ownpal = 1
+sprpriority = 10107
+bindtime = -1
+scale = 0.35,0.35
+
+[State -3];パートナーゲージ数値2(2P側)
+type = Explod
+triggerall = teamside=2
+triggerall = numexplod(8035) = 0
+triggerall = root,var(58) = [200,299]
+trigger1 = root,RoundsExisted = 0
+trigger1 = root,var(5) = 1
+trigger2 = root,RoundsExisted >= 1
+anim = 8046
+ID = 8035
+supermovetime = 9999999999
+pausemovetime = 9999999999
+postype = right
+pos=-63,223+root,var(54)
+ownpal = 1
+sprpriority = 10107
+bindtime = -1
+scale = 0.35,0.35
+
+
+[State -3];パートナーゲージ数値3(1P側)
+type = Explod
+triggerall = teamside=1
+triggerall = numexplod(8036) = 0
+triggerall = root,var(58) = [300,399]
+trigger1 = root,RoundsExisted = 0
+trigger1 = root,var(5) = 1
+trigger2 = root,RoundsExisted >= 1
+anim = 8047
+ID = 8036
+supermovetime = 9999999999
+pausemovetime = 9999999999
+postype = left
+pos=53,221+root,var(54)
+ownpal = 1
+sprpriority = 10107
+bindtime = -1
+scale = 0.35,0.35
+
+[State -3];パートナーゲージ数値3(2P側)
+type = Explod
+triggerall = teamside=2
+triggerall = numexplod(8036) = 0
+triggerall = root,var(58) = [300,399]
+trigger1 = root,RoundsExisted = 0
+trigger1 = root,var(5) = 1
+trigger2 = root,RoundsExisted >= 1
+anim = 8047
+ID = 8036
+supermovetime = 9999999999
+pausemovetime = 9999999999
+postype = right
+pos=-64,221+root,var(54)
+ownpal = 1
+sprpriority = 10107
+bindtime = -1
+scale = 0.35,0.35
+
+
+[State -3];パートナーゲージ数値4(1P側)
+type = Explod
+triggerall = teamside=1
+triggerall = numexplod(8037) = 0
+triggerall = root,var(58) = [400,499]
+trigger1 = root,RoundsExisted = 0
+trigger1 = root,var(5) = 1
+trigger2 = root,RoundsExisted >= 1
+anim = 8048
+ID = 8037
+supermovetime = 9999999999
+pausemovetime = 9999999999
+postype = left
+pos=52,222+root,var(54)
+ownpal = 1
+sprpriority = 10107
+bindtime = -1
+scale = 0.35,0.35
+
+[State -3];パートナーゲージ数値4(2P側)
+type = Explod
+triggerall = teamside=2
+triggerall = numexplod(8037) = 0
+triggerall = root,var(58) = [400,499]
+trigger1 = root,RoundsExisted = 0
+trigger1 = root,var(5) = 1
+trigger2 = root,RoundsExisted >= 1
+anim = 8048
+ID = 8037
+supermovetime = 9999999999
+pausemovetime = 9999999999
+postype = right
+pos=-65,222+root,var(54)
+ownpal = 1
+sprpriority = 10107
+bindtime = -1
+scale = 0.35,0.35
+
+
+[State -3];パートナーゲージ数値5(1P側)
+type = Explod
+triggerall = teamside=1
+triggerall = numexplod(8038) = 0
+triggerall = root,var(58) >= 500
+trigger1 = root,RoundsExisted = 0
+trigger1 = root,var(5) = 1
+trigger2 = root,RoundsExisted >= 1
+anim = 8049
+ID = 8038
+supermovetime = 9999999999
+pausemovetime = 9999999999
+postype = left
+pos=53,221+root,var(54)
+ownpal = 1
+sprpriority = 10107
+bindtime = -1
+scale = 0.35,0.35
+
+[State -3];パートナーゲージ数値5(2P側)
+type = Explod
+triggerall = teamside=2
+triggerall = numexplod(8038) = 0
+triggerall = root,var(58) >= 500
+trigger1 = root,RoundsExisted = 0
+trigger1 = root,var(5) = 1
+trigger2 = root,RoundsExisted >= 1
+anim = 8049
+ID = 8038
+supermovetime = 9999999999
+pausemovetime = 9999999999
+postype = right
+pos=-65,221+root,var(54)
+ownpal = 1
+sprpriority = 10107
+bindtime = -1
+scale = 0.35,0.35
+
+
+[State -3];パートナーゲージ顔下地3P＆4P専用(3P側)
+type = Explod
+triggerall = teamside=1
+triggerall = numexplod(8028) = 0
+triggerall = root,var(48) = 1
+trigger1 = root,RoundsExisted = 0
+trigger1 = root,var(5) = 1
+trigger2 = root,RoundsExisted >= 1
+anim = 8116+(ifelse(root,var(56),4,0))
+ID = 8028
+supermovetime = 9999999999
+pausemovetime = 9999999999
+postype = left
+pos=6,202+root,var(54)
+ownpal = 1
+sprpriority = 10103
+bindtime = -1
+scale = 0.5,0.5
+
+[State -3];パートナーゲージ顔下地3P＆4P専用(4P側)
+type = Explod
+triggerall = teamside=2
+triggerall = numexplod(8028) = 0
+triggerall = root,var(48) = 1
+trigger1 = root,RoundsExisted = 0
+trigger1 = root,var(5) = 1
+trigger2 = root,RoundsExisted >= 1
+anim = 8116+(ifelse(root,var(56),4,0))
+ID = 8028
+supermovetime = 9999999999
+pausemovetime = 9999999999
+postype = right
+pos=-114,202+root,var(54)
+ownpal = 1
+sprpriority = 10103
+bindtime = -1
+scale = 0.5,0.5
+
+[State -3];パートナーゲージ顔～ドラノール(1P側)
+type = Explod
+triggerall = teamside=1
+triggerall = numexplod(6501) = 0
+triggerall = root,var(57) = 1
+trigger1 = root,RoundsExisted = 0
+trigger1 = root,var(5) = 1
+trigger2 = root,RoundsExisted >= 1
+anim = 6701+(ifelse(root,var(56),50,0))
+ID = 6501
+supermovetime = 9999999999
+pausemovetime = 9999999999
+postype = left
+pos = 29,201+root,var(54)
+ownpal = 1
+sprpriority = 10104
+bindtime = -1
+scale = 0.5,0.5
+
+[State -3];パートナーゲージ顔～ドラノール(2P側)
+type = Explod
+triggerall = teamside=2
+triggerall = numexplod(6501) = 0
+triggerall = root,var(57) = 1
+trigger1 = root,RoundsExisted = 0
+trigger1 = root,var(5) = 1
+trigger2 = root,RoundsExisted >= 1
+anim = 6701+(ifelse(root,var(56),50,0))
+ID = 6501
+supermovetime = 9999999999
+pausemovetime = 9999999999
+postype = right
+pos = -29,201+root,var(54)
+ownpal = 1
+sprpriority = 10104
+bindtime = -1
+scale = 0.5,0.5
+
+[State -3];パートナーゲージ顔～ベルンカステル(1P側)
+type = Explod
+triggerall = teamside=1
+triggerall = numexplod(6502) = 0
+triggerall = root,var(57) = 2
+trigger1 = root,RoundsExisted = 0
+trigger1 = root,var(5) = 1
+trigger2 = root,RoundsExisted >= 1
+anim = 6702+(ifelse(root,var(56),50,0))
+ID = 6502
+supermovetime = 9999999999
+pausemovetime = 9999999999
+postype = left
+pos = 29,203+root,var(54)
+ownpal = 1
+sprpriority = 10104
+bindtime = -1
+scale = 0.5,0.5
+
+[State -3];パートナーゲージ顔～ベルンカステル(2P側)
+type = Explod
+triggerall = teamside=2
+triggerall = numexplod(6502) = 0
+triggerall = root,var(57) = 2
+trigger1 = root,RoundsExisted = 0
+trigger1 = root,var(5) = 1
+trigger2 = root,RoundsExisted >= 1
+anim = 6702+(ifelse(root,var(56),50,0))
+ID = 6502
+supermovetime = 9999999999
+pausemovetime = 9999999999
+postype = right
+pos = -29,203+root,var(54)
+ownpal = 1
+sprpriority = 10104
+bindtime = -1
+scale = 0.5,0.5
+
+[State -3];パートナーゲージ顔点滅～ドラノール(1P側)
+type = Explod
+triggerall = teamside=1
+triggerall = numexplod(6351) = 0
+triggerall = root,var(57) = 1
+triggerall = root,var(58) >= 300
+triggerall = power >= 3000
+trigger1 = root,RoundsExisted = 0
+trigger1 = root,var(5) = 1
+trigger1 = root,var(18) >= 91
+trigger2 = root,RoundsExisted >= 1
+anim = 6351+(ifelse(root,var(56),50,0))
+ID = 6351
+supermovetime = 9999999999
+pausemovetime = 9999999999
+postype = left
+pos = 29,201+root,var(54)
+ownpal = 1
+sprpriority = 10106
+bindtime = -1
+scale = 0.5,0.5
+removetime=-1
+
+[State -3];パートナーゲージ顔点滅～ドラノール(2P側)
+type = Explod
+triggerall = teamside=2
+triggerall = numexplod(6351) = 0
+triggerall = root,var(57) = 1
+triggerall = root,var(58) >= 300
+triggerall = power >= 3000
+trigger1 = root,RoundsExisted = 0
+trigger1 = root,var(5) = 1
+trigger1 = root,var(18) >= 91
+trigger2 = root,RoundsExisted >= 1
+anim = 6351+(ifelse(root,var(56),50,0))
+ID = 6351
+supermovetime = 9999999999
+pausemovetime = 9999999999
+postype = right
+pos = -29,201+root,var(54)
+ownpal = 1
+sprpriority = 10106
+bindtime = -1
+scale = 0.5,0.5
+removetime=-1
+
+
+[State -3];パートナーゲージ顔点滅～ベルンカステル(1P側)
+type = Explod
+triggerall = teamside=1
+triggerall = numexplod(6352) = 0
+triggerall = root,var(57) = 2
+triggerall = root,var(58) >= 300
+triggerall = power >= 3000
+trigger1 = root,RoundsExisted = 0
+trigger1 = root,var(5) = 1
+trigger1 = root,var(18) >= 91
+trigger2 = root,RoundsExisted >= 1
+anim = 6352+(ifelse(root,var(56),50,0))
+ID = 6352
+supermovetime = 9999999999
+pausemovetime = 9999999999
+postype = left
+pos = 29,203+root,var(54)
+ownpal = 1
+sprpriority = 10106
+bindtime = -1
+scale = 0.5,0.5
+removetime=-1
+
+[State -3];パートナーゲージ顔点滅～ベルンカステル(2P側)
+type = Explod
+triggerall = teamside=2
+triggerall = numexplod(6352) = 0
+triggerall = root,var(57) = 2
+triggerall = root,var(58) >= 300
+triggerall = power >= 3000
+trigger1 = root,RoundsExisted = 0
+trigger1 = root,var(5) = 1
+trigger1 = root,var(18) >= 91
+trigger2 = root,RoundsExisted >= 1
+anim = 6352+(ifelse(root,var(56),50,0))
+ID = 6352
+supermovetime = 9999999999
+pausemovetime = 9999999999
+postype = right
+pos = -29,203+root,var(54)
+ownpal = 1
+sprpriority = 10106
+bindtime = -1
+scale = 0.5,0.5
+removetime=-1
+
+[State -3];パートナーゲージ名前～ドラノール(1P側)
+type = Explod
+triggerall = teamside=1
+triggerall = numexplod(6601) = 0
+triggerall = root,var(57) = 1
+trigger1 = root,RoundsExisted = 0
+trigger1 = root,var(5) = 1
+trigger2 = root,RoundsExisted >= 1
+anim = 6801
+ID = 6601
+supermovetime = 9999999999
+pausemovetime = 9999999999
+postype = left
+pos = 60,217+root,var(54)
+ownpal = 1
+sprpriority = 10106
+bindtime = -1
+scale = 0.5,0.5
+
+[State -3];パートナーゲージ名前～ドラノール(2P側)
+type = Explod
+triggerall = teamside=2
+triggerall = numexplod(6601) = 0
+triggerall = root,var(57) = 1
+trigger1 = root,RoundsExisted = 0
+trigger1 = root,var(5) = 1
+trigger2 = root,RoundsExisted >= 1
+anim = 6801
+ID = 6601
+supermovetime = 9999999999
+pausemovetime = 9999999999
+postype = right
+pos = -60-32,217+root,var(54)
+ownpal = 1
+sprpriority = 10106
+bindtime = -1
+scale = 0.5,0.5
+
+
+[State -3];パートナーゲージ名前～ベルンカステル(1P側)
+type = Explod
+triggerall = teamside=1
+triggerall = numexplod(6602) = 0
+triggerall = root,var(57) = 2
+trigger1 = root,RoundsExisted = 0
+trigger1 = root,var(5) = 1
+trigger2 = root,RoundsExisted >= 1
+anim = 6802
+ID = 6602
+supermovetime = 9999999999
+pausemovetime = 9999999999
+postype = left
+pos = 61,217+root,var(54)
+ownpal = 1
+sprpriority = 10106
+bindtime = -1
+scale = 0.5,0.5
+removetime=-1
+
+[State -3];パートナーゲージ名前～ベルンカステル(2P側)
+type = Explod
+triggerall = teamside=2
+triggerall = numexplod(6602) = 0
+triggerall = root,var(57) = 2
+trigger1 = root,RoundsExisted = 0
+trigger1 = root,var(5) = 1
+trigger2 = root,RoundsExisted >= 1
+anim = 6802
+ID = 6602
+supermovetime = 9999999999
+pausemovetime = 9999999999
+postype = right
+pos = -61-43,217+root,var(54)
+ownpal = 1
+sprpriority = 10106
+bindtime = -1
+scale = 0.5,0.5
+removetime=-1
+
+
+
+
+;■■■■■■■■■■■■■■■■■■■■■■■■■■■■■
+;■ラウンド開始時にに表示する系統
+;■■■■■■■■■■■■■■■■■■■■■■■■■■■■■
+
+
+[State -3];メタゲージ枠（ラウンド開始時）(1P側)
+type = Explod
+triggerall = teamside=1
+triggerall = root,RoundsExisted = 0
+triggerall = root,var(5) = 0
+triggerall = numexplod(8003) = 0
+trigger1 = root,roundstate >= 2
+anim = 8003
+ID = 8003
+supermovetime = 9999999999
+pausemovetime = 9999999999
+postype = left
+pos=137+ceil(ifelse(root,var(51)>=161,root,var(51)/5,0)),40+root,var(50)
+ownpal = 1
+sprpriority = -298
+bindtime = -1
+scale = 0.5,0.5
+
+[State -3];メタゲージ枠（ラウンド開始時）(2P側)
+type = Explod
+triggerall = teamside=2
+triggerall = root,RoundsExisted = 0
+triggerall = root,var(5) = 0
+triggerall = numexplod(8003) = 0
+trigger1 = root,roundstate >= 2
+anim = 8003
+ID = 8003
+supermovetime = 9999999999
+pausemovetime = 9999999999
+postype = right
+pos=-136-ceil(ifelse(root,var(51)>=161,root,var(51)/5,0)),40+root,var(50)
+ownpal = 1
+sprpriority = -298
+bindtime = -1
+scale = 0.5,0.5
+facing=-1
+
+
+[State -3];メタゲージ下地（ラウンド開始時）(1P側)
+type = Explod
+triggerall = teamside=1
+triggerall = root,RoundsExisted = 0
+triggerall = root,var(5) = 0
+triggerall = numexplod(8002) = 0
+trigger1 = root,roundstate >= 2
+anim = 8002
+ID = 8002
+supermovetime = 9999999999
+pausemovetime = 9999999999
+postype = left
+pos=137+ceil(ifelse(root,var(51)>=161,root,var(51)/5,0)),40+root,var(50)
+ownpal = 1
+sprpriority = -300
+bindtime = -1
+scale = 0.5,0.5
+
+
+[State -3];メタゲージ下地（ラウンド開始時）(2P側)
+type = Explod
+triggerall = teamside=2
+triggerall = root,RoundsExisted = 0
+triggerall = root,var(5) = 0
+triggerall = numexplod(8002) = 0
+trigger1 = root,roundstate >= 2
+anim = 8002
+ID = 8002
+supermovetime = 9999999999
+pausemovetime = 9999999999
+postype = right
+pos=-136-ceil(ifelse(root,var(51)>=161,root,var(51)/5,0)),40+root,var(50)
+ownpal = 1
+sprpriority = -300
+bindtime = -1
+scale = 0.5,0.5
+facing=-1
+
+
+;■ラウンド開始時ゲージ類表示制御
+[State -3];スペシャルゲージ（ラウンド開始時）(1P側)
+type = Explod
+triggerall = teamside=1
+triggerall = RoundsExisted = 0
+triggerall = root,var(5) = 0
+triggerall = numexplod(8000) = 0
+triggerall = root,var(55) = 0
+trigger1 = roundstate >= 2
+anim = 8000
+ID = 8000
+supermovetime = 9999999999
+pausemovetime = 9999999999
+postype = left
+pos=71+ceil(ifelse(root,var(51)>=161,root,var(51)/5,0)),40+root,var(53)
+ownpal = 1
+sprpriority = -299
+bindtime = -1
+scale = 0.5,0.5
+
+[State -3];スペシャルゲージ（ラウンド開始時）(2P側)
+type = Explod
+triggerall = teamside=2
+triggerall = RoundsExisted = 0
+triggerall = root,var(5) = 0
+triggerall = numexplod(8000) = 0
+triggerall = root,var(55) = 0
+trigger1 = roundstate >= 2
+anim = 8000
+ID = 8000
+supermovetime = 9999999999
+pausemovetime = 9999999999
+postype = right
+pos=-71-ceil(ifelse(root,var(51)>=161,root,var(51)/5,0)),40+root,var(53)
+ownpal = 1
+sprpriority = -299
+bindtime = -1
+scale = 0.5,0.5
+facing=-1
+
+
+[State -3];スペシャルゲージ下地（ラウンド開始時）(1P側)
+type = Explod
+triggerall = teamside=1
+triggerall = RoundsExisted = 0
+triggerall = root,var(5) = 0
+triggerall = numexplod(8001) = 0
+triggerall = root,var(55) = 0
+trigger1 = roundstate >= 2
+anim = 8001
+ID = 8001
+supermovetime = 9999999999
+pausemovetime = 9999999999
+postype = left
+pos=71+ceil(ifelse(root,var(51)>=161,root,var(51)/5,0)),40+root,var(53)
+ownpal = 1
+sprpriority = -300
+bindtime = -1
+scale = 0.5,0.5
+
+[State -3];スペシャルゲージ下地（ラウンド開始時）(2P側)
+type = Explod
+triggerall = teamside=2
+triggerall = RoundsExisted = 0
+triggerall = root,var(5) = 0
+triggerall = numexplod(8001) = 0
+triggerall = root,var(55) = 0
+trigger1 = roundstate >= 2
+anim = 8001
+ID = 8001
+supermovetime = 9999999999
+pausemovetime = 9999999999
+postype = right
+pos=-71-ceil(ifelse(root,var(51)>=161,root,var(51)/5,0)),40+root,var(53)
+ownpal = 1
+sprpriority = -300
+bindtime = -1
+scale = 0.5,0.5
+facing=-1
+
+[State -3];スペシャルゲージMAX1（ラウンド開始時）(1P側)
+type = Explod
+triggerall = teamside=1
+triggerall = root,RoundsExisted = 0
+triggerall = root,var(5) = 0
+triggerall = numexplod(8019) = 0
+triggerall = power >= 1000
+triggerall = root,var(55) = 0
+trigger1 = root,roundstate >= 2
+anim = 8019
+ID = 8019
+supermovetime = 9999999999
+pausemovetime = 9999999999
+postype = left
+pos=107+ceil(ifelse(root,var(51)>=161,root,var(51)/5,0)),49+root,var(53)
+ownpal = 1
+sprpriority = -298
+bindtime = -1
+scale = 0.5,0.5
+
+[State -3];スペシャルゲージMAX1（ラウンド開始時）(2P側)
+type = Explod
+triggerall = teamside=2
+triggerall = root,RoundsExisted = 0
+triggerall = root,var(5) = 0
+triggerall = numexplod(8019) = 0
+triggerall = power >= 1000
+triggerall = root,var(55) = 0
+trigger1 = root,roundstate >= 2
+anim = 8019
+ID = 8019
+supermovetime = 9999999999
+pausemovetime = 9999999999
+postype = right
+pos=-107-ceil(ifelse(root,var(51)>=161,root,var(51)/5,0)),49+root,var(53)
+ownpal = 1
+sprpriority = -298
+bindtime = -1
+scale = 0.5,0.5
+facing=-1
+
+[State -3];スペシャルゲージMAX2（ラウンド開始時）(1P側)
+type = Explod
+triggerall = teamside=1
+triggerall = root,RoundsExisted = 0
+triggerall = root,var(5) = 0
+triggerall = numexplod(8020) = 0
+triggerall = power >= 2000
+triggerall = root,var(55) = 0
+trigger1 = root,roundstate >= 2
+anim = 8020
+ID = 8020
+supermovetime = 9999999999
+pausemovetime = 9999999999
+postype = left
+pos=103+ceil(ifelse(root,var(51)>=161,root,var(51)/5,0)),57+root,var(53)
+ownpal = 1
+sprpriority = -298
+bindtime = -1
+scale = 0.5,0.5
+
+[State -3];スペシャルゲージMAX2（ラウンド開始時）(2P側)
+type = Explod
+triggerall = teamside=2
+triggerall = root,RoundsExisted = 0
+triggerall = root,var(5) = 0
+triggerall = numexplod(8020) = 0
+triggerall = power >= 2000
+triggerall = root,var(55) = 0
+trigger1 = root,roundstate >= 2
+anim = 8020
+ID = 8020
+supermovetime = 9999999999
+pausemovetime = 9999999999
+postype = right
+pos=-103-ceil(ifelse(root,var(51)>=161,root,var(51)/5,0)),57+root,var(53)
+ownpal = 1
+sprpriority = -298
+bindtime = -1
+scale = 0.5,0.5
+facing=-1
+
+
+[State -3];スペシャルゲージMAX3（ラウンド開始時）(1P側)
+type = Explod
+triggerall = teamside=1
+triggerall = root,RoundsExisted = 0
+triggerall = root,var(5) = 0
+triggerall = numexplod(8021) = 0
+triggerall = power >= 3000
+triggerall = root,var(55) = 0
+trigger1 = root,roundstate >= 2
+anim = 8021
+ID = 8021
+supermovetime = 9999999999
+pausemovetime = 9999999999
+postype = left
+pos=97+ceil(ifelse(root,var(51)>=161,root,var(51)/5,0)),56+root,var(53)
+ownpal = 1
+sprpriority = -298
+bindtime = -1
+scale = 0.5,0.5
+
+[State -3];スペシャルゲージMAX3（ラウンド開始時）(2P側)
+type = Explod
+triggerall = teamside=2
+triggerall = root,RoundsExisted = 0
+triggerall = root,var(5) = 0
+triggerall = numexplod(8021) = 0
+triggerall = power >= 3000
+triggerall = root,var(55) = 0
+trigger1 = root,roundstate >= 2
+anim = 8021
+ID = 8021
+supermovetime = 9999999999
+pausemovetime = 9999999999
+postype = right
+pos=-97-ceil(ifelse(root,var(51)>=161,root,var(51)/5,0)),56+root,var(53)
+ownpal = 1
+sprpriority = -298
+bindtime = -1
+scale = 0.5,0.5
+facing=-1
+
+
+[State -3];スペシャルゲージMAX4（ラウンド開始時）(1P側)
+type = Explod
+triggerall = teamside=1
+triggerall = root,RoundsExisted = 0
+triggerall = root,var(5) = 0
+triggerall = numexplod(8022) = 0
+triggerall = power >= 4000
+triggerall = root,var(55) = 0
+trigger1 = root,roundstate >= 2
+anim = 8022
+ID = 8022
+supermovetime = 9999999999
+pausemovetime = 9999999999
+postype = left
+pos=91+ceil(ifelse(root,var(51)>=161,root,var(51)/5,0)),53+root,var(53)
+ownpal = 1
+sprpriority = -298
+bindtime = -1
+scale = 0.5,0.5
+
+[State -3];スペシャルゲージMAX4（ラウンド開始時）(2P側)
+type = Explod
+triggerall = teamside=2
+triggerall = root,RoundsExisted = 0
+triggerall = root,var(5) = 0
+triggerall = numexplod(8022) = 0
+triggerall = power >= 4000
+triggerall = root,var(55) = 0
+trigger1 = root,roundstate >= 2
+anim = 8022
+ID = 8022
+supermovetime = 9999999999
+pausemovetime = 9999999999
+postype = right
+pos=-91-ceil(ifelse(root,var(51)>=161,root,var(51)/5,0)),53+root,var(53)
+ownpal = 1
+sprpriority = -298
+bindtime = -1
+scale = 0.5,0.5
+facing=-1
+
+[State -3];スペシャルゲージMAX5（ラウンド開始時）(1P側)
+type = Explod
+triggerall = teamside=1
+triggerall = root,RoundsExisted = 0
+triggerall = root,var(5) = 0
+triggerall = numexplod(8023) = 0
+triggerall = power >= 5000
+triggerall = root,var(55) = 0
+trigger1 = root,roundstate >= 2
+anim = 8023
+ID = 8023
+supermovetime = 9999999999
+pausemovetime = 9999999999
+postype = left
+pos=86+ceil(ifelse(root,var(51)>=161,root,var(51)/5,0)),46+root,var(53)
+ownpal = 1
+sprpriority = -298
+bindtime = -1
+scale = 0.5,0.5
+
+[State -3];スペシャルゲージMAX5（ラウンド開始時）(2P側)
+type = Explod
+triggerall = teamside=2
+triggerall = root,RoundsExisted = 0
+triggerall = root,var(5) = 0
+triggerall = numexplod(8023) = 0
+triggerall = power >= 5000
+triggerall = root,var(55) = 0
+trigger1 = root,roundstate >= 2
+anim = 8023
+ID = 8023
+supermovetime = 9999999999
+pausemovetime = 9999999999
+postype = right
+pos=-86-ceil(ifelse(root,var(51)>=161,root,var(51)/5,0)),46+root,var(53)
+ownpal = 1
+sprpriority = -298
+bindtime = -1
+scale = 0.5,0.5
+facing=-1
+
+[State -3];スペシャルゲージ数値0（ラウンド開始時）(1P側)
+type = Explod
+triggerall = teamside=1
+triggerall = root,RoundsExisted = 0
+triggerall = root,var(5) = 0
+triggerall = numexplod(8007) = 0
+triggerall = power <= 999
+triggerall = root,var(55) = 0
+trigger1 = root,roundstate >= 2
+anim = 8007+(ifelse(root,var(56),6,0))
+ID = 8007
+supermovetime = 9999999999
+pausemovetime = 9999999999
+postype = left
+pos=110+ceil(ifelse(root,var(51)>=161,root,var(51)/5,0)),49+root,var(53)
+ownpal = 1
+sprpriority = -297
+bindtime = -1
+scale = 0.5,0.5
+
+[State -3];スペシャルゲージ数値0（ラウンド開始時）(2P側)
+type = Explod
+triggerall = teamside=2
+triggerall = root,RoundsExisted = 0
+triggerall = root,var(5) = 0
+triggerall = numexplod(8007) = 0
+triggerall = power <= 999
+triggerall = root,var(55) = 0
+trigger1 = root,roundstate >= 2
+anim = 8007+(ifelse(root,var(56),6,0))
+ID = 8007
+supermovetime = 9999999999
+pausemovetime = 9999999999
+postype = right
+pos=-126-ceil(ifelse(root,var(51)>=161,root,var(51)/5,0)),49+root,var(53)
+ownpal = 1
+sprpriority = -297
+bindtime = -1
+scale = 0.5,0.5
+
+
+[State -3];スペシャルゲージ数値1（ラウンド開始時）(1P側)
+type = Explod
+triggerall = teamside=1
+triggerall = root,RoundsExisted = 0
+triggerall = root,var(5) = 0
+triggerall = numexplod(8008) = 0
+triggerall = power = [1000,1999]
+triggerall = root,var(55) = 0
+trigger1 = root,roundstate >= 2
+anim = 8008+(ifelse(root,var(56),6,0))
+ID = 8008
+supermovetime = 9999999999
+pausemovetime = 9999999999
+postype = left
+pos=113+ceil(ifelse(root,var(51)>=161,root,var(51)/5,0)),46+root,var(53)
+ownpal = 1
+sprpriority = -297
+bindtime = -1
+scale = 0.5,0.5
+
+[State -3];スペシャルゲージ数値1（ラウンド開始時）(2P側)
+type = Explod
+triggerall = teamside=2
+triggerall = root,RoundsExisted = 0
+triggerall = root,var(5) = 0
+triggerall = numexplod(8008) = 0
+triggerall = power = [1000,1999]
+triggerall = root,var(55) = 0
+trigger1 = root,roundstate >= 2
+anim = 8008+(ifelse(root,var(56),6,0))
+ID = 8008
+supermovetime = 9999999999
+pausemovetime = 9999999999
+postype = right
+pos=-126-ceil(ifelse(root,var(51)>=161,root,var(51)/5,0)),46+root,var(53)
+ownpal = 1
+sprpriority = -297
+bindtime = -1
+scale = 0.5,0.5
+
+[State -3];スペシャルゲージ数値2（ラウンド開始時）(1P側)
+type = Explod
+triggerall = teamside=1
+triggerall = root,RoundsExisted = 0
+triggerall = root,var(5) = 0
+triggerall = numexplod(8009) = 0
+triggerall = power = [2000,2999]
+triggerall = root,var(55) = 0
+trigger1 = root,roundstate >= 2
+anim = 8009+(ifelse(root,var(56),6,0))
+ID = 8009
+supermovetime = 9999999999
+pausemovetime = 9999999999
+postype = left
+pos=112+ceil(ifelse(root,var(51)>=161,root,var(51)/5,0)),46+root,var(53)
+ownpal = 1
+sprpriority = -297
+bindtime = -1
+scale = 0.5,0.5
+
+
+[State -3];スペシャルゲージ数値2（ラウンド開始時）(2P側)
+type = Explod
+triggerall = teamside=2
+triggerall = root,RoundsExisted = 0
+triggerall = root,var(5) = 0
+triggerall = numexplod(8009) = 0
+triggerall = power = [2000,2999]
+triggerall = root,var(55) = 0
+trigger1 = root,roundstate >= 2
+anim = 8009+(ifelse(root,var(56),6,0))
+ID = 8009
+supermovetime = 9999999999
+pausemovetime = 9999999999
+postype = right
+pos=-127-ceil(ifelse(root,var(51)>=161,root,var(51)/5,0)),46+root,var(53)
+ownpal = 1
+sprpriority = -297
+bindtime = -1
+scale = 0.5,0.5
+
+
+[State -3];スペシャルゲージ数値3（ラウンド開始時）(1P側)
+type = Explod
+triggerall = teamside=1
+triggerall = root,RoundsExisted = 0
+triggerall = root,var(5) = 0
+triggerall = numexplod(8010) = 0
+triggerall = power = [3000,3999]
+triggerall = root,var(55) = 0
+trigger1 = root,roundstate >= 2
+anim = 8010+(ifelse(var(56),6,0))
+ID = 8010
+supermovetime = 9999999999
+pausemovetime = 9999999999
+postype = left
+pos=111+ceil(ifelse(root,var(51)>=161,root,var(51)/5,0)),42+root,var(53)
+ownpal = 1
+sprpriority = -297
+bindtime = -1
+scale = 0.5,0.5
+
+[State -3];スペシャルゲージ数値3（ラウンド開始時）(2P側)
+type = Explod
+triggerall = teamside=2
+triggerall = root,RoundsExisted = 0
+triggerall = root,var(5) = 0
+triggerall = numexplod(8010) = 0
+triggerall = power = [3000,3999]
+triggerall = root,var(55) = 0
+trigger1 = root,roundstate >= 2
+anim = 8010+(ifelse(var(56),6,0))
+ID = 8010
+supermovetime = 9999999999
+pausemovetime = 9999999999
+postype = right
+pos=-128-ceil(ifelse(root,var(51)>=161,root,var(51)/5,0)),42+root,var(53)
+ownpal = 1
+sprpriority = -297
+bindtime = -1
+scale = 0.5,0.5
+
+[State -3];スペシャルゲージ数値4（ラウンド開始時）(1P側)
+type = Explod
+triggerall = teamside=1
+triggerall = root,RoundsExisted = 0
+triggerall = root,var(5) = 0
+triggerall = numexplod(8011) = 0
+triggerall = power = [4000,4999]
+triggerall = root,var(55) = 0
+trigger1 = root,roundstate >= 2
+anim = 8011+(ifelse(root,var(56),6,0))
+ID = 8011
+supermovetime = 9999999999
+pausemovetime = 9999999999
+postype = left
+pos=111+ceil(ifelse(root,var(51)>=161,root,var(51)/5,0)),43+root,var(53)
+ownpal = 1
+sprpriority = -297
+bindtime = -1
+scale = 0.5,0.5
+
+[State -3];スペシャルゲージ数値4（ラウンド開始時）(2P側)
+type = Explod
+triggerall = teamside=2
+triggerall = root,RoundsExisted = 0
+triggerall = root,var(5) = 0
+triggerall = numexplod(8011) = 0
+triggerall = power = [4000,4999]
+triggerall = root,var(55) = 0
+trigger1 = root,roundstate >= 2
+anim = 8011+(ifelse(root,var(56),6,0))
+ID = 8011
+supermovetime = 9999999999
+pausemovetime = 9999999999
+postype = right
+pos=-128-ceil(ifelse(root,var(51)>=161,root,var(51)/5,0)),43+root,var(53)
+ownpal = 1
+sprpriority = -297
+bindtime = -1
+scale = 0.5,0.5
+
+[State -3];スペシャルゲージ数値5（ラウンド開始時）(1P側)
+type = Explod
+triggerall = teamside=1
+triggerall = root,RoundsExisted = 0
+triggerall = root,var(5) = 0
+triggerall = numexplod(8012) = 0
+triggerall = power >= 5000
+triggerall = root,var(55) = 0
+trigger1 = root,roundstate >= 2
+anim = 8012+(ifelse(root,var(56),6,0))
+ID = 8012
+supermovetime = 9999999999
+pausemovetime = 9999999999
+postype = left
+pos=111+ceil(ifelse(root,var(51)>=161,root,var(51)/5,0)),42+root,var(53)
+ownpal = 1
+sprpriority = -297
+bindtime = -1
+scale = 0.5,0.5
+
+[State -3];スペシャルゲージ数値5（ラウンド開始時）(2P側)
+type = Explod
+triggerall = teamside=2
+triggerall = root,RoundsExisted = 0
+triggerall = root,var(5) = 0
+triggerall = numexplod(8012) = 0
+triggerall = power >= 5000
+triggerall = root,var(55) = 0
+trigger1 = root,roundstate >= 2
+anim = 8012+(ifelse(root,var(56),6,0))
+ID = 8012
+supermovetime = 9999999999
+pausemovetime = 9999999999
+postype = right
+pos=-128-ceil(ifelse(root,var(51)>=161,root,var(51)/5,0)),42+root,var(53)
+ownpal = 1
+sprpriority = -297
+bindtime = -1
+scale = 0.5,0.5
+
+[State -3];パートナーゲージ下地（ラウンド開始時）(1P側)
+type = Explod
+triggerall = teamside=1
+triggerall = root,RoundsExisted = 0
+triggerall = root,var(5) = 0
+triggerall = numexplod(8026) = 0
+triggerall = root,var(7) = 0
+trigger1 = root,roundstate >= 2
+anim = 8026+(ifelse(root,var(56),4,0))
+ID = 8026
+supermovetime = 9999999999
+pausemovetime = 9999999999
+postype = left
+pos=6,202+root,var(54)
+ownpal = 1
+sprpriority = 10100
+bindtime = -1
+scale = 0.5,0.5
+
+[State -3];パートナーゲージ下地（ラウンド開始時）(2P側)
+type = Explod
+triggerall = teamside=2
+triggerall = root,RoundsExisted = 0
+triggerall = root,var(5) = 0
+triggerall = numexplod(8026) = 0
+triggerall = root,var(7) = 0
+trigger1 = root,roundstate >= 2
+anim = 8026+(ifelse(root,var(56),4,0))
+ID = 8026
+supermovetime = 9999999999
+pausemovetime = 9999999999
+postype = right
+pos=-114,202+root,var(54)
+ownpal = 1
+sprpriority = 10100
+bindtime = -1
+scale = 0.5,0.5
+
+
+[State -3];パートナーゲージ（ラウンド開始時）(1P側)
+type = Explod
+triggerall = teamside=1
+triggerall = root,RoundsExisted = 0
+triggerall = root,var(5) = 0
+triggerall = numexplod(8025) = 0
+trigger1 = root,roundstate >= 2
+anim = 8025+(ifelse(root,var(56),4,0))
+ID = 8025
+supermovetime = 9999999999
+pausemovetime = 9999999999
+postype = left
+pos=6,202+root,var(54)
+ownpal = 1
+sprpriority = 10102
+bindtime = -1
+scale = 0.5,0.5
+
+[State -3];パートナーゲージ（ラウンド開始時）(2P側)
+type = Explod
+triggerall = teamside=2
+triggerall = root,RoundsExisted = 0
+triggerall = root,var(5) = 0
+triggerall = numexplod(8025) = 0
+trigger1 = root,roundstate >= 2
+anim = 8025+(ifelse(root,var(56),4,0))
+ID = 8025
+supermovetime = 9999999999
+pausemovetime = 9999999999
+postype = right
+pos=-114,202+root,var(54)
+ownpal = 1
+sprpriority = 10102
+bindtime = -1
+scale = 0.5,0.5
+
+[State -3];パートナーゲージSP（ラウンド開始時）(1P側)
+type = Explod
+triggerall = teamside=1
+triggerall = root,RoundsExisted = 0
+triggerall = root,var(5) = 0
+triggerall = numexplod(8027) = 0
+trigger1 = root,roundstate >= 2
+anim = 8027+(ifelse(root,var(56),4,0))
+ID = 8027
+supermovetime = 9999999999
+pausemovetime = 9999999999
+postype = left
+pos=6,202+root,var(54)
+ownpal = 1
+sprpriority = 10100
+bindtime = -1
+scale = 0.5,0.5
+
+[State -3];パートナーゲージSP（ラウンド開始時）(2P側)
+type = Explod
+triggerall = teamside=2
+triggerall = root,RoundsExisted = 0
+triggerall = root,var(5) = 0
+triggerall = numexplod(8027) = 0
+trigger1 = root,roundstate >= 2
+anim = 8027+(ifelse(root,var(56),4,0))
+ID = 8027
+supermovetime = 9999999999
+pausemovetime = 9999999999
+postype = right
+pos=-114,202+root,var(54)
+ownpal = 1
+sprpriority = 10100
+bindtime = -1
+scale = 0.5,0.5
+
+
+[State -3];パートナーゲージ顔下地3P＆4P専用（ラウンド開始時）(3P側)
+type = Explod
+triggerall = teamside=1
+triggerall = root,RoundsExisted = 0
+triggerall = root,var(5) = 0
+triggerall = numexplod(8028) = 0
+triggerall = root,var(48) = 1
+trigger1 = root,roundstate >= 2
+anim = 8028+(ifelse(root,var(56),4,0))
+ID = 8028
+supermovetime = 9999999999
+pausemovetime = 9999999999
+postype = left
+pos=6,202+root,var(54)
+ownpal = 1
+sprpriority = 10103
+bindtime = -1
+scale = 0.5,0.5
+
+[State -3];パートナーゲージ顔下地3P＆4P専用（ラウンド開始時）(4P側)
+type = Explod
+triggerall = teamside=2
+triggerall = root,RoundsExisted = 0
+triggerall = root,var(5) = 0
+triggerall = numexplod(8028) = 0
+triggerall = root,var(48) = 1
+trigger1 = root,roundstate >= 2
+anim = 8028+(ifelse(root,var(56),4,0))
+ID = 8028
+supermovetime = 9999999999
+pausemovetime = 9999999999
+postype = right
+pos=-114,202+root,var(54)
+ownpal = 1
+sprpriority = 10103
+bindtime = -1
+scale = 0.5,0.5
+
+[State -3];パートナーゲージ顔～ドラノール（ラウンド開始時）(1P側)
+type = Explod
+triggerall = teamside=1
+triggerall = root,RoundsExisted = 0
+triggerall = root,var(5) = 0
+triggerall = root,var(57) = 1
+triggerall = numexplod(6501) = 0
+trigger1 = root,roundstate >= 2
+anim = 6501+(ifelse(root,var(56),50,0))
+ID = 6501
+supermovetime = 9999999999
+pausemovetime = 9999999999
+postype = left
+pos = 29,201+root,var(54)
+ownpal = 1
+sprpriority = 10104
+bindtime = -1
+scale = 0.5,0.5
+
+[State -3];パートナーゲージ顔～ドラノール（ラウンド開始時）(2P側)
+type = Explod
+triggerall = teamside=2
+triggerall = root,RoundsExisted = 0
+triggerall = root,var(5) = 0
+triggerall = root,var(57) = 1
+triggerall = numexplod(6501) = 0
+trigger1 = root,roundstate >= 2
+anim = 6501+(ifelse(root,var(56),50,0))
+ID = 6501
+supermovetime = 9999999999
+pausemovetime = 9999999999
+postype = right
+pos = -29,201+root,var(54)
+ownpal = 1
+sprpriority = 10104
+bindtime = -1
+scale = 0.5,0.5
+
+
+[State -3];パートナーゲージ顔～ベルンカステル（ラウンド開始時）(1P側)
+type = Explod
+triggerall = teamside=1
+triggerall = root,RoundsExisted = 0
+triggerall = root,var(5) = 0
+triggerall = root,var(57) = 2
+triggerall = numexplod(6502) = 0
+trigger1 = root,roundstate >= 2
+anim = 6502+(ifelse(root,var(56),50,0))
+ID = 6502
+supermovetime = 9999999999
+pausemovetime = 9999999999
+postype = left
+pos = 29,203+root,var(54)
+ownpal = 1
+sprpriority = 10104
+bindtime = -1
+scale = 0.5,0.5
+
+[State -3];パートナーゲージ顔～ベルンカステル（ラウンド開始時）(2P側)
+type = Explod
+triggerall = teamside=2
+triggerall = root,RoundsExisted = 0
+triggerall = root,var(5) = 0
+triggerall = root,var(57) = 2
+triggerall = numexplod(6502) = 0
+trigger1 = root,roundstate >= 2
+anim = 6502+(ifelse(root,var(56),50,0))
+ID = 6502
+supermovetime = 9999999999
+pausemovetime = 9999999999
+postype = right
+pos = -29,203+root,var(54)
+ownpal = 1
+sprpriority = 10104
+bindtime = -1
+scale = 0.5,0.5
+
+;■■■■■■■■■■■■■■■■■■■■■■■■■■■■
+
+[State -3];パートナーゲージ名前～ドラノール（ラウンド開始時）(1P側)
+type = Explod
+triggerall = teamside=1
+triggerall = root,RoundsExisted = 0
+triggerall = root,var(5) = 0
+triggerall = root,var(57) = 1
+triggerall = numexplod(6601) = 0
+trigger1 = root,roundstate >= 2
+anim = 6601+(ifelse(root,var(56),50,0))
+ID = 6601
+supermovetime = 9999999999
+pausemovetime = 9999999999
+postype = left
+pos = 60,217+root,var(54)
+ownpal = 1
+sprpriority = 10106
+bindtime = -1
+scale = 0.5,0.5
+
+[State -3];パートナーゲージ名前～ドラノール（ラウンド開始時）(2P側)
+type = Explod
+triggerall = teamside=2
+triggerall = root,RoundsExisted = 0
+triggerall = root,var(5) = 0
+triggerall = root,var(57) = 1
+triggerall = numexplod(6601) = 0
+trigger1 = root,roundstate >= 2
+anim = 6601+(ifelse(root,var(56),50,0))
+ID = 6601
+supermovetime = 9999999999
+pausemovetime = 9999999999
+postype = right
+pos = -60-32,217+root,var(54)
+ownpal = 1
+sprpriority = 10106
+bindtime = -1
+scale = 0.5,0.5
+
+
+[State -3];パートナーゲージ名前～ベルンカステル（ラウンド開始時）(1P側)
+type = Explod
+triggerall = teamside=1
+triggerall = root,RoundsExisted = 0
+triggerall = root,var(5) = 0
+triggerall = root,var(57) = 2
+triggerall = numexplod(6602) = 0
+trigger1 = root,roundstate >= 2
+anim = 6602+(ifelse(root,var(56),50,0))
+ID = 6602
+supermovetime = 9999999999
+pausemovetime = 9999999999
+postype = left
+pos = 61,217+root,var(54)
+ownpal = 1
+sprpriority = 10106
+bindtime = -1
+scale = 0.5,0.5
+removetime=-1
+
+[State -3];パートナーゲージ名前～ベルンカステル（ラウンド開始時）(2P側)
+type = Explod
+triggerall = teamside=2
+triggerall = root,RoundsExisted = 0
+triggerall = root,var(5) = 0
+triggerall = root,var(57) = 2
+triggerall = numexplod(6602) = 0
+trigger1 = root,roundstate >= 2
+anim = 6602+(ifelse(root,var(56),50,0))
+ID = 6602
+supermovetime = 9999999999
+pausemovetime = 9999999999
+postype = right
+pos = -61-43,217+root,var(54)
+ownpal = 1
+sprpriority = 10106
+bindtime = -1
+scale = 0.5,0.5
+removetime=-1
+
+;■■■■■■■■■■■■■■■■■■■■■■■■■■■■
+[State -3];パートナーゲージ数値0（ラウンド開始時）(1P側)
+type = Explod
+triggerall = teamside=1
+triggerall = root,RoundsExisted = 0
+triggerall = root,var(5) = 0
+triggerall = root,var(58) <= 99
+triggerall = numexplod(8033) = 0
+trigger1 = root,roundstate >= 2
+anim = 8033
+ID = 8033
+supermovetime = 9999999999
+pausemovetime = 9999999999
+postype = left
+pos=53,224+root,var(54)
+ownpal = 1
+sprpriority = 10107
+bindtime = -1
+scale = 0.35,0.35
+
+[State -3];パートナーゲージ数値0（ラウンド開始時）(2P側)
+type = Explod
+triggerall = teamside=2
+triggerall = root,RoundsExisted = 0
+triggerall = root,var(5) = 0
+triggerall = root,var(58) <= 99
+triggerall = numexplod(8033) = 0
+trigger1 = root,roundstate >= 2
+anim = 8033
+ID = 8033
+supermovetime = 9999999999
+pausemovetime = 9999999999
+postype = right
+pos=-65,224+root,var(54)
+ownpal = 1
+sprpriority = 10107
+bindtime = -1
+scale = 0.35,0.35
+
+
+[State -3];パートナーゲージ数値1（ラウンド開始時）(1P側)
+type = Explod
+triggerall = teamside=1
+triggerall = root,RoundsExisted = 0
+triggerall = root,var(5) = 0
+triggerall = root,var(58) = [100,199]
+triggerall = numexplod(8034) = 0
+trigger1 = root,roundstate >= 2
+anim = 8034
+ID = 8034
+supermovetime = 9999999999
+pausemovetime = 9999999999
+postype = left
+pos=54,223+root,var(54)
+ownpal = 1
+sprpriority = 10107
+bindtime = -1
+scale = 0.35,0.35
+
+[State -3];パートナーゲージ数値1（ラウンド開始時）(2P側)
+type = Explod
+triggerall = teamside=2
+triggerall = root,RoundsExisted = 0
+triggerall = root,var(5) = 0
+triggerall = root,var(58) = [100,199]
+triggerall = numexplod(8034) = 0
+trigger1 = root,roundstate >= 2
+anim = 8034
+ID = 8034
+supermovetime = 9999999999
+pausemovetime = 9999999999
+postype = right
+pos=-63,223+root,var(54)
+ownpal = 1
+sprpriority = 10107
+bindtime = -1
+scale = 0.35,0.35
+
+[State -3];パートナーゲージ数値2（ラウンド開始時）(1P側)
+type = Explod
+triggerall = teamside=1
+triggerall = root,RoundsExisted = 0
+triggerall = root,var(5) = 0
+triggerall = root,var(58) = [200,299]
+triggerall = numexplod(8035) = 0
+trigger1 = root,roundstate >= 2
+anim = 8035
+ID = 8035
+supermovetime = 9999999999
+pausemovetime = 9999999999
+postype = left
+pos=54,223+root,var(54)
+ownpal = 1
+sprpriority = 10107
+bindtime = -1
+scale = 0.35,0.35
+
+[State -3];パートナーゲージ数値2（ラウンド開始時）(2P側)
+type = Explod
+triggerall = teamside=1
+triggerall = root,RoundsExisted = 0
+triggerall = root,var(5) = 0
+triggerall = root,var(58) = [200,299]
+triggerall = numexplod(8035) = 0
+trigger1 = root,roundstate >= 2
+anim = 8035
+ID = 8035
+supermovetime = 9999999999
+pausemovetime = 9999999999
+postype = right
+pos=-63,223+root,var(54)
+ownpal = 1
+sprpriority = 10107
+bindtime = -1
+scale = 0.35,0.35
+
+
+[State -3];パートナーゲージ数値3（ラウンド開始時）(1P側)
+type = Explod
+triggerall = teamside=1
+triggerall = root,RoundsExisted = 0
+triggerall = root,var(5) = 0
+triggerall = root,var(58) = [300,399]
+triggerall = numexplod(8036) = 0
+trigger1 = root,roundstate >= 2
+anim = 8036
+ID = 8036
+supermovetime = 9999999999
+pausemovetime = 9999999999
+postype = left
+pos=53,221+root,var(54)
+ownpal = 1
+sprpriority = 10107
+bindtime = -1
+scale = 0.35,0.35
+
+[State -3];パートナーゲージ数値3（ラウンド開始時）(2P側)
+type = Explod
+triggerall = teamside=2
+triggerall = root,RoundsExisted = 0
+triggerall = root,var(5) = 0
+triggerall = root,var(58) = [300,399]
+triggerall = numexplod(8036) = 0
+trigger1 = root,roundstate >= 2
+anim = 8036
+ID = 8036
+supermovetime = 9999999999
+pausemovetime = 9999999999
+postype = right
+pos=-64,221+root,var(54)
+ownpal = 1
+sprpriority = 10107
+bindtime = -1
+scale = 0.35,0.35
+
+[State -3];パートナーゲージ数値4（ラウンド開始時）(1P側)
+type = Explod
+triggerall = teamside=1
+triggerall = root,RoundsExisted = 0
+triggerall = root,var(5) = 0
+triggerall = root,var(58) = [400,499]
+triggerall = numexplod(8037) = 0
+trigger1 = root,roundstate >= 2
+anim = 8037
+ID = 8037
+supermovetime = 9999999999
+pausemovetime = 9999999999
+postype = left
+pos=52,222+root,var(54)
+ownpal = 1
+sprpriority = 10107
+bindtime = -1
+scale = 0.35,0.35
+
+[State -3];パートナーゲージ数値4（ラウンド開始時）(2P側)
+type = Explod
+triggerall = teamside=2
+triggerall = root,RoundsExisted = 0
+triggerall = root,var(5) = 0
+triggerall = root,var(58) = [400,499]
+triggerall = numexplod(8037) = 0
+trigger1 = root,roundstate >= 2
+anim = 8037
+ID = 8037
+supermovetime = 9999999999
+pausemovetime = 9999999999
+postype = right
+pos=-65,222+root,var(54)
+ownpal = 1
+sprpriority = 10107
+bindtime = -1
+scale = 0.35,0.35
+
+
+[State -3];パートナーゲージ数値5（ラウンド開始時）(1P側)
+type = Explod
+triggerall = teamside=1
+triggerall = root,RoundsExisted = 0
+triggerall = root,var(5) = 0
+triggerall = root,var(58) >= 500
+triggerall = numexplod(8038) = 0
+trigger1 = root,roundstate >= 2
+anim = 8038
+ID = 8038
+supermovetime = 9999999999
+pausemovetime = 9999999999
+postype = left
+pos=53,221+root,var(54)
+ownpal = 1
+sprpriority = 10107
+bindtime = -1
+scale = 0.35,0.35
+
+[State -3];パートナーゲージ数値5（ラウンド開始時）(2P側)
+type = Explod
+triggerall = teamside=2
+triggerall = root,RoundsExisted = 0
+triggerall = root,var(5) = 0
+triggerall = root,var(58) >= 500
+triggerall = numexplod(8038) = 0
+trigger1 = root,roundstate >= 2
+anim = 8038
+ID = 8038
+supermovetime = 9999999999
+pausemovetime = 9999999999
+postype = right
+pos=-65,221+root,var(54)
+ownpal = 1
+sprpriority = 10107
+bindtime = -1
+scale = 0.35,0.35
+
+
+
+
+
+
+
+
+
+
+
+
+
+;■ラウンド開始時ゲージ類表示制御のトリガー■■■■■■■■■■■■■■■■■■■■
+
+[State -3];
+type = Parentvarset
+trigger1 = root,var(5) = 0
+trigger1 = root,RoundState >= 2
+v = 5
+value = 1
+
+[State -3]
+type = Parentvarset
+trigger1 = root,RoundsExisted = 0
+trigger1 = root,var(5) = 1
+trigger2 = root,RoundsExisted >= 1
+fv = 5
+value = 1

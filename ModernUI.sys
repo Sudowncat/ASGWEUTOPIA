@@ -1,0 +1,1641 @@
+;==========================================================================
+;=============================MODERN UI SYSTEM=============================
+;---------------------------------------------------------------------------
+; Bar
+[Statedef 15000]
+type = S
+movetype = I
+physics = N
+anim = 7099
+velset = 0, 0
+
+[State 0, ModifyExplod]
+type = ModifyExplod
+TriggerAll = enemy,Name = "Chizuru Kagura"
+TriggerAll = enemy,Var(54) = 0
+trigger1 = 1
+trans = default
+ID = 15200
+ignorehitpause = 1
+persistent = 1
+
+[State 0, ModifyExplod]
+type = ModifyExplod
+TriggerAll = enemy,Name = "Chizuru Kagura"
+TriggerAll = enemy,Var(54) = 1
+trigger1 = 1
+trans = add
+ID = 15200
+ignorehitpause = 1
+persistent = 1
+
+[State 0, ModifyExplod]
+type = ModifyExplod
+TriggerAll = enemy,Name = "Kensou"
+TriggerAll = enemy,Var(54) = 0
+trigger1 = 1
+trans = default
+ID = 15200
+ignorehitpause = 1
+persistent = 1
+
+[State 0, ModifyExplod]
+type = ModifyExplod
+TriggerAll = enemy,Name = "Kensou"
+TriggerAll = enemy,Var(54) = 1
+trigger1 = 1
+trans = none
+ID = 15200
+ignorehitpause = 1
+persistent = 1
+
+[State 0, ModifyExplod]
+type = ModifyExplod
+TriggerAll = enemy,Name = "KlonoaDS"
+TriggerAll = enemy,Var(54) = 0
+trigger1 = 1
+trans = default
+ID = 15200
+ignorehitpause = 1
+persistent = 1
+
+[State 0, ModifyExplod]
+type = ModifyExplod
+TriggerAll = enemy,Name = "KlonoaDS"
+TriggerAll = enemy,Var(54) = 1
+trigger1 = 1
+trans = none
+ID = 15200
+ignorehitpause = 1
+persistent = 1
+
+; LIFE READER N.V 1
+[State 9999, VarSet]
+type = VarSet
+trigger1 = 1
+fvar(0) = (5000*root,life/const(data.life))
+persistent = 1
+ignorehitpause = 1
+
+; Power READER
+[State 9999, VarSet]
+type = VarSet
+trigger1 = 1
+fvar(10) = (root,life*root,power/const(data.power))
+persistent = 1
+ignorehitpause = 1
+
+; Estamina READER
+[State 9999, VarSet]
+type = VarSet
+trigger1 = 1
+fvar(20) = (root,life*root,Var(51)/10000)
+persistent = 1
+ignorehitpause = 1
+
+[state 7100,ID]
+type=varset
+trigger1=root,numpartner
+trigger1=root,id>partner,id
+var(0)=1
+; =================================LADO ESQUERDO
+; LIFEBAR GAUGE 1P SIDE LIFEBAR
+[State 9999]
+type = Explod
+triggerall = numexplod(15010) = 0
+trigger1 = teamside = 1
+anim = 15010
+ID = 15010
+postype = left
+pos = 10-var(0)*13,173
+removeongethit = 0
+removetime = -1
+bindtime = -1
+sprpriority = 51
+ownpal = 1
+ontop = 1
+supermovetime = 999999999
+pausemovetime = 999999999
+scale = 0.28,0.28
+persistent = 0
+
+[State 0, PlaySnd]
+type = PlaySnd
+triggerall = root, Stateno = 3999
+trigger1 = (gametime%20) = 0
+value = S20000,0
+volume = 255
+channel = 2
+loop = 1
+
+[State 0, StopSnd]
+type = StopSnd
+trigger1 = root, Var(54) = 0
+channel = 2
+
+; SIZE CHANGE
+[State 9999, change size]
+type = ModifyExplod
+trigger1 = 1
+ID = 15010
+scale = 0.28,-fvar(0)*0.000056;,0.5
+ignorehitpause = 1
+persistent = 1
+
+; SIZE CHANGE
+[State 9999, change size]
+type = ModifyExplod
+trigger1 = 1
+ID = 15030
+scale = 0.28,-fvar(0)*0.000056;,0.5
+ignorehitpause = 1
+persistent = 1
+
+; LIFEBAR GAUGE 1P SIDE POWERBAR
+[State 9999]
+type = Explod
+triggerall = numexplod(15100) = 0
+trigger1 = teamside = 1 && !var(0)
+anim = 15100
+ID = 15100
+postype = left
+pos = 10-var(0)*13,173
+removeongethit = 0
+removetime = -1
+bindtime = -1
+sprpriority = 51
+ownpal = 1
+ontop = 1
+supermovetime = 999999999
+pausemovetime = 999999999
+scale = 0.28,0.28
+persistent = 0
+
+; SIZE CHANGE POWER
+[State 9999, change size]
+type = ModifyExplod
+trigger1 = 1
+ID = 15100
+scale = 0.28,-fvar(10)*0.000056;,0.5
+ignorehitpause = 1
+persistent = 1
+
+; LIFEBAR GAUGE 1P SIDE ESTAMINA
+[State 9999]
+type = Explod
+triggerall = numexplod(15200) = 0
+trigger1 = teamside = 1 && !var(0)
+anim = 15200
+ID = 15200
+postype = left
+pos = 10-var(0)*13,173
+removeongethit = 0
+removetime = -1
+bindtime = -1
+sprpriority = 51
+ownpal = 1
+ontop = 1
+supermovetime = 999999999
+pausemovetime = 999999999
+scale = 0.28,0.28
+persistent = 0
+
+; SIZE CHANGE ESTAMINA
+[State 9999, change size]
+type = ModifyExplod
+trigger1 = 1
+ID = 15200
+scale = 0.28,-fvar(20)*0.000056;,0.5
+ignorehitpause = 1
+persistent = 1
+
+; =================================LADO ESQUERDO
+; LIFEBAR GAUGE 1P SIDE bg
+[State 9999]
+type = Explod
+triggerall = numexplod(15000) = 0
+trigger1 = teamside = 1
+anim = 15000+var(0)*60
+ID = 15000
+postype = left
+pos = 10-var(0)*13,5
+removeongethit = 0
+removetime = -1
+bindtime = -1
+sprpriority = 50
+ontop = 1
+ownpal = 1
+supermovetime = 999999999
+pausemovetime = 999999999
+scale = 0.28,0.28
+persistent = 0
+
+; LIFEBAR GAUGE 1P SIDE grade
+[State 9999]
+type = Explod
+triggerall = numexplod(15020) = 0
+trigger1 = teamside = 1
+anim = 15020+var(0)
+ID = 15020
+postype = left
+pos = 30-var(0)*13,5
+removeongethit = 0
+removetime = -1
+bindtime = -1
+sprpriority = 51
+ownpal = 1
+ontop = 1
+supermovetime = 999999999
+pausemovetime = 999999999
+scale = 0.28,0.28
+persistent = 0
+
+
+[State 0, RemoveExplod]
+type = RemoveExplod
+trigger1 = Root, MoveType !=H
+id = 16010
+ignorehitpause = 1
+
+; LIFEBAR GAUGE 1P SIDE FACE NORMAL
+[State 9999]
+type = Explod
+triggerall = numexplod(16000) = 0
+triggerall = Root, MoveType !=H
+trigger1 = teamside = 1
+anim = 16000
+ID = 16000
+postype = left
+pos = 26-var(0)*13,-6
+removeongethit = 0
+removetime = -1
+bindtime = -1
+sprpriority = 49
+ownpal = 1
+supermovetime = 999999999
+pausemovetime = 999999999
+scale = 0.56,0.58
+ignorehitpause = 1
+
+[State 0, RemoveExplod]
+type = RemoveExplod
+trigger1 = Root, MoveType =H
+id = 16000
+ignorehitpause = 1
+
+
+; LIFEBAR GAUGE 1P SIDE FACE HURT
+[State 9999]
+type = Explod
+triggerall = numexplod(16010) = 0
+triggerall = Root, MoveType =H
+trigger1 = teamside = 1
+anim = 16010
+ID = 16010
+postype = left
+pos = 26-var(0)*13,-6
+removeongethit = 0
+removetime = -1
+bindtime = -1
+sprpriority = 49
+ownpal = 1
+supermovetime = 999999999
+pausemovetime = 999999999
+scale = 0.28,0.28
+ignorehitpause = 1
+
+[State 9999]
+type = Explod
+triggerall = numexplod(15030) = 0
+trigger1 = teamside = 1
+anim = 15030
+ID = 15030
+postype = left
+pos = 10-var(0)*13,173
+removeongethit = 0
+removetime = -1
+bindtime = -1
+sprpriority = 51
+ownpal = 1
+ontop = 1
+supermovetime = 999999999
+pausemovetime = 999999999
+scale = 0.28,0.28
+persistent = 0
+
+; =================================LADO DIREITO
+; LIFEBAR GAUGE 1P SIDE LIFEBAR
+[State 9999]
+type = Explod
+triggerall = numexplod(15010) = 0
+trigger1 = teamside = 2
+anim = 15010
+ID = 15010
+postype = right
+pos = -10+var(0)*13,173
+removeongethit = 0
+removetime = -1
+bindtime = -1
+sprpriority = 26
+ownpal = 1
+ontop = 1
+supermovetime = 999999999
+pausemovetime = 999999999
+scale = 0.28,0.28
+persistent = 0
+facing = -1
+
+; LIFEBAR GAUGE 1P SIDE POWERBAR
+[State 9999]
+type = Explod
+triggerall = numexplod(15100) = 0
+trigger1 = teamside = 2 && !var(0)
+anim = 15100
+ID = 15100
+postype = right
+pos = -10+var(0)*13,173
+facing = -1
+removeongethit = 0
+removetime = -1
+bindtime = -1
+sprpriority = 51
+ownpal = 1
+ontop = 1
+supermovetime = 999999999
+pausemovetime = 999999999
+scale = 0.28,0.28
+persistent = 0
+
+; LIFEBAR GAUGE 1P SIDE ESTAMINA
+[State 9999]
+type = Explod
+triggerall = numexplod(15200) = 0
+trigger1 = teamside = 2 && !var(0)
+anim = 15200
+ID = 15200
+postype = right
+pos = -10+var(0)*13,173
+facing = -1
+removeongethit = 0
+removetime = -1
+bindtime = -1
+sprpriority = 51
+ownpal = 1
+ontop = 1
+supermovetime = 999999999
+pausemovetime = 999999999
+scale = 0.28,0.28
+persistent = 0
+
+; LIFEBAR GAUGE 1P SIDE bg
+[State 9999]
+type = Explod
+triggerall = numexplod(15000) = 0
+trigger1 = teamside = 2
+anim = 15000+var(0)*90
+ID = 15000
+postype = right
+pos = -10+var(0)*13,5
+removeongethit = 0
+removetime = -1
+bindtime = -1
+sprpriority = 50
+ownpal = 1
+ontop = 1
+supermovetime = 999999999
+pausemovetime = 999999999
+scale = 0.28,0.28
+persistent = 0
+facing = -1
+
+; LIFEBAR GAUGE 1P SIDE grade
+[State 9999]
+type = Explod
+triggerall = numexplod(15020) = 0
+trigger1 = teamside = 2
+anim = 15020+var(0)
+ID = 15020
+postype = right
+pos = -10+var(0)*13,173
+removeongethit = 0
+removetime = -1
+bindtime = -1
+sprpriority = 51
+ownpal = 1
+ontop = 1
+supermovetime = 999999999
+pausemovetime = 999999999
+scale = 0.28,0.28
+persistent = 0
+facing = -1
+
+
+[State 0, RemoveExplod]
+type = RemoveExplod
+trigger1 = Root, MoveType !=H
+id = 16010
+ignorehitpause = 1
+
+; LIFEBAR GAUGE 1P SIDE FACE NORMAL
+[State 9999]
+type = Explod
+triggerall = numexplod(16000) = 0
+triggerall = Root, MoveType !=H
+trigger1 = teamside = 2
+anim = 16000
+ID = 16000
+postype = right
+pos = -26+var(0)*13,-6
+removeongethit = 0
+removetime = -1
+bindtime = -1
+sprpriority = 49
+ownpal = 1
+supermovetime = 999999999
+pausemovetime = 999999999
+scale = 0.28,0.28
+ignorehitpause = 1
+facing = -1
+
+[State 0, RemoveExplod]
+type = RemoveExplod
+trigger1 = Root, MoveType =H
+id = 16000
+ignorehitpause = 1
+
+
+; LIFEBAR GAUGE 1P SIDE FACE HURT
+[State 9999]
+type = Explod
+triggerall = numexplod(16010) = 0
+triggerall = Root, MoveType =H
+trigger1 = teamside = 2
+anim = 16010
+ID = 16010
+postype = right
+pos = -26+var(0)*13,-6
+removeongethit = 0
+removetime = -1
+bindtime = -1
+sprpriority = 49
+ownpal = 1
+supermovetime = 999999999
+pausemovetime = 999999999
+scale = 0.28,0.28
+ignorehitpause = 1
+facing = -1
+
+[State 9999]
+type = Explod
+triggerall = numexplod(15030) = 0
+trigger1 = teamside = 2
+anim = 15030
+ID = 15030
+postype = right
+pos = -10+var(0)*13,173
+removeongethit = 0
+removetime = -1
+bindtime = -1
+sprpriority = 26
+ownpal = 1
+ontop = 1
+supermovetime = 999999999
+pausemovetime = 999999999
+scale = 0.28,0.28
+persistent = 0
+facing = -1
+
+[State 0, RemoveExplod]
+type = RemoveExplod
+trigger1 = Root, stateno = 5150
+id = 15000
+ignorehitpause = 1
+
+[State 0, RemoveExplod]
+type = RemoveExplod
+trigger1 = Root, stateno = 5150
+id = 15010
+ignorehitpause = 1
+
+[State 0, RemoveExplod]
+type = RemoveExplod
+trigger1 = Root, stateno = 5150
+id = 15020
+ignorehitpause = 1
+
+[State 0, RemoveExplod]
+type = RemoveExplod
+trigger1 = Root, stateno = 5150
+id = 15030
+ignorehitpause = 1
+
+[State 0, RemoveExplod]
+type = RemoveExplod
+trigger1 = Root, stateno = 5150
+id = 15100
+ignorehitpause = 1
+
+[State 0, RemoveExplod]
+type = RemoveExplod
+trigger1 = Root, stateno = 5150
+id = 15200
+ignorehitpause = 1
+
+[State 0, RemoveExplod]
+type = RemoveExplod
+trigger1 = Root, stateno = 5150
+id = 16000
+ignorehitpause = 1
+
+[State 0, RemoveExplod]
+type = RemoveExplod
+trigger1 = Root, stateno = 5150
+id = 16010
+ignorehitpause = 1
+
+[State 0, RemoveExplod]
+type = RemoveExplod
+trigger1 = Root, stateno = 5150
+id = 15100
+ignorehitpause = 1
+
+[State 0, DestroySelf]
+type = DestroySelf
+trigger1 = Root, stateno = 5150
+;---------------------------------------------------------------------------
+; Brack
+[Statedef 15300]
+type = S
+movetype = I
+physics = N
+anim = 7099
+velset = 0, 0
+
+[State 9999]
+type = Explod
+triggerAll = root, Var(52) >= 1
+triggerall = root, Stateno = 3999
+triggerall = (gametime%20) = 0
+trigger1 = teamside = 1
+anim = 15300
+ID = 15300
+postype = left
+pos = 21,173
+removeongethit = 0
+removetime = -1
+bindtime = -1
+sprpriority = 51
+ownpal = 1
+ontop = 1
+supermovetime = 999999999
+pausemovetime = 999999999
+scale = 0.2, 0.2
+persistent = 0
+
+[State 9999]
+type = Explod
+triggerAll = root, Var(52) >= 1
+triggerall = root, Stateno = 3999
+triggerall = (gametime%20) = 0
+trigger1 = teamside = 1
+anim = 15301
+ID = 15301
+postype = left
+pos = 32,173
+removeongethit = 0
+removetime = -1
+bindtime = -1
+sprpriority = 51
+ownpal = 1
+ontop = 1
+supermovetime = 999999999
+pausemovetime = 999999999
+scale = 0.2, 0.2
+persistent = 0
+
+;Breack
+[State 9999]
+type = Explod
+triggerAll = root, Var(52) >= 1
+triggerall = root, Stateno = 3999
+triggerall = (gametime%20) = 0
+trigger1 = teamside = 2
+anim = 15300
+ID = 15300
+postype = left
+pos = 289,173
+removeongethit = 0
+removetime = -1
+bindtime = -1
+sprpriority = 51
+ownpal = 1
+ontop = 1
+supermovetime = 999999999
+pausemovetime = 999999999
+scale = 0.2, 0.2
+persistent = 0
+
+[State 9999]
+type = Explod
+triggerAll = root, Var(52) >= 1
+triggerall = root, Stateno = 3999
+triggerall = (gametime%20) = 0
+trigger1 = teamside = 2
+anim = 15301
+ID = 15301
+postype = left
+pos = 258,173
+removeongethit = 0
+removetime = -1
+bindtime = -1
+sprpriority = 51
+ownpal = 1
+ontop = 1
+supermovetime = 999999999
+pausemovetime = 999999999
+scale = 0.2, 0.2
+persistent = 0
+
+[State 0, RemoveExplod]
+type = RemoveExplod
+trigger1 = Root, Var(54) = 0
+trigger2 = Root, stateno = 5150
+id = 15300
+ignorehitpause = 1
+
+[State 0, RemoveExplod]
+type = RemoveExplod
+trigger1 = Root, Var(54) = 0
+trigger2 = Root, stateno = 5150
+id = 15301
+ignorehitpause = 1
+
+[State 0, DestroySelf]
+type = DestroySelf
+trigger1 = Root, Var(54) = 0
+trigger2 = Root, stateno = 5150
+
+;---------------------------------------------------------------------------
+; Resurection
+[Statedef 15302]
+type = S
+movetype = I
+physics = N
+anim = 7099
+velset = 0, 0
+
+[State 9999]
+type = Explod
+triggerall = root, Var(52) = 0
+triggerall = root, Var(51) <= 9999
+triggerall = root, power = 5000
+triggerall = (gametime%10) = 0
+trigger1 = teamside = 1
+anim = 15302
+ID = 15302
+postype = left
+pos = 21,173
+removeongethit = 0
+removetime = -1
+bindtime = -1
+sprpriority = 51
+ownpal = 1
+ontop = 1
+supermovetime = 999999999
+pausemovetime = 999999999
+scale = 0.2, 0.2
+persistent = 0
+
+[State 9999]
+type = Explod
+triggerall = root, Var(52) = 0
+triggerall = root, Var(51) <= 9999
+triggerall = root, power = 5000
+triggerall = (gametime%10) = 0
+trigger1 = teamside = 1
+anim = 15303
+ID = 15303
+postype = left
+pos = 32,173
+removeongethit = 0
+removetime = -1
+bindtime = -1
+sprpriority = 51
+ownpal = 1
+ontop = 1
+supermovetime = 999999999
+pausemovetime = 999999999
+scale = 0.2, 0.2
+persistent = 0
+
+;Breack
+[State 9999]
+type = Explod
+triggerall = root, Var(52) = 0
+triggerall = root, Var(51) <= 9999
+triggerall = root, power = 5000
+triggerall = (gametime%10) = 0
+trigger1 = teamside = 2
+anim = 15302
+ID = 15302
+postype = left
+pos = 289,173
+removeongethit = 0
+removetime = -1
+bindtime = -1
+sprpriority = 51
+ownpal = 1
+ontop = 1
+supermovetime = 999999999
+pausemovetime = 999999999
+scale = 0.2, 0.2
+persistent = 0
+
+[State 9999]
+type = Explod
+triggerall = root, Var(52) = 0
+triggerall = root, Var(51) <= 9999
+triggerall = root, power = 5000
+triggerall = (gametime%10) = 0
+trigger1 = teamside = 2
+anim = 15303
+ID = 15303
+postype = left
+pos = 162,173
+removeongethit = 0
+removetime = -1
+bindtime = -1
+sprpriority = 51
+ownpal = 1
+ontop = 1
+supermovetime = 999999999
+pausemovetime = 999999999
+scale = 0.2, 0.2
+persistent = 0
+
+[State 0, RemoveExplod]
+type = RemoveExplod
+trigger1 = root, Stateno = 3999
+trigger2 = root, Var(51) = 10000
+trigger3 = root, power <= 4999
+trigger4 = Root, stateno = 5150
+id = 15302
+ignorehitpause = 1
+
+[State 0, RemoveExplod]
+type = RemoveExplod
+trigger1 = root, Stateno = 3999
+trigger2 = root, Var(51) = 10000
+trigger3 = root, power <= 4999
+trigger4 = Root, stateno = 5150
+id = 15303
+ignorehitpause = 1
+
+[State 9999]
+type = Explod
+triggerall = root, Var(51) = 10000
+triggerall = root, power = 5000
+triggerall = (gametime%10) = 0
+trigger1 = teamside = 1
+anim = 15302
+ID = 15312
+postype = left
+pos = 21,153
+removeongethit = 0
+removetime = -1
+bindtime = -1
+sprpriority = 51
+ownpal = 1
+ontop = 1
+supermovetime = 999999999
+pausemovetime = 999999999
+scale = 0.2, 0.2
+persistent = 0
+
+[State 9999]
+type = Explod
+triggerall = root, Var(51) = 10000
+triggerall = root, power = 5000
+triggerall = (gametime%10) = 0
+trigger1 = teamside = 1
+anim = 15303
+ID = 15313
+postype = left
+pos = 32,153
+removeongethit = 0
+removetime = -1
+bindtime = -1
+sprpriority = 51
+ownpal = 1
+ontop = 1
+supermovetime = 999999999
+pausemovetime = 999999999
+scale = 0.2, 0.2
+persistent = 0
+
+;Breack
+[State 9999]
+type = Explod
+triggerall = root, Var(51) = 10000
+triggerall = root, power = 5000
+triggerall = (gametime%10) = 0
+trigger1 = teamside = 2
+anim = 15302
+ID = 15312
+postype = left
+pos = 289,153
+removeongethit = 0
+removetime = -1
+bindtime = -1
+sprpriority = 51
+ownpal = 1
+ontop = 1
+supermovetime = 999999999
+pausemovetime = 999999999
+scale = 0.2, 0.2
+persistent = 0
+
+[State 9999]
+type = Explod
+triggerall = root, Var(51) = 10000
+triggerall = root, power = 5000
+triggerall = (gametime%10) = 0
+trigger1 = teamside = 2
+anim = 15303
+ID = 15313
+postype = left
+pos = 162,153
+removeongethit = 0
+removetime = -1
+bindtime = -1
+sprpriority = 51
+ownpal = 1
+ontop = 1
+supermovetime = 999999999
+pausemovetime = 999999999
+scale = 0.2, 0.2
+persistent = 0
+
+[State 0, RemoveExplod]
+type = RemoveExplod
+trigger1 = root, Var(51) <= 9999
+trigger2 = root, power <= 4999
+trigger3 = Root, stateno = 5150
+id = 15312
+ignorehitpause = 1
+
+[State 0, RemoveExplod]
+type = RemoveExplod
+trigger1 = root, Var(51) <= 9999
+trigger2 = root, power <= 4999
+trigger3 = Root, stateno = 5150
+id = 15313
+ignorehitpause = 1
+
+[State 9999]
+type = Explod
+triggerAll = root, Var(54) >= 1
+triggerall = root, power = 5000
+triggerall = (gametime%10) = 0
+trigger1 = teamside = 1
+anim = 15302
+ID = 15322
+postype = left
+pos = 21,153
+removeongethit = 0
+removetime = -1
+bindtime = -1
+sprpriority = 51
+ownpal = 1
+ontop = 1
+supermovetime = 999999999
+pausemovetime = 999999999
+scale = 0.2, 0.2
+persistent = 0
+
+[State 9999]
+type = Explod
+triggerAll = root, Var(54) >= 1
+triggerall = root, power = 5000
+triggerall = (gametime%10) = 0
+trigger1 = teamside = 1
+anim = 15303
+ID = 15323
+postype = left
+pos = 32,153
+removeongethit = 0
+removetime = -1
+bindtime = -1
+sprpriority = 51
+ownpal = 1
+ontop = 1
+supermovetime = 999999999
+pausemovetime = 999999999
+scale = 0.2, 0.2
+persistent = 0
+
+;Breack
+[State 9999]
+type = Explod
+triggerAll = root, Var(54) >= 1
+triggerall = root, power = 5000
+triggerall = (gametime%10) = 0
+trigger1 = teamside = 2
+anim = 15302
+ID = 15322
+postype = left
+pos = 289,153
+removeongethit = 0
+removetime = -1
+bindtime = -1
+sprpriority = 51
+ownpal = 1
+ontop = 1
+supermovetime = 999999999
+pausemovetime = 999999999
+scale = 0.2, 0.2
+persistent = 0
+
+[State 9999]
+type = Explod
+triggerAll = root, Var(54) >= 1
+triggerall = root, power = 5000
+triggerall = (gametime%10) = 0
+trigger1 = teamside = 2
+anim = 15303
+ID = 15323
+postype = left
+pos = 162,153
+removeongethit = 0
+removetime = -1
+bindtime = -1
+sprpriority = 51
+ownpal = 1
+ontop = 1
+supermovetime = 999999999
+pausemovetime = 999999999
+scale = 0.2, 0.2
+persistent = 0
+
+[State 0, RemoveExplod]
+type = RemoveExplod
+trigger1 = root, Var(54) = 0
+trigger2 = root, power <= 4999
+trigger3 = Root, stateno = 5150
+id = 15322
+ignorehitpause = 1
+
+[State 0, RemoveExplod]
+type = RemoveExplod
+trigger1 = root, Var(54) = 0
+trigger2 = root, power <= 4999
+trigger3 = Root, stateno = 5150
+id = 15323
+ignorehitpause = 1
+
+[State 0, DestroySelf]
+type = DestroySelf
+trigger1 = root, power <= 4999
+trigger2 = Root, stateno = 5150
+
+;---------------------------------------------------------------------------
+; Especial
+[Statedef 15304]
+type = S
+movetype = I
+physics = N
+anim = 7099
+velset = 0, 0
+
+[State 9999]
+type = Explod
+triggerAll = root, Var(51) = 10000
+triggerall = root, power = 5000
+triggerall = (gametime%10) = 0
+trigger1 = teamside = 1
+anim = 15304
+ID = 15304
+postype = left
+pos = 21,173
+removeongethit = 0
+removetime = -1
+bindtime = -1
+sprpriority = 51
+ownpal = 1
+ontop = 1
+supermovetime = 999999999
+pausemovetime = 999999999
+scale = 0.2, 0.2
+persistent = 0
+
+[State 9999]
+type = Explod
+triggerAll = root, Var(51) = 10000
+triggerall = root, power = 5000
+triggerall = (gametime%10) = 0
+trigger1 = teamside = 1
+anim = 15305
+ID = 15305
+postype = left
+pos = 37,173
+removeongethit = 0
+removetime = -1
+bindtime = -1
+sprpriority = 51
+ownpal = 1
+ontop = 1
+supermovetime = 999999999
+pausemovetime = 999999999
+scale = 0.2, 0.2
+persistent = 0
+
+;Breack
+[State 9999]
+type = Explod
+triggerAll = root, Var(51) = 10000
+triggerall = root, power = 5000
+triggerall = (gametime%10) = 0
+trigger1 = teamside = 2
+anim = 15304
+ID = 15304
+postype = left
+pos = 285,173
+removeongethit = 0
+removetime = -1
+bindtime = -1
+sprpriority = 51
+ownpal = 1
+ontop = 1
+supermovetime = 999999999
+pausemovetime = 999999999
+scale = 0.2, 0.2
+persistent = 0
+
+[State 9999]
+type = Explod
+triggerAll = root, Var(51) = 10000
+triggerall = root, power = 5000
+triggerall = (gametime%10) = 0
+trigger1 = teamside = 2
+anim = 15305
+ID = 15304
+postype = left
+pos = 206,173
+removeongethit = 0
+removetime = -1
+bindtime = -1
+sprpriority = 51
+ownpal = 1
+ontop = 1
+supermovetime = 999999999
+pausemovetime = 999999999
+scale = 0.2, 0.2
+persistent = 0
+
+[State 0, RemoveExplod]
+type = RemoveExplod
+trigger1 = root, Var(51) <= 9999
+trigger2 = root, power <= 4999
+trigger3 = Root, stateno = 5150
+id = 15304
+ignorehitpause = 1
+
+[State 0, RemoveExplod]
+type = RemoveExplod
+trigger1 = root, Var(51) <= 9999
+trigger2 = root, power <= 4999
+trigger3 = Root, stateno = 5150
+id = 15305
+ignorehitpause = 1
+
+[State 0, DestroySelf]
+type = DestroySelf
+trigger1 = root, Var(51) <= 9999
+trigger2 = root, power <= 4999
+trigger3 = Root, stateno = 5150
+
+;---------------------------------------------------------------------------
+; Power LV 1
+[Statedef 15400]
+type = S
+movetype = I
+physics = N
+anim = 7099
+velset = 0, 0
+
+[State 9999]
+type = Explod
+triggerall = root, power >= 1000
+triggerall = (gametime%10) = 0
+trigger1 = teamside = 1
+anim = 15400
+ID = 15400
+postype = left
+pos = 21,28
+removeongethit = 0
+removetime = -1
+bindtime = -1
+sprpriority = 51
+ownpal = 1
+ontop = 1
+supermovetime = 999999999
+pausemovetime = 999999999
+scale = 0.25, 0.25
+persistent = 0
+
+[State 9999]
+type = Explod
+triggerall = root, power >= 1000
+triggerall = (gametime%10) = 0
+trigger1 = teamside = 2
+anim = 15400
+ID = 15400
+postype = left
+pos = 291,28
+removeongethit = 0
+removetime = -1
+bindtime = -1
+sprpriority = 51
+ownpal = 1
+ontop = 1
+supermovetime = 999999999
+pausemovetime = 999999999
+scale = 0.25, 0.25
+persistent = 0
+
+[State 0, RemoveExplod]
+type = RemoveExplod
+trigger1 = Root, stateno = 5150
+trigger2 = Root, power <= 999
+id = 15400
+ignorehitpause = 1
+
+[State 0, DestroySelf]
+type = DestroySelf
+trigger1 = Root, stateno = 5150
+trigger2 = Root, power <= 999
+;---------------------------------------------------------------------------
+; Power LV 2
+[Statedef 15401]
+type = S
+movetype = I
+physics = N
+anim = 7099
+velset = 0, 0
+
+[State 9999]
+type = Explod
+triggerall = root, power >= 2000
+triggerall = (gametime%10) = 0
+trigger1 = teamside = 1
+anim = 15401
+ID = 15401
+postype = left
+pos = 31,28
+removeongethit = 0
+removetime = -1
+bindtime = -1
+sprpriority = 51
+ownpal = 1
+ontop = 1
+supermovetime = 999999999
+pausemovetime = 999999999
+scale = 0.25, 0.25
+persistent = 0
+
+[State 9999]
+type = Explod
+triggerall = root, power >= 2000
+triggerall = (gametime%10) = 0
+trigger1 = teamside = 2
+anim = 15401
+ID = 15401
+postype = left
+pos = 281,28
+removeongethit = 0
+removetime = -1
+bindtime = -1
+sprpriority = 51
+ownpal = 1
+ontop = 1
+supermovetime = 999999999
+pausemovetime = 999999999
+scale = 0.25, 0.25
+persistent = 0
+
+[State 0, RemoveExplod]
+type = RemoveExplod
+trigger1 = Root, stateno = 5150
+trigger2 = Root, power <= 1999
+id = 15401
+ignorehitpause = 1
+
+[State 0, DestroySelf]
+type = DestroySelf
+trigger1 = Root, stateno = 5150
+trigger2 = Root, power <= 1999
+;---------------------------------------------------------------------------
+; Power LV 3
+[Statedef 15402]
+type = S
+movetype = I
+physics = N
+anim = 7099
+velset = 0, 0
+
+[State 9999]
+type = Explod
+triggerall = root, power >= 3000
+triggerall = (gametime%10) = 0
+trigger1 = teamside = 1
+anim = 15402
+ID = 15402
+postype = left
+pos = 41,28
+removeongethit = 0
+removetime = -1
+bindtime = -1
+sprpriority = 51
+ownpal = 1
+ontop = 1
+supermovetime = 999999999
+pausemovetime = 999999999
+scale = 0.25, 0.25
+persistent = 0
+
+[State 9999]
+type = Explod
+triggerall = root, power >= 3000
+triggerall = (gametime%10) = 0
+trigger1 = teamside = 2
+anim = 15402
+ID = 15402
+postype = left
+pos = 271,28
+removeongethit = 0
+removetime = -1
+bindtime = -1
+sprpriority = 51
+ownpal = 1
+ontop = 1
+supermovetime = 999999999
+pausemovetime = 999999999
+scale = 0.25, 0.25
+persistent = 0
+
+[State 0, RemoveExplod]
+type = RemoveExplod
+trigger1 = Root, stateno = 5150
+trigger2 = Root, power <= 2999
+id = 15402
+ignorehitpause = 1
+
+[State 0, DestroySelf]
+type = DestroySelf
+trigger1 = Root, stateno = 5150
+trigger2 = Root, power <= 2999
+;---------------------------------------------------------------------------
+; Power LV 4
+[Statedef 15403]
+type = S
+movetype = I
+physics = N
+anim = 7099
+velset = 0, 0
+
+[State 9999]
+type = Explod
+triggerall = root, power >= 4000
+triggerall = (gametime%10) = 0
+trigger1 = teamside = 1
+anim = 15403
+ID = 15403
+postype = left
+pos = 51,28
+removeongethit = 0
+removetime = -1
+bindtime = -1
+sprpriority = 51
+ownpal = 1
+ontop = 1
+supermovetime = 999999999
+pausemovetime = 999999999
+scale = 0.25, 0.25
+persistent = 0
+
+[State 9999]
+type = Explod
+triggerall = root, power >= 4000
+triggerall = (gametime%10) = 0
+trigger1 = teamside = 2
+anim = 15403
+ID = 15403
+postype = left
+pos = 261,28
+removeongethit = 0
+removetime = -1
+bindtime = -1
+sprpriority = 51
+ownpal = 1
+ontop = 1
+supermovetime = 999999999
+pausemovetime = 999999999
+scale = 0.25, 0.25
+persistent = 0
+
+[State 0, RemoveExplod]
+type = RemoveExplod
+trigger1 = Root, stateno = 5150
+trigger2 = Root, power <= 3999
+id = 15403
+ignorehitpause = 1
+
+[State 0, DestroySelf]
+type = DestroySelf
+trigger1 = Root, stateno = 5150
+trigger2 = Root, power <= 3999
+;---------------------------------------------------------------------------
+; Power LV 5
+[Statedef 15404]
+type = S
+movetype = I
+physics = N
+anim = 7099
+velset = 0, 0
+
+[State 9999]
+type = Explod
+triggerall = root, power = 5000
+triggerall = (gametime%10) = 0
+trigger1 = teamside = 1
+anim = 15404
+ID = 15404
+postype = left
+pos = 61,28
+removeongethit = 0
+removetime = -1
+bindtime = -1
+sprpriority = 51
+ownpal = 1
+ontop = 1
+supermovetime = 999999999
+pausemovetime = 999999999
+scale = 0.25, 0.25
+persistent = 0
+
+[State 9999]
+type = Explod
+triggerall = root, power = 5000
+triggerall = (gametime%10) = 0
+trigger1 = teamside = 2
+anim = 15404
+ID = 15404
+postype = left
+pos = 251,28
+removeongethit = 0
+removetime = -1
+bindtime = -1
+sprpriority = 51
+ownpal = 1
+ontop = 1
+supermovetime = 999999999
+pausemovetime = 999999999
+scale = 0.25, 0.25
+persistent = 0
+
+[State 0, RemoveExplod]
+type = RemoveExplod
+trigger1 = Root, stateno = 5150
+trigger2 = Root, power <= 4999
+id = 15404
+ignorehitpause = 1
+
+[State 0, DestroySelf]
+type = DestroySelf
+trigger1 = Root, stateno = 5150
+trigger2 = Root, power <= 4999
+;---------------------------------------------------------------------------
+; Name And Logo Player 1
+[Statedef 15500]
+type = S
+movetype = I
+physics = N
+anim = 7099
+velset = 0, 0
+
+;BIO EFECT
+[State 0, AllPalFX]
+type = PalFX
+TriggerAll = 1
+TriggerAll = (gametime%10) = 0
+Trigger1 = enemy,name = "Kusanagi" && enemy,var(54) = 1
+Trigger2 = enemy,name = "Saiki" && enemy,var(50) = 1
+Trigger3 = enemy,name = "H-SaikiXIII" && enemy,var(50) = 1
+time = 20
+add = 0,128,0
+sinadd = -128,0,-128,0
+color = 0
+invertall = 0
+ignorehitpause = 1
+persistent = 1
+
+;Logo
+[State 9999]
+type = Explod
+triggerall = numexplod(15500) = 0
+trigger1 = teamside = 1
+anim = 15500
+ID = 15500
+postype = left
+pos = 21,3
+removeongethit = 0
+removetime = -1
+bindtime = -1
+sprpriority = 51
+ownpal = 0
+ontop = 1
+supermovetime = 999999999
+pausemovetime = 999999999
+scale = 0.25, 0.25
+persistent = 0
+
+[State 9999]
+type = Explod
+triggerall = numexplod(15500) = 0
+trigger1 = teamside = 2
+anim = 15500
+ID = 15500
+postype = left
+pos = 274,3
+removeongethit = 0
+removetime = -1
+bindtime = -1
+sprpriority = 51
+ownpal = 0
+ontop = 1
+supermovetime = 999999999
+pausemovetime = 999999999
+scale = 0.25, 0.25
+persistent = 0
+
+;Name
+[State 9999]
+type = Explod
+triggerall = numexplod(15502) = 0
+trigger1 = teamside = 1
+anim = 15502
+ID = 15502
+postype = left
+pos = 48,7
+removeongethit = 0
+removetime = -1
+bindtime = -1
+sprpriority = 51
+ownpal = 0
+ontop = 1
+supermovetime = 999999999
+pausemovetime = 999999999
+scale = 0.16, 0.16
+persistent = 0
+
+[State 9999]
+type = Explod
+triggerall = numexplod(15502) = 0
+trigger1 = teamside = 2
+anim = 15504
+ID = 15502
+postype = left
+pos = 271,7
+removeongethit = 0
+removetime = -1
+bindtime = -1
+sprpriority = 51
+ownpal = 0
+ontop = 1
+supermovetime = 999999999
+pausemovetime = 999999999
+scale = 0.16, 0.16
+persistent = 0
+
+[State 0, RemoveExplod]
+type = RemoveExplod
+trigger1 = Root, stateno = 5150
+id = 15500
+ignorehitpause = 1
+
+[State 0, RemoveExplod]
+type = RemoveExplod
+trigger1 = Root, stateno = 5150
+id = 15502
+ignorehitpause = 1
+
+[State 0, DestroySelf]
+type = DestroySelf
+trigger1 = Root, stateno = 5150
+
+;---------------------------------------------------------------------------
+; Name And Logo Player 1
+[Statedef 15501]
+type = S
+movetype = I
+physics = N
+anim = 7099
+velset = 0, 0
+
+;Logo
+[State 9999]
+type = Explod
+triggerall = numexplod(15501) = 0
+trigger1 = teamside = 1
+anim = 15501
+ID = 15501
+postype = left
+pos = 21,3
+removeongethit = 0
+removetime = -1
+bindtime = -1
+sprpriority = 51
+ownpal = 1
+ontop = 1
+supermovetime = 999999999
+pausemovetime = 999999999
+scale = 0.25, 0.25
+persistent = 0
+
+[State 9999]
+type = Explod
+triggerall = numexplod(15501) = 0
+trigger1 = teamside = 2
+anim = 15501
+ID = 15501
+postype = left
+pos = 274,3
+removeongethit = 0
+removetime = -1
+bindtime = -1
+sprpriority = 51
+ownpal = 1
+ontop = 1
+supermovetime = 999999999
+pausemovetime = 999999999
+scale = 0.25, 0.25
+persistent = 0
+
+;Name
+[State 9999]
+type = Explod
+triggerall = numexplod(15503) = 0
+trigger1 = teamside = 1
+anim = 15503
+ID = 15503
+postype = left
+pos = 48,7
+removeongethit = 0
+removetime = -1
+bindtime = -1
+sprpriority = 51
+ownpal = 1
+ontop = 1
+supermovetime = 999999999
+pausemovetime = 999999999
+scale = 0.16, 0.16
+persistent = 0
+
+[State 9999]
+type = Explod
+triggerall = numexplod(15503) = 0
+trigger1 = teamside = 2
+anim = 15505
+ID = 15503
+postype = left
+pos = 271,7
+removeongethit = 0
+removetime = -1
+bindtime = -1
+sprpriority = 51
+ownpal = 1
+ontop = 1
+supermovetime = 999999999
+pausemovetime = 999999999
+scale = 0.16, 0.16
+persistent = 0
+
+[State 0, RemoveExplod]
+type = RemoveExplod
+trigger1 = Root, stateno = 5150
+trigger2 = Root, Life >= P2Life
+id = 15501
+ignorehitpause = 1
+
+[State 0, RemoveExplod]
+type = RemoveExplod
+trigger1 = Root, stateno = 5150
+trigger2 = Root, Life >= P2Life
+id = 15503
+ignorehitpause = 1
+
+[State 0, DestroySelf]
+type = DestroySelf
+trigger1 = Root, stateno = 5150
+trigger2 = Root, Life >= P2Life
+

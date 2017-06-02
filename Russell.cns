@@ -1,0 +1,1098 @@
+; Hitsu's constants and state file.
+; There are comments scattered through this file, so you may like to
+; take a look if would like to learn more about the cns.
+
+[Data]
+life = 5000               ;体力ゲージの初期値
+attack = 100               ;攻撃力
+defence = 100              ;防御力
+power = 5000             ;ゲージの最高値
+fall.defence_up = 75     ;コンボをくらっている時にあがる防御力
+liedown.time = 30         ;倒れてから起上がるまでのフレーム数
+airjuggle = 15            ;空中でどれだけコンボが繋がるか
+sparkno = 2               ;hitdefで設定していない時の基本ヒットスパークナンバー
+guard.sparkno = 40        ;設定してない時のガードナンバー
+KO.echo = 0               ;KOした時に声にエコーをかけるか（１でＯＮ）
+volume = 255                ;
+IntPersistIndex = 0,59      ;次ラウンド持ち越しが可能varのインデックス
+FloatPersistIndex = 0,39     ;同じくfvarの次ラウンド持ち越しが可能
+
+[Size]
+xscale = 0.06875           ;Horizontal scaling factor.
+yscale = 0.06875          ;Vertical scaling factor.
+ground.back = 15     ;Player width (back, ground)
+ground.front = 16    ;Player width (front, ground)
+air.back = 12        ;Player width (back, air)
+air.front = 12       ;Player width (front, air)
+height = 60          ;Height of player (for opponent to jump over)
+attack.dist = 160    ;Default attack distance
+proj.attack.dist = 90 ;Default attack distance for projectiles
+proj.doscale = 0    ;Set to 1 to scale projectiles too
+head.pos = -5, -90   ;Approximate position of head
+mid.pos = -5, -60    ;Approximate position of midsection
+shadowoffset = 0     ;Number of pixels to vertically offset the shadow
+draw.offset = 0,0    ;Player drawing offset in pixels (x, y)
+
+[Velocity]
+walk.fwd  = 2.4      ;Walk forward
+walk.back = -2.2     ;Walk backward
+run.fwd  = 4.6, 0    ;Run forward (x, y)
+run.back = -4.5,-3.8 ;Hop backward (x, y)
+jump.neu = 0,-8.4    ;Neutral jumping velocity (x, y)
+jump.back = -2.55    ;Jump back Speed (x, y)
+jump.fwd = 2.5       ;Jump forward Speed (x, y)
+runjump.back = -2.55,-8.1 ;Running jump speeds (opt)
+runjump.fwd = 4,-8.1      ;.
+airjump.neu = 0,-8.1      ;.
+airjump.back = -2.55      ;Air jump speeds (opt)
+airjump.fwd = 2.5         ;.
+
+[Movement]
+airjump.num = 0      ;Number of air jumps allowed (opt)
+airjump.height = 35  ;Minimum distance from ground before you can air jump (opt)
+yaccel = .44         ;Vertical acceleration
+stand.friction = .85  ;Friction coefficient when standing
+crouch.friction = .82 ;Friction coefficient when crouching
+
+;---------------------------------------------------------------------------
+; Win state decider
+; CNS difficulty: basic
+[Statedef 180]
+type = S
+
+[State 180, 1]
+type = ChangeState
+trigger1 = Time = 0
+value = 181
+
+[Statedef 181]
+type = S
+ctrl = 0
+anim = 180
+facing = 1
+pos = 0,0
+postype = p1
+velset = 0,0
+
+[State 181, 3]
+type = playsnd
+trigger1 = time = 0
+value = 0, 2
+
+[State 181, 1]
+type = NotHitBy
+trigger1 = 1
+value = SCA
+time = 1
+;---------------------------------------------------------------------------
+; Introduction
+; CNS difficulty: basic
+[Statedef 191]
+type = S
+ctrl = 0
+anim = 191
+velset = 0,0
+
+[State 193, Wait until I'm done, 'kay?]
+type = AssertSpecial
+trigger1 = 1
+flag = Intro
+
+[State 191, 3]
+type = playsnd
+trigger1 = time = 0
+value = 190, 0
+
+[State 0, ChangeState]
+type = ChangeState
+trigger1 = time = 168
+value = 0
+;---------------------------------------------------------------------------
+; Life fill
+;---------------------------------------------------------------------------
+
+[State 0, LifeAdd]
+type = LifeAdd
+trigger1 =1
+value = 50
+absolute = 0
+
+[State 0, ChangeState]
+type = VarSet
+trigger1 = Life = Lifemax
+v = 50
+value = 1
+
+[State 0, ChangeState]
+type = VarSet
+trigger1 = 1
+v = 52
+value = 1
+
+[State 0, ChangeState]
+type = ChangeState
+trigger1 = Life = Lifemax
+value =0
+
+;---------------------------------------------------------------------------
+; Taunt
+; CNS difficulty: easy
+[Statedef 195]
+type = S
+ctrl = 0
+anim = 0
+velset = 0,0
+;poweradd = 100
+movetype = I
+physics = S
+sprpriority = 2
+
+[State 0, VarAdd]
+type = VarSet
+Triggerall = Life < Lifemax
+trigger1 = power = 5000
+trigger1 = 1
+var(53) = 1
+
+[State 195, 1]
+type = CtrlSet
+trigger1 = Time = 40
+value = 1
+
+[State 195, 2]
+type = ChangeState
+trigger1 = AnimTime = 0
+value = 0
+ctrl = 1
+;---------------------------------------------------------------------------
+;INTRO FURUDO ERIKA
+[Statedef 198]
+type = S
+ctrl = 0
+anim = 200
+velset = 0,0,0
+
+[State 191, 2]
+type = AssertSpecial
+trigger1 = AnimElemTime(10) < 0
+flag = Intro
+
+[State 198];■■■　我が主の隣は～　■■■
+type = PlaySnd
+Trigger1 = time = 0
+value = s10,1
+volume = 255 ;音量
+channel =0
+
+[State 192, 2]
+type = ChangeState
+trigger1 = time = 1200
+value = 0
+;---------------------------------------------------------------------------
+[StateDef 200]
+type = S
+movetype= A
+physics = S
+juggle  = 1
+velset = 0,0
+ctrl = 0
+anim = 200
+;poweradd = 20
+sprpriority = 2
+
+[State 0, VelAdd]
+type = VelAdd
+trigger1 = time = [9, 16]
+x = 4
+y = 0
+
+[State 200, 1]
+type = HitDef
+trigger1 = AnimElem = 4
+attr = S, NA
+damage = 10, 5
+animtype = Light
+guardflag = MA
+hitflag = MAF
+priority = 1, Hit
+pausetime = 10, 10
+sparkno = 0
+sparkxy = -10, -76
+hitsound = 5, 0
+guardsound = 6, 0
+ground.type = High
+ground.slidetime = 5
+ground.hittime  = 12
+ground.velocity = -4
+airguard.velocity = -1.9,-.8
+air.type = High
+air.velocity = -1.4,-3
+air.hittime = 12
+
+[State 200, end]
+type = ChangeState
+trigger1 = time = 16
+value = 201
+ctrl = 0
+
+[StateDef 201]
+type = S
+movetype= A
+physics = S
+juggle  = 1
+velset = 0,0
+ctrl = 0
+anim = 201
+sprpriority = 2
+
+[State 201, end]
+type = ChangeState
+trigger1 = AnimElem = 3
+value = 0
+ctrl = 1
+;---------------------------------------------------------------------------
+[StateDef 202]
+type = S
+movetype= A
+physics = S
+juggle  = 1
+velset = 0,0
+ctrl = 0
+anim = 200
+;poweradd = 20
+sprpriority = 2
+
+[State 0, VelAdd]
+type = VelAdd
+trigger1 = time = [9, 15]
+x = 4
+y = 0
+
+[State 200, 1]
+type = HitDef
+trigger1 = AnimElem = 4
+attr = S, NA
+damage = 14,7
+animtype = Light
+guardflag = MA
+hitflag = MAF
+priority = 1, Hit
+pausetime = 10, 10
+sparkno = 0
+sparkxy = -10, -76
+hitsound = 5, 0
+guardsound = 6, 0
+ground.type = High
+ground.slidetime = 5
+ground.hittime  = 12
+ground.velocity = -4
+airguard.velocity = -1.9,-.8
+air.type = High
+air.velocity = -1.4,-3
+air.hittime = 12
+
+[State 200, end]
+type = ChangeState
+trigger1 = time = 16
+value = 201
+ctrl = 0
+;---------------------------------------------------------------------------
+
+;■地上通常投げ
+[Statedef 800]
+type     = S                     ;キャラの状態を指定（S=立ち・C=しゃがみ・A=空中・L=横に倒れている・U=前のステートの状態を引き継ぐ）
+movetype = A                     ;キャラの行動内容を指定（I=何もしない・A=攻撃している・H=攻撃を食らっている）
+physics  = S                     ;キャラの物理的な体勢（S=立ち・C=しゃがみ・A=空中・N=重力や摩擦の影響を受けない・U=前のステートの体勢を引き継ぐ）
+juggle   = 0                     ;攻撃を当てた時に溜まるジャグルポイントの設定
+;velset   = 0,0                   ;移動初速度の設定（このステートでは0,0なので移動せず止まります）
+ctrl     = 0                     ;コントロールの可否（0=キー操作不可・1=キー操作可能）
+anim     = 800                   ;airファイルの[Begin Action 200]のアニメを使っています
+;poweradd = 100                    ;パワーゲージの増加量を設定
+sprpriority = 1                  ;画像表示優先度　数値が多いと手前に、少ないと奥に優先されます
+
+[State -1, 半透明鎌エフェクト削除]
+Type = removeExplod
+Trigger1 = time=0
+ID = 7777
+
+[State -1, 半透明鎌エフェクト]
+Type = Explod
+Trigger1 = time=0
+Anim = anim + 10000
+ID = 7777
+Postype = P1
+Pos = 0,0
+scale = 0.5,0.5
+Ownpal = 1
+SprPriority = 1
+IgnoreHitPause = 0
+facing =1
+bindtime=-1
+removeongethit = 1
+SuperMoveTime = 0
+PauseMoveTime = 0
+
+[State 800, しばらく無敵]
+Type = NotHitBy
+Trigger1 = time = 0
+Value = SAC
+Time = 1
+
+
+[State 800, ヒット定義]
+type = HitDef
+Trigger1 = 1;animelem =5
+attr = S, ST          ;攻撃属性: これは Standing, Normal Throw（立ち通常投げ）
+hitflag = MAF
+priority = 2, miss    ;投げなので優先度を低く、かつmissかdodgeの属性でなければなりません
+sparkno = -1          ;-1にすればヒットスパークが表示しなくなります
+sprpriority = 1       ;攻撃が当たった時に画像表示優先度を1に出来ます
+hitsound   = s1,2
+;p1facing = ifelse(command = "holdfwd", -1, 1) ;攻撃が当たった時の自分の向き ★６
+p2facing = 1          ;攻撃が当たった時の相手の向き
+p1stateno = 810
+p2stateno = 820       ;相手を制御するステートに行かせる
+guard.dist = 0        ;相手がガード状態に移行出来る距離（現在は0なのでガード不可）
+fall = 1              ;1にすれば相手がダウン状態になる
+hitonce =0            ;複数にヒット
+yaccel = 0.48
+fall.yvelocity = -4.5
+fall.recover =0
+fall.recovertime =120
+fall.envshake.time = 15
+ground.type = Low
+
+[State -1, 半透明鎌弾けるエフェクト1]
+Type = Explod
+trigger1 = time=0;AnimElemTime(1) = 1
+Anim = 7816
+ID = 7816
+Postype = P1
+Pos = 28,-41
+scale = 0.5,0.5
+Ownpal = 1
+SprPriority = 0
+IgnoreHitPause = 0
+facing =-1
+bindtime=1
+removeongethit = 1
+SuperMoveTime = 0
+PauseMoveTime = 0
+
+[State 191]
+Type     = PlaySnd
+trigger1 = AnimElemTime(1) = 1
+Value    = s12,20
+volume =-255
+
+[State 800, 掛声:ああ]
+type = PlaySnd
+trigger1 = AnimElemTime(2) = 1
+value = s20,144
+
+[State 800, ステート変更]
+type = ChangeState
+trigger1 = AnimTime = 0
+value = 0
+ctrl = 1
+
+
+;■地上通常投げ成功
+[Statedef 810]
+type     = S                     ;キャラの状態を指定（S=立ち・C=しゃがみ・A=空中・L=横に倒れている・U=前のステートの状態を引き継ぐ）
+movetype = A                     ;キャラの行動内容を指定（I=何もしない・A=攻撃している・H=攻撃を食らっている）
+physics  = S                     ;キャラの物理的な体勢（S=立ち・C=しゃがみ・A=空中・N=重力や摩擦の影響を受けない・U=前のステートの体勢を引き継ぐ）
+juggle   = 0                     ;攻撃を当てた時に溜まるジャグルポイントの設定
+velset   = 0,0                   ;移動初速度の設定（このステートでは0,0なので移動せず止まります）
+ctrl     = 0                     ;コントロールの可否（0=キー操作不可・1=キー操作可能）
+anim     = 810                   ;airファイルの[Begin Action 200]のアニメを使っています
+;poweradd = 500                    ;パワーゲージの増加量を設定
+sprpriority = 1                  ;画像表示優先度　数値が多いと手前に、少ないと奥に優先されます
+
+[State 810,画面端にならないよう位置補正]
+type= posadd
+Trigger1 = time=0
+trigger1 = FrontEdgeBodyDist < 60
+x= FrontEdgeBodyDist-60
+
+[State -1, 半透明鎌エフェクト削除]
+Type = removeExplod
+Trigger1 = time=0
+ID = 7777
+
+[State -1, 半透明鎌エフェクト]
+Type = Explod
+Trigger1 = time=0
+Anim = anim + 10000
+ID = 7777
+Postype = P1
+Pos = 0,0
+scale = 0.5,0.5
+Ownpal = 1
+SprPriority = 1
+IgnoreHitPause = 0
+facing =1
+bindtime=-1
+removeongethit = 1
+SuperMoveTime = 0
+PauseMoveTime = 0
+
+[State 810, 掛け声]
+type = PlaySnd
+trigger1 = AnimElemTime(1) = 1
+value = s20,143
+
+[State 810, 投げる音]
+type = PlaySnd
+trigger1 = AnimElemTime(4) = 1
+value = s0,3
+
+[State 810, しばらく無敵]
+Type = NotHitBy
+Trigger1 = 1
+Value = SAC
+Time = 8
+
+[State 810, ぶつかり判定無し]
+type = PlayerPush
+trigger1 = 1
+value = 0
+
+[State 810, 攻撃エフェクト1]
+Type        = Helper
+trigger1 = AnimElemTime(4) = -2
+Stateno     = 830
+ID          = 830
+Pos         = 0,-80
+PosType     = P1
+OwnPal      = 1
+Keyctrl     = 0
+velset      = 0,0
+SuperMoveTime = 0
+PauseMoveTime = 0
+size.xscale = 0.5
+size.yscale = 1.0
+facing = -1
+
+[State 810, 攻撃エフェクト2]
+Type        = Helper
+trigger1 = AnimElemTime(4) = 1
+Stateno     = 840
+ID          = 840
+Pos         = 30,-70
+PosType     = P1
+OwnPal      = 1
+Keyctrl     = 0
+velset      = 0,0
+SuperMoveTime = 0
+PauseMoveTime = 0
+size.xscale = 0.5
+size.yscale = 1.0
+facing = -1
+
+
+
+[State 810, 掴んだ相手の位置２]
+type = TargetBind
+trigger1 = AnimElemTime(1) >= 0 && AnimElemTime(2) < 0
+pos = 63, 0
+
+[State 810, 掴んだ相手の位置２]
+type = TargetBind
+trigger1 = AnimElemTime(2) >= 0 && AnimElemTime(3) < 0
+pos = 63, 0
+
+[State 810, 掴んだ相手の位置２]
+type = TargetBind
+trigger1 = AnimElemTime(3) >= 0 && AnimElemTime(4) < 0
+pos = 63, 0
+
+[State 810, 掴んだ相手の位置２]
+type = TargetBind
+trigger1 = AnimElemTime(4) >= 0 && AnimElemTime(5) < 0
+pos = 60, -20
+
+[State 810, 掴んだ相手の位置２]
+type = TargetBind
+trigger1 = AnimElemTime(5) >= 0 && AnimElemTime(6) < 0
+pos = 58, -60
+
+[State 810, 掴んだ相手の位置２]
+type = TargetBind
+trigger1 = AnimElemTime(6) >= 0 && AnimElemTime(6) < 2
+pos = 53, -70
+
+[State 810, 掴んだ相手の位置２]
+type = TargetBind
+trigger1 = AnimElemTime(6) >= 2 && AnimElemTime(6) < 4
+pos = 43, -70
+
+[State 810, 掴んだ相手の位置２]
+type = TargetBind
+trigger1 = AnimElemTime(6) >= 4 && AnimElemTime(6) < 6
+pos = 38, -75
+
+[State 810, 掴んだ相手の位置２]
+type = TargetBind
+trigger1 = AnimElemTime(6) >= 6 && AnimElemTime(6) < 7
+pos = 28, -80
+
+[State 810, 掴んだ相手の位置２]
+type = TargetBind
+trigger1 = AnimElemTime(6) >= 7 && AnimElemTime(6) < 8
+pos = 13, -82
+
+[State 810, 掴んだ相手の位置２]
+type = TargetBind
+trigger1 = AnimElemTime(6) >= 8 && AnimElemTime(6) < 9
+pos = 0, -82
+
+[State 810, 掴んだ相手の位置２]
+type = TargetBind
+trigger1 = AnimElemTime(6) >= 9 && AnimElemTime(6) < 10
+pos = -10, -78
+
+
+[State -1, 半透明鎌弾けるエフェクト1]
+Type = Explod
+trigger1 = AnimElemTime(7) = 15
+Anim = 7816
+ID = 7816
+Postype = P1
+Pos = 28,-41
+scale = 0.5,0.5
+Ownpal = 1
+SprPriority = 2
+IgnoreHitPause = 0
+facing =-1
+bindtime=1
+removeongethit = 1
+SuperMoveTime = 0
+PauseMoveTime = 0
+
+[State 191]
+Type     = PlaySnd
+trigger1 = AnimElemTime(7) = 15
+Value    = s12,20
+volume =-255
+
+[State 810];パートナーゲージパワー加算(攻撃成功)
+type = Varadd
+trigger1 = AnimElemTime(6) = 1
+v = 58
+value = 150
+ignorehitpause=1
+persistent=0
+
+[State 810, ステート変更]
+type = ChangeState
+trigger1 = AnimTime = 0
+value = 0
+ctrl = 1
+
+
+[Statedef 820]
+type    = A
+movetype= H
+physics = N
+velset = 0,0
+ctr = 0
+
+[State 820, 画面固定]
+Type = screenbound
+Trigger1 =1
+Value = 0;画面外へ行ける
+movecamera=0,0
+
+
+[State 820, ダメージ(倒せる）]
+type = LifeAdd
+Trigger1 = animelemtime(10) =1
+value = -(lifemax/10)
+absolute = 1
+kill =1
+
+[State 820, しばらく無敵]
+Type = NotHitBy
+Trigger1 = 1
+Value = SAC, NT, ST, HT ,NA, SA, HA ,NP, SP, HP
+Time = 1
+
+[State 820, 制御した相手のアニメ変更]
+type = ChangeAnim2
+Trigger1 = Time = 0
+value = 820
+
+[State 1300, 向き修正]
+Type = Turn
+Trigger1 = animelemtime(10) =1
+persistent=0
+
+[State 820,速度]
+type = velset
+Trigger1 = animelemtime(10) >=1
+x=-4
+y=6
+persistent=1
+
+[state 3];属性変更
+type = StatetypeSet
+Trigger1 = animelemtime(10) >=1
+statetype = A
+physics = A
+persistent=0
+
+[State 820,画面ゆらす]
+type = EnvShake
+trigger1 = Pos y>0
+Trigger1 = animelemtime(10) >=1
+time = 30
+freq = 90
+ampl = -6;-4
+phase = 60;90
+
+
+[State 820, 2]
+type = SelfState
+trigger1 = !gethitvar(isbound)
+value = 5050
+
+
+;[State 820, ステート変更]
+;type = SelfState
+;trigger1 = Pos y>=0
+;Trigger1 = animelemtime(10) >=1
+;value = 5050 ;common1.cns参照
+
+;■投げエフェクト1■■■■■■■■■■■■■■
+[Statedef 830]
+Physics = N
+Anim    = 7829
+sprpriority=2
+
+[State 830]
+type = AngleSet
+trigger1 = time =0
+value = 20
+
+[State 830]
+type = Trans
+trigger1 =1
+trans =add
+
+[State 830]
+type = AngleDraw
+trigger1 = 1
+
+[State -1, AssertSpacial]
+Type = AssertSpecial
+Trigger1 = 1
+Flag = Noshadow
+IgnoreHitPause = 1
+SuperMoveTime = 9999999
+PauseMoveTime = 9999999
+
+[State 830, 終了]
+Type     = Destroyself
+Trigger1 = animtime = 0
+Value    = 0
+
+;■投げエフェクト2■■■■■■■■■■■■■■
+[Statedef 840]
+Physics = N
+Anim    = 7829
+sprpriority=0
+
+[State 840]
+type = AngleSet
+trigger1 = time =0
+value = 180
+
+[State 840]
+type = Trans
+trigger1 =1
+trans =add
+
+[State 840]
+type = AngleDraw
+trigger1 = 1
+
+[State -1, AssertSpacial]
+Type = AssertSpecial
+Trigger1 = 1
+Flag = Noshadow
+IgnoreHitPause = 1
+SuperMoveTime = 9999999
+PauseMoveTime = 9999999
+
+[State 840, 終了]
+Type     = Destroyself
+Trigger1 = animtime = 0
+Value    = 0
+
+
+;■投げられる相手■■■■■■■■■■■■■■
+;---------------------------------------------------------------------------
+; Time + Intelligence
+;---------------------------------------------------------------------------
+[stateDef 3999]
+type = S
+movetype= A
+physics = S
+juggle  = 1
+velset = 0,0
+ctrl = 0
+anim = 0
+;;poweradd = 20
+sprpriority = 2
+
+[State 0, SuperPause]
+type = SuperPause
+trigger1 = time = 0
+time = 39
+;anim =
+sound = S10,0
+pos = 0,0
+move = 0
+movetime = 0
+darken = 1
+p2defmul = 0
+poweradd = 0
+unhittable = 1
+ignorehitpause = 1
+persistent = 1
+
+[State -1]
+Type = Helper
+trigger1 = Time = 0
+StateNo = 30001
+ID = 30001
+Name = "EX_Effect"
+Pos = 5,-48
+PosType = P1
+Ownpal = 1
+Keyctrl = 0
+SprPriority = 5
+IgnoreHitPause = 1
+Persistent = 0
+SuperMoveTime = 9999
+PauseMoveTime = 9999
+
+[State 0, PlaySnd]
+type = PlaySnd
+trigger1 = Time = 0
+value = S10,0
+volume = 255
+
+[State 0, VarSet]
+type = VarSet
+trigger1 = Time = 0
+v = 54    ;fv = 10
+value = 1
+ignorehitpause = 1
+persistent = 1
+
+[State 0, ChangeState]
+type = ChangeState
+trigger1 = time = 40
+value = 0
+ctrl = 1
+
+;---------------------------------------------------------------------------
+; States that are always executed (use statedef -2)
+;---------------------------------------------------------------------------
+[Statedef -2]
+;---------------------------------------------------------------------------
+; Modern UI Active In This Character
+;---------------------------------------------------------------------------
+[State 0, Intro]
+type = CtrlSet
+TriggerAll = life < LifeMax
+TriggerAll = StateNo = 0
+TriggerAll = Var(45) = 0
+Trigger1 = 1
+value = 0
+
+[State 0, Intro]
+type = ChangeState
+TriggerAll = life < LifeMax
+TriggerAll = StateNo = 0
+TriggerAll = Var(45) = 0
+Trigger1 = 1
+value = 190
+
+[State 0, PalFX]
+type = PalFX
+triggerall = Var(51) >= 9999
+triggerall = power <= 4999
+trigger1 = (gametime%10) = 0
+time = 20
+add = 0,0,228
+sinadd = 0,0,-228,10
+color = 0
+invertall = 0
+ignorehitpause = 1
+persistent = 1
+
+[State 0, PalFX]
+type = PalFX
+triggerall = power = 5000
+triggerall = Var(51) <= 9999
+trigger1 = (gametime%10) = 0
+time = 20
+add = 0,228,0
+sinadd = 0,-228,0,100
+color = 0
+invertall = 0
+ignorehitpause = 1
+persistent = 1
+
+[State 0, PalFX]
+type = PalFX
+triggerall = power = 5000
+triggerall = Var(51) >= 9999
+trigger1 = (gametime%10) = 0
+time = 20
+add = 228,0,0
+sinadd = -228,0,0,100
+color = 0
+invertall = 0
+ignorehitpause = 1
+persistent = 1
+
+[state 0, LifeAdd]
+type = lifeadd
+TriggerAll = Var(53) = 1
+Trigger1 = (gametime%1) = 0
+value = 10
+
+[State 0, PlaySnd]
+type = PlaySnd
+Triggerall = Var(53) = 1
+trigger1 = Time <= 1
+value = S12,0
+volume = 255
+channel = 3
+loop = 1
+pan = 0
+
+[State 0, StopSnd]
+type = StopSnd
+Trigger1 = Var(53) = 0
+channel = 3
+
+[state -2,PowerAdd]
+type = poweradd
+TriggerAll = Var(53) = 1
+trigger1 = (gametime%1) = 0
+value = -10
+
+[state -2,PowerAdd]
+type = poweradd
+Trigger1 = Command = "a"
+Trigger2 = Command = "b"
+Trigger3 = Command = "c"
+Trigger4 = Command = "x"
+Trigger5 = Command = "y"
+Trigger6 = Command = "z"
+value = 5*Const(data.life)/life
+
+[state 0,VarSet]
+type = VarSet
+Trigger1 = power = 0
+Trigger2 = Life = LifeMax
+v = 53
+value = 0
+
+[state -2,PowerAdd]
+type = poweradd
+triggerall = Var(50) = 1
+TriggerAll = Var(53) = 0
+trigger1 = (gametime%5) = 0
+value = 10000/life
+
+[state -2,PowerAdd]
+type = VarSet
+triggerall = Var(51) > 10000
+trigger1 = 1
+v = 51
+value = 10000
+
+[state -2,PowerAdd]
+type = VarSet
+triggerall = Var(51) < 0
+trigger1 = 1
+v = 51
+value = 0
+
+[state -2,PowerAdd]
+type = VarAdd
+triggerall = Var(51) <=9999
+Triggerall = life >=1
+triggerall = Var(52) = 0
+triggerall = Var(59) = 0
+trigger1 = (gametime%2) = 0
+v = 51
+value = 20000/life
+
+[state -2,PowerAdd]
+type = VarSEt
+triggerall = Var(54) = 0
+trigger1 = 1
+v = 52
+value = 0
+
+[state -2,PowerAdd]
+type = VarSet
+trigger1 = LoseTime
+trigger2 = WinTime
+trigger3 = WinKO
+trigger4 = LoseKO
+trigger5 = WinPerfect
+trigger6 = Win
+trigger7 = Lose
+trigger8 = DrawGame
+v = 52
+value = 1
+
+[state -2,PowerAdd]
+type = VarSet
+trigger1 = LoseTime
+trigger2 = WinTime
+trigger3 = WinKO
+trigger4 = LoseKO
+trigger5 = WinPerfect
+trigger6 = Win
+trigger7 = Lose
+trigger8 = DrawGame
+v = 54
+value = 0
+
+[state -2,PowerAdd]
+type = VarSEt
+triggerall = Var(54) =1
+trigger1 = 1
+v = 52
+value = 1
+
+[state -2,PowerAdd]
+type = VarAdd
+triggerall = Var(51) >=1
+triggerall = Var(54) >=1
+trigger1 = (gametime%2) = 0
+v = 51
+value = Var(58)*-50000/life
+
+[state -2,PowerAdd]
+type = VarSet
+triggerall = Var(51) <=1
+trigger1 = 1
+v = 54
+value = 0
+
+[state -2,PowerAdd]
+type = VarSet
+triggerAll = Power = 5000
+trigger1 = Stateno = 3999
+trigger2 = Var(51) = 10000
+v = 40
+value = 17
+;---------------------------------------------------------------------------
+; Modern UI Efects Of Charcter's
+;---------------------------------------------------------------------------
+;Chizuru
+[state -2,PowerAdd]
+type = VarSet
+TriggerAll = enemy,Name = "Chizuru Kagura"
+TriggerAll = enemy,Var(54) = 1
+trigger1 = 1
+v = 59
+value = 1
+
+[state -2,PowerAdd]
+type = VarSet
+TriggerAll = enemy,Name = "Chizuru Kagura"
+TriggerAll = enemy,Var(54) = 0
+trigger1 = 1
+v = 59
+value = 0
+
+[state -2,PowerAdd]
+type = VarSet
+TriggerAll = Var(59) = 1
+trigger1 = 1
+v = 54
+value = 0
+
+;Kensou
+[state -2,Kensou Efect ON]
+type = VarSet
+TriggerAll = enemy,Name = "Kensou"
+TriggerAll = enemy,Var(54) = 1
+trigger1 = 1
+v = 58
+value = 2
+
+[state -2,Kensou Kensou Efect OFF]
+type = VarSet
+TriggerAll = enemy,Name = "Kensou"
+TriggerAll = enemy,Var(54) = 0
+trigger1 = 1
+v = 58
+value = 1
+
+[state -2,Kensou Kensou Efect OFF]
+type = VarSet
+TriggerAll = enemy,Name != "Kensou"
+trigger1 = 1
+v = 58
+value = 1
+
+;BIO EFECT
+[State -2,BIO EFECT ON]
+type = LifeAdd
+TriggerAll = 1
+TriggerAll = (gametime%1) = 0
+Trigger1 = enemy,name = "Kusanagi" && enemy,var(54) = 1
+Trigger2 = enemy,name = "Saiki" && enemy,var(50) = 1
+Trigger3 = enemy,name = "H-SaikiXIII" && enemy,var(50) = 1
+value = -1
+
+;SPCANCEL EFECT
+[State -2, SPCANCEL EFECT ON]
+type = PowerSet
+TriggerAll = enemy,name = "Tomoe Mami"
+TriggerAll = enemy,var(52) = 1
+Trigger1 = 1
+value = 0
+ignorehitpause = 1
+persistent = 1
+
+;Klonoa
+[state -2,Klonoa Efect ON]
+type = VarSet
+TriggerAll = enemy,Name = "KlonoaDS"
+TriggerAll = enemy,Var(54) = 1
+trigger1 = 1
+v = 58
+value = 2
+
+[state -2,Klonoa Efect OFF]
+type = VarSet
+TriggerAll = enemy,Name = "KlonoaDS"
+TriggerAll = enemy,Var(54) = 0
+trigger1 = 1
+v = 58
+value = 1
+
+[state -2,Klonoa Efect OFF]
+type = VarSet
+TriggerAll = enemy,Name != "KlonoaDS"
+trigger1 = 1
+v = 58
+value = 1
+
+;---------------------------------------------------------------------------
+; Close Programing Modern UI
+;---------------------------------------------------------------------------
+

@@ -1,0 +1,659 @@
+
+[Statedef -3]
+;-------------------------------------------------Indicator Power
+[State 0, Lifebar]
+type = Helper
+triggerall = power >= 1000
+trigger1 = NumHelper(15400)=0
+helpertype = normal ;player
+name = "PowrLV1"
+ID = 15400
+stateno = 15400
+pos = 0,0
+postype = back    ;p2,front,back,left,right
+facing = 1
+keyctrl = 0
+ownpal = 1
+supermovetime = 9999999
+pausemovetime = 9999999
+ignorehitpause = 1
+persistent = 1
+
+[State 0, Lifebar]
+type = Helper
+triggerall = power >= 2000
+trigger1 = NumHelper(15401)=0
+helpertype = normal ;player
+name = "PowrLV2"
+ID = 15401
+stateno = 15401
+pos = 0,0
+postype = back    ;p2,front,back,left,right
+facing = 1
+keyctrl = 0
+ownpal = 1
+supermovetime = 9999999
+pausemovetime = 9999999
+ignorehitpause = 1
+persistent = 1
+
+[State 0, Lifebar]
+type = Helper
+triggerall = power >= 3000
+trigger1 = NumHelper(15402)=0
+helpertype = normal ;player
+name = "PowrLV3"
+ID = 15402
+stateno = 15402
+pos = 0,0
+postype = back    ;p2,front,back,left,right
+facing = 1
+keyctrl = 0
+ownpal = 1
+supermovetime = 9999999
+pausemovetime = 9999999
+ignorehitpause = 1
+persistent = 1
+
+[State 0, Lifebar]
+type = Helper
+triggerall = power >= 4000
+trigger1 = NumHelper(15403)=0
+helpertype = normal ;player
+name = "PowrLV4"
+ID = 15403
+stateno = 15403
+pos = 0,0
+postype = back    ;p2,front,back,left,right
+facing = 1
+keyctrl = 0
+ownpal = 1
+supermovetime = 9999999
+pausemovetime = 9999999
+ignorehitpause = 1
+persistent = 1
+
+[State 0, Lifebar]
+type = Helper
+triggerall = power = 5000
+trigger1 = NumHelper(15404)=0
+helpertype = normal ;player
+name = "PowrLV5"
+ID = 15404
+stateno = 15404
+pos = 0,0
+postype = back    ;p2,front,back,left,right
+facing = 1
+keyctrl = 0
+ownpal = 1
+supermovetime = 9999999
+pausemovetime = 9999999
+ignorehitpause = 1
+persistent = 1
+;-------------------------------------------------Modern Names
+[State 0, Lifebar]
+type = Helper
+trigger1 = NumHelper(15500)=0
+helpertype = normal ;player
+name = "Name"
+ID = 15500
+stateno = 15500
+pos = 0,0
+postype = back    ;p2,front,back,left,right
+facing = 1
+keyctrl = 0
+ownpal = 1
+supermovetime = 9999999
+pausemovetime = 9999999
+ignorehitpause = 1
+persistent = 1
+
+[State 0, Lifebar]
+type = Helper
+triggerall = Life < P2Life
+trigger1 = NumHelper(15501)=0
+helpertype = normal ;player
+name = "NameWIN"
+ID = 15501
+stateno = 15501
+pos = 0,0
+postype = back    ;p2,front,back,left,right
+facing = 1
+keyctrl = 0
+ownpal = 1
+supermovetime = 9999999
+pausemovetime = 9999999
+ignorehitpause = 1
+persistent = 1
+;-------------------------------------------------LIFEBAR
+[State 0, Lifebar]
+type = Helper
+trigger1 = NumHelper(15000)=0
+helpertype = normal ;player
+name = "barra"
+ID = 15000
+stateno = 15000
+pos = 0,0
+postype = back    ;p2,front,back,left,right
+facing = 1
+keyctrl = 0
+ownpal = 1
+supermovetime = 9999999
+pausemovetime = 9999999
+ignorehitpause = 1
+persistent = 1
+;-------------------------------------------------Modern Notifications
+[State 0, Breack]
+type = Helper
+triggerall = Stateno = 3999
+trigger1 = NumHelper(15300)=0
+helpertype = normal ;player
+name = "Tiempo"
+ID = 15300
+stateno = 15300
+pos = 0,0
+postype = back    ;p2,front,back,left,right
+facing = 1
+keyctrl = 0
+ownpal = 1
+supermovetime = 9999999
+pausemovetime = 9999999
+ignorehitpause = 1
+persistent = 1
+
+[State 0, Resurection]
+type = Helper
+triggerall = Power = 5000
+trigger1 = NumHelper(15302)=0
+helpertype = normal ;player
+name = "Resurection"
+ID = 15302
+stateno = 15302
+pos = 0,0
+postype = back    ;p2,front,back,left,right
+facing = 1
+keyctrl = 0
+ownpal = 1
+supermovetime = 9999999
+pausemovetime = 9999999
+ignorehitpause = 1
+persistent = 1
+
+[State 0, Especial]
+type = Helper
+triggerall = power = 5000
+Triggerall = Var(51) = 10000
+trigger1 = NumHelper(15304)=0
+helpertype = normal ;player
+name = "Especial"
+ID = 15304
+stateno = 15304
+pos = 0,0
+postype = back    ;p2,front,back,left,right
+facing = 1
+keyctrl = 0
+ownpal = 1
+supermovetime = 9999999
+pausemovetime = 9999999
+ignorehitpause = 1
+persistent = 1
+
+[state -2,PowerAdd]
+type = VarSet
+triggerAll = Var(51) = 10000
+trigger1 = NumHelper(15304)=0
+v = 40
+value = 17
+
+[state -2,PowerAdd]
+type = VarSet
+triggerall = Var(51) = 0
+trigger1 = NumHelper(15304)=0
+v = 40
+value = 0
+;-------------------------------------------------Indicator Power
+[State 0, Lifebar]
+type = Helper
+triggerall = power >= 1000
+trigger1 = NumHelper(15400)=0
+helpertype = normal ;player
+name = "PowrLV1"
+ID = 15400
+stateno = 15400
+pos = 0,0
+postype = back    ;p2,front,back,left,right
+facing = 1
+keyctrl = 0
+ownpal = 1
+supermovetime = 9999999
+pausemovetime = 9999999
+
+[State 0, Lifebar]
+type = Helper
+triggerall = power >= 2000
+trigger1 = NumHelper(15401)=0
+helpertype = normal ;player
+name = "PowrLV2"
+ID = 15401
+stateno = 15401
+pos = 0,0
+postype = back    ;p2,front,back,left,right
+facing = 1
+keyctrl = 0
+ownpal = 1
+supermovetime = 9999999
+pausemovetime = 9999999
+
+[State 0, Lifebar]
+type = Helper
+triggerall = power >= 3000
+trigger1 = NumHelper(15402)=0
+helpertype = normal ;player
+name = "PowrLV3"
+ID = 15402
+stateno = 15402
+pos = 0,0
+postype = back    ;p2,front,back,left,right
+facing = 1
+keyctrl = 0
+ownpal = 1
+supermovetime = 9999999
+pausemovetime = 9999999
+
+[State 0, Lifebar]
+type = Helper
+triggerall = power >= 4000
+trigger1 = NumHelper(15403)=0
+helpertype = normal ;player
+name = "PowrLV4"
+ID = 15403
+stateno = 15403
+pos = 0,0
+postype = back    ;p2,front,back,left,right
+facing = 1
+keyctrl = 0
+ownpal = 1
+supermovetime = 9999999
+pausemovetime = 9999999
+
+[State 0, Lifebar]
+type = Helper
+triggerall = power = 5000
+trigger1 = NumHelper(15404)=0
+helpertype = normal ;player
+name = "PowrLV5"
+ID = 15404
+stateno = 15404
+pos = 0,0
+postype = back    ;p2,front,back,left,right
+facing = 1
+keyctrl = 0
+ownpal = 1
+supermovetime = 9999999
+pausemovetime = 9999999
+;-------------------------------------------------Modern Names
+[State 0, Lifebar]
+type = Helper
+trigger1 = NumHelper(15500)=0
+helpertype = normal ;player
+name = "Name"
+ID = 15500
+stateno = 15500
+pos = 0,0
+postype = back    ;p2,front,back,left,right
+facing = 1
+keyctrl = 0
+ownpal = 1
+supermovetime = 9999999
+pausemovetime = 9999999
+
+[State 0, Lifebar]
+type = Helper
+triggerall = Life < P2Life
+trigger1 = NumHelper(15501)=0
+helpertype = normal ;player
+name = "NameWIN"
+ID = 15501
+stateno = 15501
+pos = 0,0
+postype = back    ;p2,front,back,left,right
+facing = 1
+keyctrl = 0
+ownpal = 1
+supermovetime = 9999999
+pausemovetime = 9999999
+;-------------------------------------------------LIFEBAR
+[State 0, Lifebar]
+type = Helper
+trigger1 = NumHelper(15000)=0
+helpertype = normal ;player
+name = "barra"
+ID = 15000
+stateno = 15000
+pos = 0,0
+postype = back    ;p2,front,back,left,right
+facing = 1
+keyctrl = 0
+ownpal = 1
+supermovetime = 9999999
+pausemovetime = 9999999
+;-------------------------------------------------Modern Notifications
+[State 0, Breack]
+type = Helper
+triggerall = Stateno = 3999
+triggerall = (gametime%20) = 0
+trigger1 = NumHelper(15300)=0
+helpertype = normal ;player
+name = "Tiempo"
+ID = 15300
+stateno = 15300
+pos = 0,0
+postype = back    ;p2,front,back,left,right
+facing = 1
+keyctrl = 0
+ownpal = 1
+supermovetime = 9999999
+pausemovetime = 9999999
+
+[State 0, Resurection]
+type = Helper
+triggerall = Power = 5000
+triggerall = (gametime%10) = 0
+trigger1 = NumHelper(15302)=0
+helpertype = normal ;player
+name = "Resurection"
+ID = 15302
+stateno = 15302
+pos = 0,0
+postype = back    ;p2,front,back,left,right
+facing = 1
+keyctrl = 0
+ownpal = 1
+supermovetime = 9999999
+pausemovetime = 9999999
+
+[State 0, Especial]
+type = Helper
+triggerall = power = 5000
+Triggerall = Var(51) = 10000
+triggerall = (gametime%10) = 0
+trigger1 = NumHelper(15304)=0
+helpertype = normal ;player
+name = "Especial"
+ID = 15304
+stateno = 15304
+pos = 0,0
+postype = back    ;p2,front,back,left,right
+facing = 1
+keyctrl = 0
+ownpal = 1
+supermovetime = 9999999
+pausemovetime = 9999999
+
+;----------------------------------Close Programing Modern UI
+
+[State -1, VarRandom]
+Type = VarRandom
+TriggerAll = Time = 1
+Trigger1 = StateNo = 5000
+Trigger2 = StateNo = 5010
+Trigger3 = StateNo = 5020
+Trigger4 = StateNo = 5070
+Trigger5 = StateNo = 5120
+V = 12
+Range = 0,1
+IgnoreHitPause = 1
+
+[State -2, supers]
+Type = PlaySnd
+TriggerAll = Time = 1
+Trigger1 = StateNo = 1000
+Trigger2 = StateNo = 1100
+Value = s10, 1
+Channel = 0
+volume = 255
+
+[State -2, 喰らい1]
+Type = PlaySnd
+TriggerAll = Time = 1
+TriggerAll = alive
+Trigger1 = StateNo = 5000
+Trigger2 = StateNo = 5010
+Trigger3 = StateNo = 5020
+Trigger4 = StateNo = 5070
+Value = s2,var(12)
+Channel = 0
+volume = 255
+
+[State 15000, 喰らい1]
+Type = PlaySnd
+TriggerAll = Time = 1
+Trigger1 = StateNo = 5000
+Trigger2 = StateNo = 5010
+Trigger3 = StateNo = 5020
+Trigger4 = StateNo = 5080
+Trigger5 = StateNo = 5081
+Trigger6 = StateNo = 5100
+Value = F30000, 1
+Channel = 1
+volume = 255
+
+;■　起き上がり音声　■■■■■■■■■■■■■■
+[State -2,起き上がり1]
+type = PlaySnd
+Trigger1 = StateNo = 5120
+Trigger1 =time =1
+Value = s50,var(12)
+Channel = 0
+volume = 255
+
+[State -3];新MUGENモード判定
+type =null;Varset
+trigger1 = 1
+v = 45
+value = 1
+;---------------------------------------------------------------------------
+;      AI de Russell
+;---------------------------------------------------------------------------
+;BASICOS DE RUSSELL
+;---------------------------------------------------------------------------
+[State -2, VarSet]
+type = VarSet
+Trigger1  = Command = "AI0"  || Command = "AI1"  || Command = "AI2"
+Trigger2  = Command = "AI3"  || Command = "AI4"  || Command = "AI5"
+Trigger3  = Command = "AI6"  || Command = "AI7"  || Command = "AI8"
+Trigger4  = Command = "AI9"  || Command = "AI10" || Command = "AI11"
+Trigger5  = Command = "AI12" || Command = "AI13" || Command = "AI14"
+Trigger6  = Command = "AI15" || Command = "AI16" || Command = "AI17"
+Trigger7  = Command = "AI18" || Command = "AI19" || Command = "AI20"
+Trigger8  = Command = "AI21" || Command = "AI22" || Command = "AI23"
+Trigger9  = Command = "AI24" || Command = "AI25" || Command = "AI26"
+Trigger10 = Command = "AI27" || Command = "AI28" || Command = "AI29"
+Trigger11 = Command = "AI30" || Command = "AI31" || Command = "AI32"
+Trigger12 = Command = "AI33" || Command = "AI34" || Command = "AI35"
+Trigger13 = Command = "AI36" || Command = "AI37" || Command = "AI38"
+Trigger14 = Command = "AI39" || Command = "AI40" || Command = "AI41"
+Trigger15 = Command = "AI42" || Command = "AI43" || Command = "AI44"
+Trigger16 = Command = "AI45" || Command = "AI46" || Command = "AI47"
+Trigger17 = Command = "AI48" || Command = "AI49" || Command = "AI50"
+v = 55    ;fv = 10
+value = 1
+
+[State -2, Random Var(7)]
+type = VarRandom
+trigger1 = 1
+v = 10
+ignorehitpause = 1
+
+; Defensa (De Pie)
+[state -2, Defensa (De Pie)]
+type = ChangeState
+triggerall = Var(55) = 1
+triggerall = Statetype != A
+triggerall = P2statetype != C
+triggerall = Statetype = S
+triggerall = P2Movetype = A
+trigger1 = Ctrl = 1
+trigger1 = Random <= 900
+value = 130
+
+; Defensa (De Pie a Agachado)
+[State -2, Defensa (De Pie a Agachado)]
+type = ChangeState
+triggerall = Var(55) = 1
+triggerall = StateType != A
+triggerall = P2statetype = C
+triggerall = P2Movetype = A
+trigger1 = StateNo = 150
+trigger1 = 1
+value = 152
+
+;Defensa (Agachado)
+[State -1, Defensa (Agachado)]
+type = ChangeState
+triggerall = Var(55) = 1
+triggerall = StateType != A
+triggerall = P2statetype = C
+triggerall = P2Movetype = A
+trigger1 = Ctrl = 1
+trigger1 = random <= 900
+value = 131
+
+;Defensa (Agachado a De Pie)
+[State -2, Defensa (Agachado a De Pie)]
+type = ChangeState
+triggerall = Var(55) = 1
+triggerall = Statetype != A
+triggerall = P2statetype != C
+triggerall = P2Movetype = A
+trigger1 = 1
+trigger1 = StateNo = 152
+value = 150
+
+;Defensa (Aerea)
+[State -2, Defensa (Aerea)]
+type = ChangeState
+triggerall = Var(55) = 1
+triggerall = Statetype = A
+triggerall = P2Movetype = A
+trigger1 = Ctrl = 1
+trigger1 = random <= 900
+value = 132
+
+; Recover (Aereo)
+[State -2, Air Recover]
+type = ChangeState
+value = 5210
+triggerall = Var(10) = 1
+triggerall = StateType = A
+triggerall = StateType != L
+triggerall = Pos Y < -20
+triggerall = Alive = 1
+trigger1 = CanRecover = 1
+trigger1 = StateNo = 5050
+;---------------------------------------------------------------------------
+;ATAQUES BASICOS DE RUSSELL
+;---------------------------------------------------------------------------
+; Golpe 1
+[state -3, Golpe 1]
+type = changestate
+value = 200
+triggerall = Var(55) = 1
+triggerall = p2life != 0
+triggerall = p2statetype != A
+triggerall = statetype = S
+trigger1 = p2bodydist x <= 15
+trigger1 = p2statetype != A
+trigger1 = random <= 600
+trigger1 = ctrl = 1
+
+;regeneration
+[State -1, Regeneration]
+type = ChangeState
+value = 195
+triggerall = power = 5000
+triggerall = Var(54) = 1
+triggerall = Var(55) = 1
+triggerall = p2life != 0
+triggerall = statetype = S
+trigger1 = p2bodydist x >= 30
+trigger1 = p2statetype != S
+trigger2 = p2statetype != A
+trigger1 = ctrl = 1
+
+;AI LEVEl UP
+[State -1, AI LEVEL UP]
+type = ChangeState
+value = 3999
+triggerall = Var(51) = 10000
+triggerall = Var(55) = 1
+triggerall = p2life != 0
+triggerall = statetype = S
+trigger1 = p2bodydist x >= 10
+trigger1 = p2statetype != S
+trigger1 = ctrl = 1
+
+; Golpe 2
+[state -3, Golpe 2]
+type = changestate
+value = 202
+triggerall = Var(55) = 1
+triggerall = p2life != 0
+triggerall = p2statetype != A
+triggerall = statetype = S
+trigger1 = p2bodydist x <= 15
+trigger1 = p2statetype != A
+trigger1 = random <= 600
+trigger1 = ctrl = 1
+;---------------------------------------------------------------------------
+;SUPERS BASICOS DE RUSSELL
+;---------------------------------------------------------------------------
+
+;---------------------------------------------------------------------------
+;SUPERS BASICOS DE RUSSELL (LEVEL UP)
+;---------------------------------------------------------------------------
+;SUPER BALL
+[state -2, SUPER BALL]
+type = changestate
+value = 1000
+triggerall = Var(55) = 1
+triggerall = Var(54) = 1
+triggerall = P2life != 0
+triggerall = power >= 1000
+triggerall = Var(51) >= 3000
+triggerall = StateType = S
+triggerall = ctrl = 1
+triggerall = life > 1000
+trigger1 = Random <= 300
+trigger1 = P2bodydist X >= 120
+trigger2 = P2bodydist X >= 120
+trigger3 = P2bodydist X >= 120
+trigger3 = P2StateNo = [195, 900]
+trigger2 = random <= 800
+trigger3 = P2StateNo = [5000, 5050]
+trigger3 = Random <= 800
+
+;AIR_BALL
+[state -2, AIR_BALL]
+type = changestate
+value = 1100
+triggerall = Var(55) = 1
+triggerall = Var(54) = 1
+triggerall = P2life != 0
+triggerall = power >= 1000
+triggerall = Var(51) >= 3000
+triggerall = StateType = A
+triggerall = ctrl = 1
+triggerall = life > 1000
+trigger1 = Random <= 300
+trigger1 = P2bodydist X >= 20
+trigger1 = Pos Y >= 20
+trigger2 = P2bodydist X >= 20
+trigger2 = Pos Y >= 20
+trigger3 = P2bodydist X >= 20
+trigger3 = Pos Y >= 20
+trigger3 = P2StateNo = [195, 900]
+trigger2 = random <= 800
+trigger3 = P2StateNo = [5000, 5050]
+trigger3 = Random <= 800
+
